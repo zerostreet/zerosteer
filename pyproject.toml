@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hyperalpha-vla"
+version = "0.1.0"
+description = "Model B (HyperAlpha-VLA): Cross-Asset Relational Backbone, H=20 Action Chunking MoE, 1.5-Entmax & Differentiable Trajectory RL"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.2.0",
+    "numpy>=1.26.0",
+    "pydantic>=2.7.0",
+    "pyyaml>=6.0.1",
+    "loguru>=0.7.2",
+    "zerostreet-schema",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.6.0",
+]
+
+[tool.uv.sources]
+zerostreet-schema = { path = "../zerostreet-schema", editable = true }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hyperalpha_vla"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

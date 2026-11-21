@@ -1,0 +1,26 @@
+# [문법 예시] 실행 시 user_config에 반드시 직접 입력해야 합니다 (코드 내 기본값 None)
+# 주의: 아래 심볼과 가중치는 문법 참고용 가상 예시이며 투자 추천/기본값이 아닙니다.
+
+# 예시 A (저회전·방어 성향 문법 예시)
+target_universe: ["ASSET_A", "ASSET_B", "ASSET_C", "CASH"]
+portfolio_horizon: 20
+horizon_mask_mode: "bidirectional_portfolio"
+weights_output_mode: "entmax15"
+max_single_weight: 0.60
+benchmark_asset: "ASSET_A"
+rl_reward_weights:
+  excess_return_20: 0.5
+  cvar_20: 1.5
+  mdd_20: 1.0
+  quadratic_turnover_coeff: 0.3
+
+# 예시 B (수익·변동성 균형 성향 문법 예시 — 참고용)
+# target_universe: ["ASSET_A", "ASSET_B", "ASSET_C", "CASH"]
+# portfolio_horizon: 20
+# horizon_mask_mode: "bidirectional_portfolio"
+# weights_output_mode: "entmax15"
+# rl_reward_weights:
+#   excess_return_20: 1.0
+#   cvar_20: 0.8
+#   mdd_20: 0.5
+#   quadratic_turnover_coeff: 0.1
