@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:38aeea94a89a7ff87b9dc951625566c595452d7c7af4e99e37b3b6b3b519db14",
+  "claims": [
+    {
+      "id": "claim_ddd1a6aaab284ef98a0ff0b43955cf10",
+      "statement": "hyperalpha-vla는 torch와 로컬 editable zerostreet-schema에 의존하며 모델, 활성화 함수, 사전학습기, 궤적 RL 트레이너 및 OOS 벤치마크 API를 __init__.py로 노출합니다.",
+      "evidence": [
+        {
+          "resource": "repo://pyproject.toml#L1-L39",
+          "version": "repo-lines-v1:sha256:121fb0d56a101f54e53e800a58d27330cec3603c4110a886312c7ab7d5aaa340:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0NTY5OTQ2YWM5YmJlN2NiMmNkZWMzZjhiZWNmMzQzNzUwYzU4YjliMzIxZWMyMTk1YmZiYWFiMmFhOGM0YmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3OGM5Yzc5YmZhNDlhOGNiMDg5MjAyMjJmYzcwODcyYTNjMjM1MzcwNDViMDE0ZThjNjQ1OTY4ODEwYTY3OGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/hyperalpha_vla/__init__.py#L1-L55",
+          "version": "repo-lines-v1:sha256:c55f479641fa32accf0124975c146ca392f960b8fd7f4802211ae7e6c4169704:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkzMTE2NWI2MmRhY2I0ZjE5MmUyMjdmZjU5NzdmM2I5NTk2M2MwOWE3MDQzYTE0OWVmNjA0NDQyMzAyNGIwMGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5NDE2ZTA5Zjc4YmEzMTZjMDMyNTY4MjEzYjg1NWVlNzU2ZTQxNTY1ZDkxOGYwOTUxOWM4MWZkNjIwZjQwNjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2e5f25888a0646c690078a5e4cc88323",
+      "statement": "config.example.yaml은 가상 심볼 ASSET_A/B/C/CASH 기반의 예시 A/B 문법 참고용으로만 제공되며, load_user_policy_config가 사용자 YAML을 UserPolicyConfig로 검증해 로드합니다.",
+      "evidence": [
+        {
+          "resource": "repo://config.example.yaml#L1-L26",
+          "version": "repo-lines-v1:sha256:5155fed08a0b73b5ed2c2e12f0e852fd59b7b819845d33402ed8c07cac34ed7d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1MjM2Y2U5ZGI0MjdmZmI2NWRlYTRiOGZjZmZkNDg5NWQ1ODJjMWE4ZGE4ZTQ1YTBhN2I5NWVjMjM1N2Y1ZWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1ODE4MGI0MWI3ODNlY2JmODI2MWJjMGIzYTEzMDhiZjViOWIxMmIwNmJkNzg0NzEyOWNlMGNlYjIyOTNjYzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/hyperalpha_vla/config.py#L51-L61",
+          "version": "repo-lines-v1:sha256:5d32aa7b84afc15e93b0ca12a5647e2730f5748e204cb86f6a7b7cdc68e4a9a3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1N2VhYmQ4MTczMzU2NTQ3YmM2YmIyZmE2ZWUzMDFkYzYyZWRjOTkxZWY5NWMwODVjZGNiNzhlYTU1Njk3Y2EiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI2ZDFkMGNmMThlMjVmZDI5MTM1NWUwYjcyNTc4MzQ4MGZmMWI0Y2Y1MjMwMDY4MmJlNDkxNjQwNjQ2OTVmNjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-21T17:10:03.172Z"
+  }
+}

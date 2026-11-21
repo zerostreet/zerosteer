@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "pages": {
+    "/openwiki/architecture/backbone-and-adapters.md": {
+      "pageVersion": "sha256:a53167a249b5f4d188d69260a81c479a3f0dd808a4426c071baaef84258cc784",
+      "completedBy": "antigravity",
+      "completedRunId": "c0f71159-5ad2-4293-9a00-ebe8c572117f",
+      "gitHead": "7a3da0813d4e39354f7f14760bb796bcbac2d429",
+      "sourceFingerprint": "sha256:80bb361dcbcb8e51c99f34206ea8ceeb697bde25c9194bfd2732cf0ef51a1728"
+    },
+    "/openwiki/quickstart.md": {
+      "pageVersion": "sha256:38aeea94a89a7ff87b9dc951625566c595452d7c7af4e99e37b3b6b3b519db14",
+      "completedBy": "antigravity",
+      "completedRunId": "c0f71159-5ad2-4293-9a00-ebe8c572117f",
+      "gitHead": "7a3da0813d4e39354f7f14760bb796bcbac2d429",
+      "sourceFingerprint": "sha256:80bb361dcbcb8e51c99f34206ea8ceeb697bde25c9194bfd2732cf0ef51a1728"
+    },
+    "/openwiki/workflows/pretrain-and-trajectory-rl.md": {
+      "pageVersion": "sha256:a4a2baff5303d5fef4430144e28d8cc7ee286851da9b32de3bb3c6ab2f1a83f4",
+      "completedBy": "antigravity",
+      "completedRunId": "c0f71159-5ad2-4293-9a00-ebe8c572117f",
+      "gitHead": "7a3da0813d4e39354f7f14760bb796bcbac2d429",
+      "sourceFingerprint": "sha256:80bb361dcbcb8e51c99f34206ea8ceeb697bde25c9194bfd2732cf0ef51a1728"
+    }
+  }
+}

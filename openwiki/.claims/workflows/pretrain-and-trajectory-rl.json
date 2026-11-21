@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:a4a2baff5303d5fef4430144e28d8cc7ee286851da9b32de3bb3c6ab2f1a83f4",
+  "claims": [
+    {
+      "id": "claim_246371c7cb684924bf006ba80e778612",
+      "statement": "CrossAssetMaskedRelationalPretrainer는 동일 시점(t) 관측 토큰만 무작위 마스킹·복원하여 미래 수익률과 리스크 라벨 없이(Future-Label-Free) 관계형 백본을 학습시킵니다.",
+      "evidence": [
+        {
+          "resource": "repo://src/hyperalpha_vla/pretrain.py#L13-L101",
+          "version": "repo-lines-v1:sha256:4ff375b129e3570a5242d2eb5f7c135ed661b5078f5b6f762a116c91419d3c49:eyJzZWxlY3RlZExpbmVDb3VudCI6ODksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxN2QyZmQxNGExNmYyNzE1YTYxMTRhYzkyMGJiZWNjNDk4Y2I0NjcxNmIzNGI1OGY2YTg4NTBhZDRhODgwMDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0ZDlmYTc1YmU4NjAyOGZlZTdmNzRkZGRiYzI4N2FmMTJlNTcwZTRkMTM5NTY1ZTdkN2UzZTkzNDdhNDcxOTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNkMTAxN2Q4YzI3NGViZjdjZjZlNTkxYzI0NzQ4NTllOGE3NDI5MmVhMTVlMmUzNTI1ZDk3YzBjMWM0NDczNjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_123f37de6e1f496fa915dc78b9dd441e",
+      "statement": "TrajectoryRLLoss는 드리프트 사후 비중, L1/L2 거래비용, Dense-Sparse STE, tanh_asinh 정규화 및 rms_softclip 어드밴티지와 트러스트 리전 페널티를 결합해 궤적 RL 손실을 계산합니다.",
+      "evidence": [
+        {
+          "resource": "repo://src/hyperalpha_vla/rl_trainer.py#L226-L301",
+          "version": "repo-lines-v1:sha256:4fc7d1edc563a46c0a2561d569758d78c44cbf09f6031d98df39daa92cd679aa:eyJzZWxlY3RlZExpbmVDb3VudCI6NzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhiMjZlMGQ5MTdmZGMzYTcyYWYxNGZmN2FjMGUxZmUwYjgzODZkMjkzOGI5NjFmNDRhMzIxZjcwYjdiNzJkYmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFiZDQwNDVjOTQzNWE0ZjdkMTUyZTI1OTZmNmNiODc1ZDhkY2NmZDkwMDcwMjlkODQwOTYwYTk4ZGVhMjYyMzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE1OGM5OTBhMjVjZTFjYTllYzdjMzhjNWQzODZhMmRhY2FlZjAwNTI0M2QxMTY3NDk2MmRmNDUwY2QxYTQwMzYifQ"
+        },
+        {
+          "resource": "repo://src/hyperalpha_vla/rl_trainer.py#L44-L128",
+          "version": "repo-lines-v1:sha256:4fb69d226ee2171cf378ac8cc01840300ddc640d48cc8da49be63312690a1b99:eyJzZWxlY3RlZExpbmVDb3VudCI6ODUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUwNDI4ZmViNGI5MzMzODEzZWRkOGVhZWE0ZTY2NGMxODUxNmQ0ZDA5ZTBmNjM5YmNmOWM0Nzc0M2UzMDAwZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI4ZmI0MjI3NmRmMDlmMGY2NDdjZTllNGQ0YWQzYmQ4Yjc3NTM0MzMwOWYwN2NkNDAzY2Q3NmFiZGQ3ZDBlYzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE4MmNjNGRmOTIxMDhmYjNiMjk1MDQ0YzQxYjBiMDFhNjRjODIzNzhhZDkyNmI3YTFhNjEwZmM3MWY5MjNmNjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZiYThlM2Y3Y2RmZGIwZGNiNGVkYzU2ZjQ2YzdjNmQ2M2M2NzY3OTkyMzQyZmUyYmNhYmQ1YTVmOTcyNzYyZTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_567d87a008a34b408d7a5e00bf36e5b3",
+      "statement": "DifferentiableTrajectoryRLTrainer는 user_config 미입력 시 ValueError를 발생시키고 freeze_backbone 기본값으로 policy_head만 컴파일해 SHA-256을 반환하며, run_oos_comparison은 OHLCV 단독 대비 멀티모달 OOS 지표를 비교합니다.",
+      "evidence": [
+        {
+          "resource": "repo://src/hyperalpha_vla/benchmark.py#L66-L106",
+          "version": "repo-lines-v1:sha256:6b844d2fa784f0f00a408894794c5351e92cf0a0af42812dc2f294b045121ad1:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxYTU0ZTdiOTU1NTJhOTgwMjYwOTVmM2FkMTZjNTAzZTM5ZjI4M2VjZDc2M2M3NDNlYzZkZGUzMzRiMDg2ZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwYzFmMTg4ZjE0MmVkN2E4MjQ2ODBiMjA3MTcyYzU1MTliYzYxNGE0OGZkYTdjZjE2N2VkYjhkZGY3OTk1NmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI5YjJhNzFjMGVjOWQ4YzA5ZDA4MWE3OWEyM2I5ZTg3YjY1ZjQ2NmE0Y2E3N2I3ZTM3MTMzMjg4YjMwODQ2NmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/hyperalpha_vla/rl_trainer.py#L304-L426",
+          "version": "repo-lines-v1:sha256:a4c6c0dda0b2f8b7995929f50085056ab73b1641c61cdd616ec290b5ef34d96d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJiYTg1MTBkN2EyY2ZiYTdhODMxODQ2NjY4MWEyNjVmZWYyNWNkOTI4MWU4N2EwY2FhNWU5YjM1ZTIxZTI2MTA3IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJlNmIwNDQ5MTQ2OTcyMmU4MzYzYTk0ZTQwNDQ1MzhlMDEzYTJhMjE3ZTM2YjFlNTY4YmE2MGFjYjdiNGM4ZjJlIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwZjhjZjZlNjIwYzA4NmQwMzEyMmMyMTU4ZDE2Njg2ZDJiM2MwZGRhN2I2NWQ3ZDI3OGI1ZDVhZThhNjAzMTJiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-21T17:10:03.172Z"
+  }
+}
