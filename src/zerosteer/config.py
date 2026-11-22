@@ -4,7 +4,7 @@ ZeroSteer 모델 하이퍼파라미터 설정 및 사용자 정책 YAML 로더 �
 """
 
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 import yaml
 from pydantic import BaseModel, Field
@@ -54,6 +54,47 @@ class ZeroSteerConfig(BaseModel):
     advantage_clip_val: float = Field(default=3.0, gt=0.0)
     max_weight_scale: float = Field(default=0.05, gt=0.0)
     temperature: float = Field(default=1.0, gt=0.0)
+
+    # ZeroSteer v2 SOTA 아키텍처 & 안정화 설정 (RevIN, QK-Norm, Aux-Loss-Free MoE, SIGReg)
+    use_revin_multiscale: bool = True
+    temporal_kernel_sizes: tuple[int, ...] = (3, 7, 15)
+    use_calendar_encoder: bool = True
+    use_qk_norm: bool = True
+    ffn_activation: Literal["swiglu", "geglu"] = "swiglu"
+    use_aux_loss_free_moe: bool = True
+    moe_score_func: Literal["sigmoid", "softmax"] = "sigmoid"
+    moe_bias_update_speed: float = Field(default=0.01, ge=0.0)
+    moe_route_scale: float = Field(default=1.0, gt=0.0)
+    use_moe_allocator: bool = True
+    allocator_routed_experts: int = Field(default=4, ge=2)
+    allocator_activated_experts: int = Field(default=2, ge=1)
+    allocator_inter_dim: int | None = None
+    sigreg_weight: float = Field(default=0.1, ge=0.0)
+    sigreg_num_slices: int = Field(default=64, ge=8)
+    model_frz_update_freq: int | None = Field(default=None, ge=1)
+    lr_warmup_steps: int = Field(default=0, ge=0)
+
+    @classmethod
+    def legacy_v1(cls, **overrides: Any) -> "ZeroSteerConfig":
+        """Build a v1-compatible config preset for ablation testing.
+
+        어블레이션 테스트를 위한 v1 호환 설정 프리셋을 생성합니다.
+        """
+        v1_defaults: dict[str, Any] = {
+            "use_revin_multiscale": False,
+            "use_calendar_encoder": False,
+            "use_qk_norm": False,
+            "ffn_activation": "geglu",
+            "use_aux_loss_free_moe": False,
+            "moe_score_func": "softmax",
+            "moe_bias_update_speed": 0.0,
+            "use_moe_allocator": False,
+            "sigreg_weight": 0.0,
+            "model_frz_update_freq": None,
+            "lr_warmup_steps": 0,
+        }
+        v1_defaults.update(overrides)
+        return cls(**v1_defaults)
 
 
 def load_user_policy_config(path: str | Path) -> UserPolicyConfig:

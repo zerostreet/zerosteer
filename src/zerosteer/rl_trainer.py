@@ -5,6 +5,7 @@
 
 import copy
 import hashlib
+import json
 import math
 from pathlib import Path
 
@@ -14,7 +15,13 @@ from loguru import logger
 from zerostreet_schema import RLRewardWeights, UserPolicyConfig
 
 from zerosteer.config import ZeroSteerConfig
-from zerosteer.model import ZeroSteer, ZeroSteerBackbone
+from zerosteer.model import (
+    BACKBONE_ARTIFACT_VERSION,
+    ZeroSteer,
+    ZeroSteerBackbone,
+    _compute_file_sha256,
+    _manifest_path_for,
+)
 
 
 class TrajectoryRLLoss:
@@ -137,6 +144,11 @@ class TrajectoryRLLoss:
             scale = delta.detach().std(dim=0, unbiased=False, keepdim=True).clamp(min=self.eps)
         z = delta / scale
         return 0.75 * torch.tanh(z) + 0.25 * torch.asinh(z)
+
+    def _rms_softclip(self, x: torch.Tensor) -> torch.Tensor:
+        rms = torch.sqrt(torch.mean(x**2) + self.eps).clamp(min=self.config.advantage_rms_floor)
+        clip_c = self.config.advantage_clip_val
+        return clip_c * torch.tanh(x / (clip_c * rms))
 
     def _compute_metrics(
         self,
@@ -286,23 +298,32 @@ class TrajectoryRLLoss:
             "max_weight_limit": reward_weights.max_weight_limit,
         }
 
-        combined_adv = torch.zeros_like(sim_policy["sample_conf"])
+        traj_adv = torch.zeros_like(sim_policy["sample_conf"])
         for name, weight_val in weight_map.items():
             if weight_val <= 0.0:
                 continue
             delta = m_pol[name] - m_frz[name].detach()
-            if self.config.step_reward_weight + self.config.trajectory_reward_weight > 0:
-                norm_delta = self._normalize_metric(delta)
-                rms = torch.sqrt(torch.mean(norm_delta**2) + self.eps).clamp(
-                    min=self.config.advantage_rms_floor
-                )
-                clip_c = self.config.advantage_clip_val
-                adv_m = clip_c * torch.tanh(norm_delta / (clip_c * rms))
-                combined_adv = combined_adv + weight_val * adv_m * sim_policy["sample_conf"]
+            norm_delta = self._normalize_metric(delta)
+            adv_m = self._rms_softclip(norm_delta)
+            traj_adv = traj_adv + weight_val * adv_m * sim_policy["sample_conf"]
+
+        disc_w = self._discounted_weights(sim_policy["mask_slice"])
+        step_delta = (sim_policy["daily_net_ret"] - sim_frz["daily_net_ret"].detach()) * sim_policy[
+            "mask_slice"
+        ]
+        step_clipped = self._rms_softclip(self._normalize_metric(step_delta))
+        step_adv = (step_clipped * disc_w).sum(dim=1) * sim_policy["sample_conf"]
+
+        w_traj = float(self.config.trajectory_reward_weight)
+        w_step = float(self.config.step_reward_weight)
+        w_total = w_traj + w_step
+        if w_total > 0.0:
+            combined_adv = (w_traj / w_total) * traj_adv + (w_step / w_total) * step_adv
+        else:
+            combined_adv = torch.zeros_like(sim_policy["sample_conf"])
 
         policy_loss = -combined_adv.mean()
 
-        disc_w = self._discounted_weights(sim_policy["mask_slice"])
         step_l1 = torch.abs(sim_policy["weights_slice"] - sim_frz["weights_slice"]).sum(dim=-1)
         trust_penalty = (step_l1 * disc_w).sum(dim=1).mean()
         total_loss = policy_loss + self.config.beta_trust_region * trust_penalty
@@ -312,6 +333,8 @@ class TrajectoryRLLoss:
             "policy_loss": policy_loss,
             "trust_penalty": trust_penalty,
             "mean_advantage": combined_adv.mean().detach(),
+            "trajectory_advantage": traj_adv.mean().detach(),
+            "step_advantage": step_adv.mean().detach(),
         }
 
 
@@ -340,8 +363,8 @@ class DifferentiableTrajectoryRLTrainer:
             for param in self.model.backbone.parameters():
                 param.requires_grad = False
 
-        trainable = [p for p in self.model.parameters() if p.requires_grad]
-        self.optimizer = torch.optim.AdamW(trainable, lr=lr, weight_decay=0.01)
+        self._trainable_params = [p for p in self.model.parameters() if p.requires_grad]
+        self.optimizer = torch.optim.AdamW(self._trainable_params, lr=lr, weight_decay=0.01)
         self.loss_fn = TrajectoryRLLoss(config=self.model.backbone.config)
         self.frozen_model = copy.deepcopy(self.model).eval()
         for param in self.frozen_model.parameters():
@@ -364,7 +387,21 @@ class DifferentiableTrajectoryRLTrainer:
         if self.freeze_backbone:
             self.model.backbone.eval()
 
+        cfg = self.model.backbone.config
         total_steps = int(steps if steps is not None else len(batches))
+        scheduler: torch.optim.lr_scheduler.LambdaLR | None = None
+        if cfg.lr_warmup_steps > 0:
+            warmup = cfg.lr_warmup_steps
+
+            def _lr_scale(step: int) -> float:
+                if step < warmup:
+                    return float(step + 1) / float(max(warmup, 1))
+                progress = float(step - warmup) / float(max(total_steps - warmup, 1))
+                progress = min(max(progress, 0.0), 1.0)
+                return 0.1 + 0.9 * 0.5 * (1.0 + math.cos(math.pi * progress))
+
+            scheduler = torch.optim.lr_scheduler.LambdaLR(self.optimizer, lr_lambda=_lr_scale)
+
         last_loss = 0.0
         last_adv = 0.0
 
@@ -375,6 +412,7 @@ class DifferentiableTrajectoryRLTrainer:
             ohlcv_seq = batch["ohlcv_seq"]
             z_mm = batch.get("z_mm")
             is_blackout = batch.get("is_blackout")
+            calendar_feats = batch.get("calendar_feats")
             prev_weights = batch.get("prev_weights")
             valid_mask = batch.get("valid_mask")
             future_returns = batch["future_returns"]
@@ -389,6 +427,7 @@ class DifferentiableTrajectoryRLTrainer:
                 prev_weights=prev_weights,
                 valid_mask=valid_mask,
                 horizon=self.user_config.portfolio_horizon,
+                calendar_feats=calendar_feats,
             )
             with torch.no_grad():
                 frz_outputs = self.frozen_model(
@@ -398,6 +437,7 @@ class DifferentiableTrajectoryRLTrainer:
                     prev_weights=prev_weights,
                     valid_mask=valid_mask,
                     horizon=self.user_config.portfolio_horizon,
+                    calendar_feats=calendar_feats,
                 )
 
             losses = self.loss_fn.compute_loss(
@@ -412,8 +452,20 @@ class DifferentiableTrajectoryRLTrainer:
                 max_single_weight=self.user_config.max_single_weight,
             )
             losses["total_loss"].backward()
-            torch.nn.utils.clip_grad_norm_(self.model.policy_head.parameters(), max_norm=1.0)
+            torch.nn.utils.clip_grad_norm_(self._trainable_params, max_norm=1.0)
             self.optimizer.step()
+            if scheduler is not None:
+                scheduler.step()
+            # Keep frozen backbone buffers invariant when compiling a customer Policy Head.
+            self.model.update_gate_bias(include_backbone=not self.freeze_backbone)
+
+            if (
+                cfg.model_frz_update_freq is not None
+                and (step_idx + 1) % cfg.model_frz_update_freq == 0
+            ):
+                with torch.no_grad():
+                    self.frozen_model.load_state_dict(self.model.state_dict())
+                self.frozen_model.eval()
 
             last_loss = float(losses["total_loss"].item())
             last_adv = float(losses["mean_advantage"].item())
@@ -432,10 +484,22 @@ class DifferentiableTrajectoryRLTrainer:
             torch.save(
                 {
                     "user_config": self.user_config.model_dump(mode="json"),
+                    "backbone_config": self.model.backbone.config.model_dump(mode="json"),
                     "policy_head_state_dict": self.model.policy_head.state_dict(),
                     "checkpoint_sha256": ckpt_sha256,
                 },
                 out,
+            )
+            manifest = {
+                "artifact_path": out.name,
+                "sha256": _compute_file_sha256(out),
+                "backbone_version": BACKBONE_ARTIFACT_VERSION,
+                "has_policy_head": True,
+                "weights_output_mode": self.user_config.weights_output_mode,
+            }
+            _manifest_path_for(out).write_text(
+                json.dumps(manifest, indent=2, sort_keys=True),
+                encoding="utf-8",
             )
 
         return {
