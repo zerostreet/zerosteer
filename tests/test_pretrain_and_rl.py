@@ -3,18 +3,18 @@ from pathlib import Path
 import torch
 from zerostreet_schema import RLRewardWeights, UserPolicyConfig
 
-from hyperalpha_vla import (
+from zerosteer import (
     CrossAssetMaskedRelationalPretrainer,
     DifferentiableTrajectoryRLTrainer,
-    HyperAlphaVLABackbone,
-    HyperAlphaVLAConfig,
     TrajectoryRLLoss,
+    ZeroSteerBackbone,
+    ZeroSteerConfig,
     run_oos_comparison,
 )
 
 
-def _tiny_cfg() -> HyperAlphaVLAConfig:
-    return HyperAlphaVLAConfig(
+def _tiny_cfg() -> ZeroSteerConfig:
+    return ZeroSteerConfig(
         d_model=32,
         nhead=4,
         nlayers=2,
@@ -32,7 +32,7 @@ def _tiny_cfg() -> HyperAlphaVLAConfig:
 def test_cross_asset_masked_relational_pretrainer_future_label_free(tmp_path: Path):
     torch.manual_seed(42)
     cfg = _tiny_cfg()
-    backbone = HyperAlphaVLABackbone(cfg)
+    backbone = ZeroSteerBackbone(cfg)
     pretrainer = CrossAssetMaskedRelationalPretrainer(backbone=backbone, mask_ratio=0.5, lr=1e-3)
 
     batches = [
@@ -52,7 +52,7 @@ def test_cross_asset_masked_relational_pretrainer_future_label_free(tmp_path: Pa
 def test_trajectory_rl_trainer_freezes_backbone_and_compiles_policy(tmp_path: Path):
     torch.manual_seed(7)
     cfg = _tiny_cfg()
-    backbone = HyperAlphaVLABackbone(cfg)
+    backbone = ZeroSteerBackbone(cfg)
     before_backbone_sum = sum(float(p.sum().item()) for p in backbone.parameters())
 
     user_cfg = UserPolicyConfig(
@@ -97,7 +97,7 @@ def test_trajectory_rl_trainer_freezes_backbone_and_compiles_policy(tmp_path: Pa
     # Also verify STE gradient flows even to low-logit elements & OOS comparison works
     loss_fn = TrajectoryRLLoss(config=cfg)
     logits = torch.tensor([[[4.0, -6.0, -7.0, -8.0]] * 4], requires_grad=True)
-    from hyperalpha_vla.activations import entmax15
+    from zerosteer.activations import entmax15
 
     w_ent = entmax15(logits, dim=-1)
     assert (w_ent[0, 0, 1:] == 0.0).all()

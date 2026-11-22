@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "hyperalpha-vla"
+name = "zerosteer"
 version = "0.1.0"
-description = "Model B (HyperAlpha-VLA): Cross-Asset Relational Backbone, H=20 Action Chunking MoE, 1.5-Entmax & Differentiable Trajectory RL"
+description = "ZeroSteer: Cross-Asset Relational Backbone, H=20 Action Chunking MoE, 1.5-Entmax & Differentiable Trajectory RL"
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.11"
@@ -28,7 +28,7 @@ dev = [
 zerostreet-schema = { path = "../zerostreet-schema", editable = true }
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/hyperalpha_vla"]
+packages = ["src/zerosteer"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

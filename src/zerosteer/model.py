@@ -1,6 +1,6 @@
-"""Model B (HyperAlpha-VLA): Cross-Asset backbone, H=20 Action Chunking & Policy Head split.
+"""ZeroSteer: Cross-Asset backbone, H=20 Action Chunking & Policy Head split.
 
-Model B (HyperAlpha-VLA): Cross-Asset 관계형 백본, 다기간 행동 청킹 및 Policy Head 분리 모듈입니다.
+ZeroSteer: Cross-Asset 관계형 백본, 다기간 행동 청킹 및 Policy Head 분리 모듈입니다.
 """
 
 from dataclasses import dataclass
@@ -11,17 +11,17 @@ import torch
 from torch import nn
 from zerostreet_schema import HorizonMaskMode, UserPolicyConfig
 
-from hyperalpha_vla.activations import entmax15, sparsemax
-from hyperalpha_vla.adapters import ObservationFusionLayer
-from hyperalpha_vla.config import HyperAlphaVLAConfig
-from hyperalpha_vla.moe import MoETransformerBackbone
+from zerosteer.activations import entmax15, sparsemax
+from zerosteer.adapters import ObservationFusionLayer
+from zerosteer.config import ZeroSteerConfig
+from zerosteer.moe import MoETransformerBackbone
 
 
 @dataclass
-class HyperAlphaVLAOutputs:
-    """Inference output container for HyperAlpha-VLA multi-horizon action chunking.
+class ZeroSteerOutputs:
+    """Inference output container for ZeroSteer multi-horizon action chunking.
 
-    HyperAlpha-VLA 다기간 행동 청킹 추론 결과 데이터클래스입니다.
+    ZeroSteer 다기간 행동 청킹 추론 결과 데이터클래스입니다.
     """
 
     weights_long: torch.Tensor
@@ -76,7 +76,7 @@ def build_horizon_attention_mask(
     return mask
 
 
-class HyperAlphaVLABackbone(nn.Module):
+class ZeroSteerBackbone(nn.Module):
     """Open-source (MIT) Cross-Asset relational backbone with 0 bytes of trading policy weights.
 
     Stores and distributes only Future-Label-Free relational pretraining weights.
@@ -85,9 +85,9 @@ class HyperAlphaVLABackbone(nn.Module):
     Future-Label-Free 관계형 사전학습 가중치만 저장·배포합니다.
     """
 
-    def __init__(self, config: HyperAlphaVLAConfig | None = None) -> None:
+    def __init__(self, config: ZeroSteerConfig | None = None) -> None:
         super().__init__()
-        self.config = config or HyperAlphaVLAConfig()
+        self.config = config or ZeroSteerConfig()
         d_model = self.config.d_model
 
         self.obs_fusion = ObservationFusionLayer(
@@ -198,13 +198,13 @@ class HyperAlphaVLABackbone(nn.Module):
         cls,
         path: str | Path,
         map_location: str | torch.device = "cpu",
-    ) -> "HyperAlphaVLABackbone":
+    ) -> "ZeroSteerBackbone":
         """Load saved relational backbone checkpoint into a fresh instance.
 
         저장된 관계형 백본 체크포인트를 안전하게 로드합니다.
         """
         payload = torch.load(Path(path), map_location=map_location, weights_only=True)
-        cfg = HyperAlphaVLAConfig.model_validate(payload["config"])
+        cfg = ZeroSteerConfig.model_validate(payload["config"])
         model = cls(cfg)
         model.load_state_dict(payload["backbone_state_dict"], strict=True)
         return model
@@ -257,27 +257,27 @@ class WeightAllocatorHead(nn.Module):
         return weights_traj, logits_traj
 
 
-class HyperAlphaVLA(nn.Module):
-    """Combined Model B relational backbone and user-compiled Policy Head model.
+class ZeroSteer(nn.Module):
+    """Combined ZeroSteer relational backbone and user-compiled Policy Head model.
 
     Requires explicit `user_config` (`None` raises `ValueError` to prevent advisory defaults).
 
-    관계형 백본(Model B)과 사용자 컴파일 전용 Policy Head 결합 모델입니다.
+    ZeroSteer 관계형 백본과 사용자 컴파일 전용 Policy Head 결합 모델입니다.
     자본시장법 규제 준수를 위해 `user_config` 미입력 시 즉시 `ValueError`를 발생시킵니다.
     """
 
     def __init__(
         self,
-        backbone: HyperAlphaVLABackbone | None = None,
+        backbone: ZeroSteerBackbone | None = None,
         user_config: UserPolicyConfig | None = None,
     ) -> None:
         if user_config is None:
             raise ValueError(
-                "user_config is required to instantiate HyperAlphaVLA. "
+                "user_config is required to instantiate ZeroSteer. "
                 "ZeroStreet distributes 0 bytes of pre-trained policy head weights."
             )
         super().__init__()
-        self.backbone = backbone or HyperAlphaVLABackbone()
+        self.backbone = backbone or ZeroSteerBackbone()
         self.user_config = user_config
         self.policy_head = WeightAllocatorHead(
             d_model=self.backbone.config.d_model,
@@ -293,7 +293,7 @@ class HyperAlphaVLA(nn.Module):
         prev_weights: torch.Tensor | None = None,
         valid_mask: torch.Tensor | None = None,
         horizon: int | None = None,
-    ) -> HyperAlphaVLAOutputs:
+    ) -> ZeroSteerOutputs:
         """Compute multi-horizon portfolio weights and backbone embeddings in one forward pass.
 
         단일 순전파로 다기간 포트폴리오 비중 궤적과 백본 임베딩을 계산합니다.
@@ -307,7 +307,7 @@ class HyperAlphaVLA(nn.Module):
             horizon=eff_horizon,
         )
         weights_traj, logits_traj = self.policy_head(final_traj, valid_mask=valid_mask)
-        return HyperAlphaVLAOutputs(
+        return ZeroSteerOutputs(
             weights_long=weights_traj[:, 0, :],
             weights_long_trajectory=weights_traj,
             logits_long_trajectory=logits_traj,

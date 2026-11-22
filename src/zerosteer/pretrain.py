@@ -10,7 +10,7 @@ import torch.nn.functional as F
 from loguru import logger
 from torch import nn
 
-from hyperalpha_vla.model import HyperAlphaVLABackbone
+from zerosteer.model import ZeroSteerBackbone
 
 
 class CrossAssetMaskedRelationalPretrainer:
@@ -24,7 +24,7 @@ class CrossAssetMaskedRelationalPretrainer:
 
     def __init__(
         self,
-        backbone: HyperAlphaVLABackbone,
+        backbone: ZeroSteerBackbone,
         mask_ratio: float = 0.25,
         lr: float = 1e-3,
     ) -> None:

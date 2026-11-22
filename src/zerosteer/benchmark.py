@@ -1,6 +1,6 @@
-"""Out-of-sample comparator: OHLCV blackout mode vs. ZeroLens (z_mm) + Model B combined.
+"""Out-of-sample comparator: OHLCV blackout mode vs. ZeroLens (z_mm) + ZeroSteer combined.
 
-OHLCV 단독(Blackout) 모드 대 ZeroLens(z_mm)+Model B 결합 Out-of-Sample 벤치마크 비교기입니다.
+OHLCV 단독(Blackout) 모드 대 ZeroLens(z_mm)+ZeroSteer 결합 Out-of-Sample 벤치마크 비교기입니다.
 """
 
 from dataclasses import dataclass
@@ -8,7 +8,7 @@ from dataclasses import dataclass
 import numpy as np
 import torch
 
-from hyperalpha_vla.model import HyperAlphaVLA
+from zerosteer.model import ZeroSteer
 
 
 @dataclass
@@ -27,9 +27,9 @@ class OOSMetrics:
 
 @dataclass
 class OOSBenchmarkReport:
-    """Benchmark comparison report between OHLCV-only and combined ZeroLens+Model B modes.
+    """Benchmark comparison report between OHLCV-only and combined ZeroLens+ZeroSteer modes.
 
-    OHLCV 단독 모드 대비 ZeroLens+Model B 결합 모드 벤치마크 비교 리포트입니다.
+    OHLCV 단독 모드 대비 ZeroLens+ZeroSteer 결합 모드 벤치마크 비교 리포트입니다.
     """
 
     ohlcv_only: OOSMetrics
@@ -76,7 +76,7 @@ def compute_oos_metrics(daily_returns: np.ndarray, cvar_alpha: float = 0.15) -> 
 
 @torch.no_grad()
 def run_oos_comparison(
-    model: HyperAlphaVLA,
+    model: ZeroSteer,
     ohlcv_seq: torch.Tensor,
     z_mm: torch.Tensor,
     future_day1_returns: torch.Tensor,

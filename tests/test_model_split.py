@@ -4,18 +4,18 @@ import pytest
 import torch
 from zerostreet_schema import HorizonMaskMode, RLRewardWeights, UserPolicyConfig
 
-from hyperalpha_vla import (
+from zerosteer import (
     DifferentiableTrajectoryRLTrainer,
-    HyperAlphaVLA,
-    HyperAlphaVLABackbone,
-    HyperAlphaVLAConfig,
+    ZeroSteer,
+    ZeroSteerBackbone,
+    ZeroSteerConfig,
     build_horizon_attention_mask,
     load_user_policy_config,
 )
 
 
-def _small_config() -> HyperAlphaVLAConfig:
-    return HyperAlphaVLAConfig(
+def _small_config() -> ZeroSteerConfig:
+    return ZeroSteerConfig(
         d_model=32,
         nhead=4,
         nlayers=2,
@@ -39,9 +39,9 @@ def _sample_user_config() -> UserPolicyConfig:
 
 
 def test_policy_head_isolation_requires_user_config():
-    backbone = HyperAlphaVLABackbone(_small_config())
+    backbone = ZeroSteerBackbone(_small_config())
     with pytest.raises(ValueError, match="user_config is required"):
-        HyperAlphaVLA(backbone=backbone, user_config=None)
+        ZeroSteer(backbone=backbone, user_config=None)
 
     with pytest.raises(ValueError, match="user_config is required"):
         DifferentiableTrajectoryRLTrainer(backbone=backbone, user_config=None)
@@ -52,19 +52,19 @@ def test_load_config_example_yaml_and_save_load_backbone(tmp_path: Path):
     user_cfg = load_user_policy_config(example_yaml)
     assert len(user_cfg.target_universe) == 4
 
-    backbone = HyperAlphaVLABackbone(_small_config())
+    backbone = ZeroSteerBackbone(_small_config())
     assert torch.all(backbone.horizon_encodings.weight[0] == 0.0)
 
     ckpt_path = tmp_path / "backbone.pt"
     backbone.save_backbone(ckpt_path)
-    loaded = HyperAlphaVLABackbone.load_backbone(ckpt_path)
+    loaded = ZeroSteerBackbone.load_backbone(ckpt_path)
     assert not any("policy_head" in k for k in loaded.state_dict())
 
 
 def test_dynamic_embedding_dims_blackout_and_valid_mask():
     cfg = _small_config()
-    backbone = HyperAlphaVLABackbone(cfg)
-    model = HyperAlphaVLA(backbone=backbone, user_config=_sample_user_config())
+    backbone = ZeroSteerBackbone(cfg)
+    model = ZeroSteer(backbone=backbone, user_config=_sample_user_config())
     model.eval()
 
     bsz, n_assets, seq_len, n_feat = 2, 4, cfg.seq_len, cfg.timeseries_features
@@ -113,6 +113,6 @@ def test_horizon_attention_mask_modes_and_temporal_ensemble():
     assert mask_bw[8:12, 4:8].all()
 
     trajs = [torch.softmax(torch.randn(2, 4, 4), dim=-1) for _ in range(3)]
-    blended = HyperAlphaVLA.blend_temporal_ensemble(trajs, decay_beta=0.5)
+    blended = ZeroSteer.blend_temporal_ensemble(trajs, decay_beta=0.5)
     assert blended.shape == (2, 4)
     assert torch.allclose(blended.sum(dim=-1), torch.ones(2), atol=1e-5)

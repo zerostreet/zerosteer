@@ -1,6 +1,6 @@
-"""Model hyperparameters and user policy YAML loader for HyperAlpha-VLA.
+"""Model hyperparameters and user policy YAML loader for ZeroSteer.
 
-HyperAlpha-VLA 모델 하이퍼파라미터 설정 및 사용자 정책 YAML 로더 모듈입니다.
+ZeroSteer 모델 하이퍼파라미터 설정 및 사용자 정책 YAML 로더 모듈입니다.
 """
 
 from pathlib import Path
@@ -11,10 +11,10 @@ from pydantic import BaseModel, Field
 from zerostreet_schema import HorizonMaskMode, UserPolicyConfig
 
 
-class HyperAlphaVLAConfig(BaseModel):
-    """Hyperparameter configuration for Model B backbone and trajectory RL trainer.
+class ZeroSteerConfig(BaseModel):
+    """Hyperparameter configuration for ZeroSteer backbone and trajectory RL trainer.
 
-    Model B (HyperAlpha-VLA) 백본 및 궤적 RL 트레이너 하이퍼파라미터 설정입니다.
+    ZeroSteer 백본 및 궤적 RL 트레이너 하이퍼파라미터 설정입니다.
     """
 
     d_model: int = Field(default=128, ge=16)

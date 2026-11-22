@@ -13,8 +13,8 @@ import torch.nn.functional as F
 from loguru import logger
 from zerostreet_schema import RLRewardWeights, UserPolicyConfig
 
-from hyperalpha_vla.config import HyperAlphaVLAConfig
-from hyperalpha_vla.model import HyperAlphaVLA, HyperAlphaVLABackbone
+from zerosteer.config import ZeroSteerConfig
+from zerosteer.model import ZeroSteer, ZeroSteerBackbone
 
 
 class TrajectoryRLLoss:
@@ -23,8 +23,8 @@ class TrajectoryRLLoss:
     드리프트 사후 비중, L1/L2 거래비용, Dense-Sparse STE, rms_softclip 기반 RL 손실기입니다.
     """
 
-    def __init__(self, config: HyperAlphaVLAConfig | None = None, eps: float = 1e-6) -> None:
-        self.config = config or HyperAlphaVLAConfig()
+    def __init__(self, config: ZeroSteerConfig | None = None, eps: float = 1e-6) -> None:
+        self.config = config or ZeroSteerConfig()
         self.eps = eps
 
     def _get_effective_horizon_mask(
@@ -323,7 +323,7 @@ class DifferentiableTrajectoryRLTrainer:
 
     def __init__(
         self,
-        backbone: HyperAlphaVLABackbone | None = None,
+        backbone: ZeroSteerBackbone | None = None,
         user_config: UserPolicyConfig | None = None,
         freeze_backbone: bool = True,
         lr: float = 1e-3,
@@ -334,7 +334,7 @@ class DifferentiableTrajectoryRLTrainer:
                 "Policy compilation must always originate from the user agent."
             )
         self.user_config = user_config
-        self.model = HyperAlphaVLA(backbone=backbone, user_config=user_config)
+        self.model = ZeroSteer(backbone=backbone, user_config=user_config)
         self.freeze_backbone = freeze_backbone
         if freeze_backbone:
             for param in self.model.backbone.parameters():

@@ -1,6 +1,6 @@
 import torch
 
-from hyperalpha_vla.activations import Entmax15, Sparsemax, entmax15, sparsemax
+from zerosteer.activations import Entmax15, Sparsemax, entmax15, sparsemax
 
 
 def test_entmax15_and_sparsemax_simplex_and_sparsity():
