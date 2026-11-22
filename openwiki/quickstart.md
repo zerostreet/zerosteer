@@ -9,9 +9,10 @@ tags:
   - pytorch
   - compliance
   - business-context
+  - zerolens
 verified:
   - by: openwiki/0.7.2
-    at: 2026-11-22T03:52:50.876Z
+    at: 2026-11-22T09:09:30.019Z
 sources:
   - id: openwiki-source-873af29a56ffef7d51f59cb6
     resource: repo://config.example.yaml
@@ -21,7 +22,7 @@ sources:
     resource: repo://src/hyperalpha_vla/__init__.py
   - id: openwiki-source-6ae6f72eecc22448f38ce845
     resource: repo://src/hyperalpha_vla/config.py
-generated: { by: "antigravity", at: "2026-11-22T03:52:50.876Z" }
+generated: { by: "antigravity", at: "2026-11-22T09:09:30.019Z" }
 ---
 
 # hyperalpha-vla Quickstart & Business Overview / 빠른 시작 및 비즈니스 개요
@@ -38,13 +39,13 @@ generated: { by: "antigravity", at: "2026-11-22T03:52:50.876Z" }
 
 * **Open-Core Trust Magnet (`Model B`)**: Publishes ZeroStreet's core relational MoE Transformer, dynamic multimodal adapters, sparse `1.5-Entmax` / `Sparsemax` projections, and differentiable Trajectory RL compiler openly under MIT ([`README.md`](../README.md)).
 * **Zero Advisory Risk & 0 Bytes of Policy Weights**: Calling `HyperAlphaVLA` or `DifferentiableTrajectoryRLTrainer` without explicit `user_config` raises `ValueError` immediately.
-* **Commercial Funnel to AlphaSmith & zerostreet-models**: Runs standalone in local OHLCV blackout mode (`is_blackout=True`), while `run_oos_comparison()` proves the performance lift of injecting paid `Model A` `z_mm` embeddings (`32d/128d/256d`) and compiling user checkpoints via AlphaSmith Serverless Foundry.
+* **Commercial Funnel to AlphaSmith & zerostreet-models**: Runs standalone in local OHLCV blackout mode (`is_blackout=True`), while `run_oos_comparison()` proves the performance lift of injecting paid `ZeroLens` `z_mm` embeddings (`32d/128d/256d`) and compiling user checkpoints via AlphaSmith Serverless Foundry.
 
 ### 한국어
 
 * **오픈코어 신뢰 확보(Trust Magnet) 엔진**: 관계형 MoE 트랜스포머, 동적 어댑터, 희소 심플렉스 투영 및 미분 가능 궤적 RL 구조를 MIT 오픈소스로 공개해 개발자·에이전트의 신뢰와 채택을 극대화합니다.
 * **규제 안전성 및 정책 가중치 0바이트**: `user_config=None`일 때 즉시 `ValueError`를 발생시켜 회사 기본 전략 배포를 차단합니다.
-* **AlphaSmith 유료 전환 퍼널**: 로컬 OHLCV 단독 모드(`is_blackout=True`)로 먼저 검증한 뒤 `run_oos_comparison()`으로 `Model A` 텐서 결합 시 OOS 개선 효과를 수치로 확인하고 유료 파운드리로 전환하도록 설계되었습니다.
+* **AlphaSmith 유료 전환 퍼널**: 로컬 OHLCV 단독 모드(`is_blackout=True`)로 먼저 검증한 뒤 `run_oos_comparison()`으로 `ZeroLens` 텐서 결합 시 OOS 개선 효과를 수치로 확인하고 유료 파운드리로 전환하도록 설계되었습니다.
 
 ---
 

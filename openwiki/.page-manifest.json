@@ -2,25 +2,25 @@
   "schemaVersion": 1,
   "pages": {
     "/openwiki/architecture/backbone-and-adapters.md": {
+      "gitHead": "d6f1156922fb99dc6980e429e264dab008cb5cb6",
+      "sourceFingerprint": "sha256:fcfa9fa89a7ea6d19be2fe840f0d6388357f3dd8fe4ca9dfeb6f306258bb7984",
       "pageVersion": "sha256:76e0586c46bbd4a5aaaf47afa66fa4a2ef6f2ba3841a495c3fa60d32e484c82b",
       "completedBy": "antigravity",
-      "completedRunId": "1dde38f5-2544-4027-a1e3-241f7fca4ff5",
-      "gitHead": "d6f1156922fb99dc6980e429e264dab008cb5cb6",
-      "sourceFingerprint": "sha256:fcfa9fa89a7ea6d19be2fe840f0d6388357f3dd8fe4ca9dfeb6f306258bb7984"
+      "completedRunId": "1dde38f5-2544-4027-a1e3-241f7fca4ff5"
     },
     "/openwiki/quickstart.md": {
-      "pageVersion": "sha256:3ff9b3d2af7e5830579331061c8878e51a27c6bced797d8ce9751ee15d7b611b",
+      "pageVersion": "sha256:b1ff01913f80f187adaa4b57da2aa744bd4af31e6289130bb34dd5822a962ace",
       "completedBy": "antigravity",
-      "completedRunId": "1dde38f5-2544-4027-a1e3-241f7fca4ff5",
-      "gitHead": "d6f1156922fb99dc6980e429e264dab008cb5cb6",
-      "sourceFingerprint": "sha256:fcfa9fa89a7ea6d19be2fe840f0d6388357f3dd8fe4ca9dfeb6f306258bb7984"
+      "completedRunId": "92a6dddc-535a-4544-a921-766470567832",
+      "gitHead": "6119046299435e66f69429a996fefe17d398a187",
+      "sourceFingerprint": "sha256:e7cdeeda2bf251f49fca5e6aaf32e2db50db6cea7615f4a6bc28a7000f946dfe"
     },
     "/openwiki/workflows/pretrain-and-trajectory-rl.md": {
+      "gitHead": "d6f1156922fb99dc6980e429e264dab008cb5cb6",
+      "sourceFingerprint": "sha256:fcfa9fa89a7ea6d19be2fe840f0d6388357f3dd8fe4ca9dfeb6f306258bb7984",
       "pageVersion": "sha256:1f6b61653c40d7e49952ccb4e2252e380f4b809bc2503eaeef21bcb78523df87",
       "completedBy": "antigravity",
-      "completedRunId": "1dde38f5-2544-4027-a1e3-241f7fca4ff5",
-      "gitHead": "d6f1156922fb99dc6980e429e264dab008cb5cb6",
-      "sourceFingerprint": "sha256:fcfa9fa89a7ea6d19be2fe840f0d6388357f3dd8fe4ca9dfeb6f306258bb7984"
+      "completedRunId": "1dde38f5-2544-4027-a1e3-241f7fca4ff5"
     }
   }
 }
