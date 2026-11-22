@@ -1,6 +1,6 @@
-"""Out-of-sample comparator: OHLCV blackout mode vs. Model A (z_mm) + Model B combined.
+"""Out-of-sample comparator: OHLCV blackout mode vs. ZeroLens (z_mm) + Model B combined.
 
-OHLCV 단독(Blackout) 모드 대 Model A(z_mm)+Model B 결합 Out-of-Sample 벤치마크 비교기입니다.
+OHLCV 단독(Blackout) 모드 대 ZeroLens(z_mm)+Model B 결합 Out-of-Sample 벤치마크 비교기입니다.
 """
 
 from dataclasses import dataclass
@@ -27,9 +27,9 @@ class OOSMetrics:
 
 @dataclass
 class OOSBenchmarkReport:
-    """Benchmark comparison report between OHLCV-only and combined Model A+B modes.
+    """Benchmark comparison report between OHLCV-only and combined ZeroLens+Model B modes.
 
-    OHLCV 단독 모드 대비 Model A+B 결합 모드 벤치마크 비교 리포트입니다.
+    OHLCV 단독 모드 대비 ZeroLens+Model B 결합 모드 벤치마크 비교 리포트입니다.
     """
 
     ohlcv_only: OOSMetrics

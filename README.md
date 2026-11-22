@@ -18,7 +18,7 @@ Open-source `Model B` (`HyperAlpha-VLA`): Cross-Asset Relational MoE Transformer
 
 * **오픈코어 신뢰 확보(Trust Magnet) 및 생태계 확산 엔진**: 개발자와 고객 에이전트가 ZeroStreet의 포트폴리오 의사결정 모델(`Model B`) 전체 구조—`TimeseriesEncoder`, `ObservationFusionLayer`, 희소 `Entmax15`/`Sparsemax`, `CrossAssetMaskedRelationalPretrainer`—를 MIT 오픈소스로 투명하게 검증하고 채택할 수 있습니다.
 * **규제 안전성 및 정책 가중치 0바이트 원칙**: 회사가 학습한 종목별 매수/매도 Policy Head 가중치를 0바이트도 포함하지 않으며, 사용자가 명시적 `user_config`를 주지 않으면 `HyperAlphaVLA`와 트레이너 생성 자체를 차단(`ValueError`)합니다.
-* **AlphaSmith 유료 파운드리 업그레이드 퍼널**: 로컬 OHLCV 단독 모드(`is_blackout=True`)로 즉시 실행·검증해 본 뒤, `run_oos_comparison()`을 통해 비공개 `Model A` 멀티모달 텐서(`32d/128d/256d`) 결합 시 성과 개선폭을 직접 측정하고 `AlphaSmith` Serverless Foundry 유료 구독으로 자연스럽게 전환하도록 유도합니다.
+* **AlphaSmith 유료 파운드리 업그레이드 퍼널**: 로컬 OHLCV 단독 모드(`is_blackout=True`)로 즉시 실행·검증해 본 뒤, `run_oos_comparison()`을 통해 비공개 `ZeroLens` 멀티모달 텐서(`32d/128d/256d`) 결합 시 성과 개선폭을 직접 측정하고 `AlphaSmith` Serverless Foundry 유료 구독으로 자연스럽게 전환하도록 유도합니다.
 
 ---
 
