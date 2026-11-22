@@ -1,4 +1,7 @@
-"""Cross-Asset 관계형 MoE Transformer 백본 모듈 (Dense + Shared/Routed Experts)."""
+"""Cross-Asset relational MoE Transformer backbone (Dense + Shared/Routed Experts).
+
+Cross-Asset 관계형 MoE 트랜스포머 백본 모듈(Dense + Shared/Routed Experts)입니다.
+"""
 
 import torch
 import torch.nn.functional as F
@@ -6,7 +9,10 @@ from torch import nn
 
 
 class RMSNorm(nn.Module):
-    """Root Mean Square Layer Normalization."""
+    """Root Mean Square Layer Normalization layer.
+
+    Root Mean Square 레이어 정규화(RMSNorm) 모듈입니다.
+    """
 
     def __init__(self, dim: int, eps: float = 1e-6) -> None:
         super().__init__()
@@ -14,12 +20,19 @@ class RMSNorm(nn.Module):
         self.weight = nn.Parameter(torch.ones(dim))
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Apply RMS normalization along the last dimension.
+
+        마지막 차원에 대해 RMS 정규화를 적용합니다.
+        """
         rms = torch.rsqrt(x.pow(2).mean(dim=-1, keepdim=True) + self.eps)
         return x * rms * self.weight
 
 
 class GeGLUFeedForward(nn.Module):
-    """GeGLU 게이트 기반 피드포워드 네트워크."""
+    """GeGLU-gated feed-forward network block.
+
+    GeGLU 게이트 기반 피드포워드 네트워크 블록입니다.
+    """
 
     def __init__(self, d_model: int, inter_dim: int, dropout: float = 0.1) -> None:
         super().__init__()
@@ -28,13 +41,20 @@ class GeGLUFeedForward(nn.Module):
         self.drop = nn.Dropout(dropout)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Transform hidden states through GeGLU gating and output projection.
+
+        GeGLU 게이팅 및 출력 투영을 통해 은닉 표현을 변환합니다.
+        """
         val, gate = self.proj(x).chunk(2, dim=-1)
         hidden = val * F.gelu(gate)
         return self.out(self.drop(hidden))
 
 
 class TopKMoELayer(nn.Module):
-    """Shared Expert와 Top-K Routed Experts가 결합된 Mixture-of-Experts 레이어."""
+    """Mixture-of-Experts layer combining a shared expert with Top-K routed experts.
+
+    공유 전문가(Shared Expert)와 Top-K 라우팅 전문가가 결합된 MoE 레이어입니다.
+    """
 
     def __init__(
         self,
@@ -54,6 +74,10 @@ class TopKMoELayer(nn.Module):
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Route tokens across top-k experts and combine with the shared expert output.
+
+        토큰을 Top-K 전문가에 분배한 뒤 공유 전문가 출력과 합산합니다.
+        """
         bsz, seq_len, dim = x.shape
         flat_x = x.reshape(-1, dim)
 
@@ -77,7 +101,10 @@ class TopKMoELayer(nn.Module):
 
 
 class MoETransformerBlock(nn.Module):
-    """비대칭 어텐션 마스크를 지원하는 Dense/MoE 하이브리드 트랜스포머 블록."""
+    """Hybrid Dense/MoE transformer block supporting asymmetric attention masks.
+
+    비대칭 어텐션 마스크를 지원하는 Dense/MoE 하이브리드 트랜스포머 블록입니다.
+    """
 
     def __init__(
         self,
@@ -112,6 +139,10 @@ class MoETransformerBlock(nn.Module):
         self.drop = nn.Dropout(dropout)
 
     def forward(self, x: torch.Tensor, attn_mask: torch.Tensor | None = None) -> torch.Tensor:
+        """Apply pre-norm self-attention with optional attn_mask and FFN residual block.
+
+        선택적 어텐션 마스크와 잔차 FFN(Dense 또는 MoE) 블록을 적용합니다.
+        """
         normed = self.norm1(x)
         attn_out, _ = self.attn(normed, normed, normed, attn_mask=attn_mask, need_weights=False)
         x = x + self.drop(attn_out)
@@ -120,7 +151,10 @@ class MoETransformerBlock(nn.Module):
 
 
 class MoETransformerBackbone(nn.Module):
-    """초기 Dense 레이어와 후속 MoE 레이어를 적층한 Cross-Asset 관계형 백본."""
+    """Cross-asset relational backbone stacking initial Dense layers and MoE layers.
+
+    초기 Dense 레이어와 후속 MoE 레이어를 적층한 Cross-Asset 관계형 백본입니다.
+    """
 
     def __init__(
         self,
@@ -151,6 +185,10 @@ class MoETransformerBackbone(nn.Module):
         self.norm = RMSNorm(d_model)
 
     def forward(self, x: torch.Tensor, attn_mask: torch.Tensor | None = None) -> torch.Tensor:
+        """Run stacked Dense/MoE blocks with final RMSNorm over the token sequence.
+
+        적층된 Dense/MoE 블록과 최종 RMSNorm을 입력 토큰 시퀀스에 적용합니다.
+        """
         hidden = x
         for layer in self.layers:
             hidden = layer(hidden, attn_mask=attn_mask)

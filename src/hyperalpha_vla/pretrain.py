@@ -1,4 +1,7 @@
-"""Future-Label-Free Cross-Asset 관계형 백본 사전학습 모듈."""
+"""Future-Label-Free cross-asset masked relational pretraining module.
+
+Future-Label-Free Cross-Asset 마스킹 관계형 백본 사전학습 모듈입니다.
+"""
 
 from pathlib import Path
 
@@ -11,10 +14,12 @@ from hyperalpha_vla.model import HyperAlphaVLABackbone
 
 
 class CrossAssetMaskedRelationalPretrainer:
-    """동일 시점(t) 내 마스킹된 자산 토큰을 나머지 종목/지수 컨텍스트로 복원하는 사전학습기.
+    """Reconstructs masked intra-timestamp asset tokens via cross-asset attention.
 
-    자본시장법 안전 원칙:
-        미래 수익률, 미래 랭킹, 미래 변동성/폭락 확률 라벨을 0% 사용합니다(Future-Label-Free).
+    Zero advisory labels: uses 0% future return, ranking, volatility, or crash labels.
+
+    동일 시점(t) 내 마스킹된 자산 토큰을 나머지 종목/지수 컨텍스트로 복원하는 사전학습기입니다.
+    미래 수익률, 랭킹, 변동성/폭락 라벨을 0% 사용합니다(Future-Label-Free).
     """
 
     def __init__(
@@ -41,7 +46,10 @@ class CrossAssetMaskedRelationalPretrainer:
         z_mm: torch.Tensor | None = None,
         is_blackout: torch.Tensor | None = None,
     ) -> tuple[torch.Tensor, dict[str, float]]:
-        """동일 시점 관측 토큰 일부를 마스킹하고 교차 어텐션으로 복원 손실을 계산합니다."""
+        """Mask random same-timestamp observation tokens and compute MSE + cosine loss.
+
+        동일 시점 관측 토큰 일부를 마스킹하고 교차 어텐션으로 복원 손실을 계산합니다.
+        """
         obs_embs = self.backbone.encode_observations(
             ohlcv_seq=ohlcv_seq, z_mm=z_mm, is_blackout=is_blackout
         )
@@ -79,7 +87,10 @@ class CrossAssetMaskedRelationalPretrainer:
         batches: list[dict[str, torch.Tensor | None]],
         save_path: str | Path | None = None,
     ) -> list[dict[str, float]]:
-        """Future-Label-Free 관계형 사전학습을 실행하고 순수 백본만 선택적으로 저장합니다."""
+        """Execute Future-Label-Free pretraining steps and optionally save pure backbone.
+
+        Future-Label-Free 관계형 사전학습을 실행하고 순수 백본만 선택적으로 저장합니다.
+        """
         self.backbone.train()
         history: list[dict[str, float]] = []
         for step_idx, batch in enumerate(batches):

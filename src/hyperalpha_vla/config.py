@@ -1,4 +1,7 @@
-"""HyperAlpha-VLA 모델 설정 및 사용자 정책 YAML 로더."""
+"""Model hyperparameters and user policy YAML loader for HyperAlpha-VLA.
+
+HyperAlpha-VLA 모델 하이퍼파라미터 설정 및 사용자 정책 YAML 로더 모듈입니다.
+"""
 
 from pathlib import Path
 from typing import Literal
@@ -9,7 +12,10 @@ from zerostreet_schema import HorizonMaskMode, UserPolicyConfig
 
 
 class HyperAlphaVLAConfig(BaseModel):
-    """Model B (HyperAlpha-VLA) 백본 및 궤적 RL 트레이너 하이퍼파라미터 설정."""
+    """Hyperparameter configuration for Model B backbone and trajectory RL trainer.
+
+    Model B (HyperAlpha-VLA) 백본 및 궤적 RL 트레이너 하이퍼파라미터 설정입니다.
+    """
 
     d_model: int = Field(default=128, ge=16)
     nhead: int = Field(default=8, ge=1)
@@ -51,7 +57,10 @@ class HyperAlphaVLAConfig(BaseModel):
 
 
 def load_user_policy_config(path: str | Path) -> UserPolicyConfig:
-    """YAML 파일에서 사용자 지정 Policy Head 설정을 로드하고 검증합니다."""
+    """Load and validate a user-supplied Policy Head configuration from YAML.
+
+    YAML 파일에서 사용자 지정 Policy Head 설정을 로드하고 검증합니다.
+    """
     yaml_path = Path(path)
     if not yaml_path.exists():
         raise FileNotFoundError(f"User policy config not found: {yaml_path}")

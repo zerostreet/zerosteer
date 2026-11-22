@@ -1,4 +1,7 @@
-"""Model B (HyperAlpha-VLA): Cross-Asset 관계형 백본 및 다기간 궤적 강화학습 공개 API."""
+"""Public API for Model B (HyperAlpha-VLA): cross-asset relational backbone and trajectory RL.
+
+Model B (HyperAlpha-VLA)의 Cross-Asset 관계형 백본 및 다기간 궤적 강화학습 공개 API입니다.
+"""
 
 from hyperalpha_vla.activations import Entmax15, Sparsemax, entmax15, sparsemax
 from hyperalpha_vla.adapters import (

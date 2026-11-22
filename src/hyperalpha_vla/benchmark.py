@@ -1,4 +1,7 @@
-"""OHLCV 단독(Blackout) vs Model A(z_mm) + Model B 결합 Out-of-Sample 벤치마크 비교기."""
+"""Out-of-sample comparator: OHLCV blackout mode vs. Model A (z_mm) + Model B combined.
+
+OHLCV 단독(Blackout) 모드 대 Model A(z_mm)+Model B 결합 Out-of-Sample 벤치마크 비교기입니다.
+"""
 
 from dataclasses import dataclass
 
@@ -10,7 +13,10 @@ from hyperalpha_vla.model import HyperAlphaVLA
 
 @dataclass
 class OOSMetrics:
-    """Out-of-Sample 포트폴리오 성과 지표."""
+    """Out-of-sample portfolio performance metrics container.
+
+    Out-of-Sample 포트폴리오 성과 지표 컨테이너입니다.
+    """
 
     total_return_pct: float
     annualized_sharpe: float
@@ -21,7 +27,10 @@ class OOSMetrics:
 
 @dataclass
 class OOSBenchmarkReport:
-    """OHLCV 단독 모드 대비 Model A+B 결합 모드 벤치마크 리포트."""
+    """Benchmark comparison report between OHLCV-only and combined Model A+B modes.
+
+    OHLCV 단독 모드 대비 Model A+B 결합 모드 벤치마크 비교 리포트입니다.
+    """
 
     ohlcv_only: OOSMetrics
     multimodal_combined: OOSMetrics
@@ -30,7 +39,10 @@ class OOSBenchmarkReport:
 
 
 def compute_oos_metrics(daily_returns: np.ndarray, cvar_alpha: float = 0.15) -> OOSMetrics:
-    """일별 순수익률 벡터에서 OOS 성과 지표를 계산합니다."""
+    """Compute OOS return, Sharpe, Sortino, MDD, and tail CVaR from daily returns.
+
+    일별 순수익률 벡터에서 OOS 수익률·Sharpe·Sortino·MDD·CVaR 지표를 계산합니다.
+    """
     rets = np.asarray(daily_returns, dtype=np.float64)
     if rets.size == 0:
         return OOSMetrics(0.0, 0.0, 0.0, 0.0, 0.0)
@@ -70,7 +82,10 @@ def run_oos_comparison(
     future_day1_returns: torch.Tensor,
     valid_mask: torch.Tensor | None = None,
 ) -> OOSBenchmarkReport:
-    """동일 백본·정책 모델에 대해 OHLCV 단독(is_blackout=True) vs 멀티모달(z_mm) OOS 비교."""
+    """Compare OHLCV blackout vs. multimodal z_mm performance on identical policy weights.
+
+    동일 백본·정책 모델에 대해 OHLCV 단독(is_blackout=True) 대 멀티모달(z_mm) OOS를 비교합니다.
+    """
     model.eval()
     bsz, n_assets = ohlcv_seq.shape[:2]
     all_blackout = torch.ones((bsz, n_assets), dtype=torch.bool, device=ohlcv_seq.device)

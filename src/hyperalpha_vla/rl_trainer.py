@@ -1,4 +1,7 @@
-"""미분 가능 20일 가상 투자 궤적 강화학습(Trajectory RL) 손실 및 컴파일 트레이너 모듈."""
+"""Differentiable H-day Trajectory RL loss and per-user Policy Head compiler.
+
+미분 가능 H일 가상 투자 궤적 강화학습(Trajectory RL) 손실 및 컴파일 트레이너 모듈입니다.
+"""
 
 import copy
 import hashlib
@@ -15,7 +18,10 @@ from hyperalpha_vla.model import HyperAlphaVLA, HyperAlphaVLABackbone
 
 
 class TrajectoryRLLoss:
-    """드리프트 사후 비중, L1/L2 거래비용, Dense-Sparse STE, rms_softclip 기반 Trajectory RL 손실기."""
+    """Trajectory RL loss with drifted weights, L1/L2 costs, Dense-Sparse STE & rms_softclip.
+
+    드리프트 사후 비중, L1/L2 거래비용, Dense-Sparse STE, rms_softclip 기반 RL 손실기입니다.
+    """
 
     def __init__(self, config: HyperAlphaVLAConfig | None = None, eps: float = 1e-6) -> None:
         self.config = config or HyperAlphaVLAConfig()
@@ -36,7 +42,9 @@ class TrajectoryRLLoss:
             if h_mask.shape[1] >= window:
                 mask_slice = h_mask[:, :window]
             else:
-                pad = torch.zeros((batch_size, window - h_mask.shape[1]), device=device, dtype=dtype)
+                pad = torch.zeros(
+                    (batch_size, window - h_mask.shape[1]), device=device, dtype=dtype
+                )
                 mask_slice = torch.cat([h_mask, pad], dim=1)
         else:
             mask_slice = torch.ones((batch_size, window), device=device, dtype=dtype)
@@ -53,7 +61,10 @@ class TrajectoryRLLoss:
         horizon_mask: torch.Tensor | None = None,
         quadratic_turnover_coeff: float | None = None,
     ) -> dict[str, torch.Tensor]:
-        """H일 가상 계좌 운용(드리프트 사후 비중 + L1 수수료 + L2 시장충격 차감)을 수행합니다."""
+        """Simulate H-day portfolio path with drifted weights, L1 fees, and L2 market impact.
+
+        H일 가상 계좌 운용(드리프트 사후 비중 + L1 수수료 + L2 시장충격 차감)을 수행합니다.
+        """
         w_3d = weights_traj.unsqueeze(1) if weights_traj.dim() == 2 else weights_traj
         rets_3d = return_data.unsqueeze(1) if return_data.dim() == 2 else return_data
         bsz, h_len, _n_assets = w_3d.shape
@@ -223,7 +234,10 @@ class TrajectoryRLLoss:
         bm_returns: torch.Tensor | None = None,
         max_single_weight: float = 0.60,
     ) -> dict[str, torch.Tensor]:
-        """Dense-Sparse STE와 rms_softclip 어드밴티지를 결합해 최종 RL 손실을 계산합니다."""
+        """Compute total RL loss via Dense-Sparse STE, rms_softclip, and trust-region L1 penalty.
+
+        Dense-Sparse STE와 rms_softclip 어드밴티지·신뢰구간 제약을 결합해 최종 RL 손실을 계산합니다.
+        """
         effective_w = weights_traj
         if (
             logits_traj is not None
@@ -302,7 +316,10 @@ class TrajectoryRLLoss:
 
 
 class DifferentiableTrajectoryRLTrainer:
-    """유저별 Policy Head 컴파일(On-Demand Trajectory RL) 전용 트레이너."""
+    """On-demand trainer compiling personalized user Policy Heads while freezing the backbone.
+
+    유저별 Policy Head 컴파일(On-Demand Trajectory RL) 전용 트레이너입니다.
+    """
 
     def __init__(
         self,
@@ -336,7 +353,10 @@ class DifferentiableTrajectoryRLTrainer:
         steps: int | None = None,
         save_path: str | Path | None = None,
     ) -> dict[str, str | float]:
-        """주어진 배치에 대해 사용자 전용 Policy Head를 컴파일하고 체크포인트 SHA-256을 반환합니다."""
+        """Compile user-specific Policy Head over training batches and return checkpoint SHA-256.
+
+        주어진 배치에 대해 사용자 전용 Policy Head를 컴파일하고 체크포인트 SHA-256을 반환합니다.
+        """
         if not batches:
             raise ValueError("batches must contain at least one training batch.")
 

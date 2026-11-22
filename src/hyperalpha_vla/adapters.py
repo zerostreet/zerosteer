@@ -1,4 +1,7 @@
-"""Ticker-Agnostic 시계열 인코더, 가변 차원 동적 임베딩 어댑터 및 단패스 관측 융합 레이어."""
+"""Ticker-agnostic timeseries encoder, dynamic z_mm adapter, and fusion layer.
+
+Ticker-Agnostic 시계열 인코더, 가변 차원 동적 임베딩 어댑터 및 관측 융합 레이어입니다.
+"""
 
 from typing import Literal
 
@@ -7,7 +10,10 @@ from torch import nn
 
 
 class DynamicEmbeddingAdapter(nn.Module):
-    """가변 차원(0/32/128/256d) 멀티모달 임베딩(z_mm) 투영 및 블랙아웃 폴백 어댑터."""
+    """Adapter projecting variable-dimension z_mm (0/32/128/256d) with blackout fallback.
+
+    가변 차원(0/32/128/256d) 멀티모달 임베딩(z_mm) 투영 및 블랙아웃 폴백 어댑터입니다.
+    """
 
     def __init__(
         self,
@@ -42,7 +48,10 @@ class DynamicEmbeddingAdapter(nn.Module):
         device: torch.device | None = None,
         dtype: torch.dtype | None = None,
     ) -> torch.Tensor:
-        """가변 차원 z_mm (B, N, D_z) 또는 None을 (B, N, d_model)로 변환합니다."""
+        """Project variable-dimension z_mm (B, N, D_z) or None into (B, N, d_model).
+
+        가변 차원 z_mm (B, N, D_z) 또는 결측(None)을 (B, N, d_model) 표현으로 변환합니다.
+        """
         if z_mm is None or z_mm.shape[-1] == 0:
             if batch_size is None or n_assets is None:
                 raise ValueError(
@@ -76,7 +85,10 @@ class DynamicEmbeddingAdapter(nn.Module):
 
 
 class TimeseriesEncoder(nn.Module):
-    """고정 종목 매핑(static_indicator_map) 없이 시계열 텐서를 인코딩하는 Ticker-Agnostic 인코더."""
+    """Ticker-agnostic 1D-CNN + attention-pooling encoder over OHLCV sequences.
+
+    고정 종목 매핑 없이 시계열 텐서를 인코딩하는 Ticker-Agnostic 인코더입니다.
+    """
 
     def __init__(self, in_features: int, d_model: int, dropout: float = 0.1) -> None:
         super().__init__()
@@ -91,7 +103,10 @@ class TimeseriesEncoder(nn.Module):
         self.attn_pool = nn.Linear(d_model, 1)
 
     def forward(self, ohlcv_seq: torch.Tensor) -> torch.Tensor:
-        """입력 (B, N, T, F)를 자산별 시계열 표현 (B, N, d_model)로 압축합니다."""
+        """Encode input (B, N, T, F) into per-asset embeddings (B, N, d_model).
+
+        입력 (B, N, T, F)를 자산별 시계열 표현 (B, N, d_model)로 압축합니다.
+        """
         bsz, n_assets, seq_len, n_feat = ohlcv_seq.shape
         flat = ohlcv_seq.reshape(bsz * n_assets, seq_len, n_feat).transpose(1, 2)
         hidden = self.conv(flat).transpose(1, 2)
@@ -102,7 +117,10 @@ class TimeseriesEncoder(nn.Module):
 
 
 class ObservationFusionLayer(nn.Module):
-    """시계열(OHLCV) 인코더와 가변 차원 z_mm 어댑터를 단일 패스로 융합하는 레이어."""
+    """Single-pass layer fusing OHLCV features with dynamic-dimension z_mm embeddings.
+
+    시계열(OHLCV) 인코더와 가변 차원 z_mm 어댑터를 단일 패스로 융합하는 레이어입니다.
+    """
 
     def __init__(
         self,
@@ -116,7 +134,9 @@ class ObservationFusionLayer(nn.Module):
         super().__init__()
         self.d_model = d_model
         self.fusion_mode = fusion_mode
-        self.ts_encoder = TimeseriesEncoder(in_features=in_features, d_model=d_model, dropout=dropout)
+        self.ts_encoder = TimeseriesEncoder(
+            in_features=in_features, d_model=d_model, dropout=dropout
+        )
         self.signal_adapter = DynamicEmbeddingAdapter(
             d_model=d_model,
             supported_dims=supported_dims,
@@ -134,7 +154,10 @@ class ObservationFusionLayer(nn.Module):
         z_mm: torch.Tensor | None = None,
         is_blackout: torch.Tensor | None = None,
     ) -> torch.Tensor:
-        """배치당 1회만 실행되어 (B, N, d_model) 관측 토큰 시퀀스를 반환합니다."""
+        """Run single-pass fusion once per batch to emit (B, N, d_model) observation tokens.
+
+        배치당 1회만 실행되어 (B, N, d_model) 관측 토큰 시퀀스를 반환합니다.
+        """
         bsz, n_assets = ohlcv_seq.shape[:2]
         ts_emb = self.ts_encoder(ohlcv_seq)
         sig_emb = self.signal_adapter(

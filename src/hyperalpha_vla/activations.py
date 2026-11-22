@@ -1,6 +1,8 @@
-"""희소 확률 심플렉스 투영 활성화 함수(1.5-Entmax & Sparsemax).
+"""Sparse probability simplex projections (1.5-Entmax and Sparsemax).
 
-참고 원천:
+희소 확률 심플렉스 투영 활성화 함수(1.5-Entmax 및 Sparsemax) 모듈입니다.
+
+References:
     - Martins & Astudillo (ICML 2016): "From Softmax to Sparsemax"
     - Peters, Niculae & Martins (ACL 2019): "Sparse Sequence-to-Sequence Models"
 """
@@ -10,10 +12,17 @@ from torch import nn
 
 
 class Entmax15Function(torch.autograd.Function):
-    """1.5-Entmax (Tsallis alpha=1.5) exact Euclidean-Simplex projection with smooth gradients."""
+    """1.5-Entmax (Tsallis alpha=1.5) exact Euclidean simplex projection.
+
+    Tsallis alpha=1.5 기반의 정확한 1.5-Entmax 유클리드 심플렉스 투영 연산자입니다.
+    """
 
     @staticmethod
     def forward(ctx, x: torch.Tensor, dim: int = -1) -> torch.Tensor:
+        """Compute forward 1.5-Entmax probability simplex projection.
+
+        순전파 1.5-Entmax 확률 심플렉스 투영을 계산합니다.
+        """
         ctx.dim = dim
         input_dtype = x.dtype
         x_fp32 = torch.nan_to_num(x.float(), nan=-1e4, neginf=-1e4)
@@ -45,6 +54,10 @@ class Entmax15Function(torch.autograd.Function):
 
     @staticmethod
     def backward(ctx, grad_output: torch.Tensor):
+        """Compute exact gradients of 1.5-Entmax simplex projection.
+
+        1.5-Entmax 심플렉스 투영의 해석적 역전파 기울기를 계산합니다.
+        """
         (p,) = ctx.saved_tensors
         dim = ctx.dim
         grad_dtype = grad_output.dtype
@@ -61,10 +74,17 @@ class Entmax15Function(torch.autograd.Function):
 
 
 class SparsemaxFunction(torch.autograd.Function):
-    """Sparsemax (alpha=2.0) exact Euclidean-Simplex projection."""
+    """Sparsemax (alpha=2.0) exact Euclidean simplex projection.
+
+    Sparsemax (alpha=2.0) 기반의 정확한 유클리드 심플렉스 투영 연산자입니다.
+    """
 
     @staticmethod
     def forward(ctx, x: torch.Tensor, dim: int = -1) -> torch.Tensor:
+        """Compute forward Sparsemax probability simplex projection.
+
+        순전파 Sparsemax 확률 심플렉스 투영을 계산합니다.
+        """
         ctx.dim = dim
         input_dtype = x.dtype
         x_fp32 = torch.nan_to_num(x.float(), nan=-1e4, neginf=-1e4)
@@ -90,6 +110,10 @@ class SparsemaxFunction(torch.autograd.Function):
 
     @staticmethod
     def backward(ctx, grad_output: torch.Tensor):
+        """Compute exact support-restricted gradients of Sparsemax.
+
+        Sparsemax 활성화 지원 집합에 대한 역전파 기울기를 계산합니다.
+        """
         (p,) = ctx.saved_tensors
         dim = ctx.dim
         grad_dtype = grad_output.dtype
@@ -104,32 +128,52 @@ class SparsemaxFunction(torch.autograd.Function):
 
 
 def entmax15(x: torch.Tensor, dim: int = -1) -> torch.Tensor:
-    """지정된 차원에 대해 1.5-Entmax 확률 분포를 계산합니다."""
+    """Compute 1.5-Entmax probability distribution along the target dimension.
+
+    지정된 차원에 대해 1.5-Entmax 희소 확률 분포를 계산합니다.
+    """
     return Entmax15Function.apply(x, dim)
 
 
 def sparsemax(x: torch.Tensor, dim: int = -1) -> torch.Tensor:
-    """지정된 차원에 대해 Sparsemax 확률 분포를 계산합니다."""
+    """Compute Sparsemax probability distribution along the target dimension.
+
+    지정된 차원에 대해 Sparsemax 희소 확률 분포를 계산합니다.
+    """
     return SparsemaxFunction.apply(x, dim)
 
 
 class Entmax15(nn.Module):
-    """1.5-Entmax 활성화 레이어."""
+    """PyTorch module wrapper for 1.5-Entmax activation.
+
+    1.5-Entmax 활성화 레이어 모듈입니다.
+    """
 
     def __init__(self, dim: int = -1) -> None:
         super().__init__()
         self.dim = dim
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Apply 1.5-Entmax activation along self.dim.
+
+        설정된 차원(self.dim)으로 1.5-Entmax 활성화를 적용합니다.
+        """
         return entmax15(x, dim=self.dim)
 
 
 class Sparsemax(nn.Module):
-    """Sparsemax 활성화 레이어."""
+    """PyTorch module wrapper for Sparsemax activation.
+
+    Sparsemax 활성화 레이어 모듈입니다.
+    """
 
     def __init__(self, dim: int = -1) -> None:
         super().__init__()
         self.dim = dim
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Apply Sparsemax activation along self.dim.
+
+        설정된 차원(self.dim)으로 Sparsemax 활성화를 적용합니다.
+        """
         return sparsemax(x, dim=self.dim)
