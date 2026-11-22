@@ -9,30 +9,31 @@ tags:
   - ste
   - oos-benchmark
   - temporal-ensemble
+  - zerosteer
 verified:
   - by: openwiki/0.7.2
-    at: 2026-11-22T03:52:50.876Z
+    at: 2026-11-22T09:34:13.721Z
 sources:
-  - id: openwiki-source-6fcb9c04f4cce3d5903918b8
-    resource: repo://src/hyperalpha_vla/benchmark.py
-  - id: openwiki-source-9fc6e0fb5b2328a7976ad9ac
-    resource: repo://src/hyperalpha_vla/pretrain.py
-  - id: openwiki-source-31edad8d83f56e3d979337ef
-    resource: repo://src/hyperalpha_vla/rl_trainer.py
-generated: { by: "antigravity", at: "2026-11-22T03:52:50.876Z" }
+  - id: openwiki-source-2bf347fffc83841c13ef1c8a
+    resource: repo://src/zerosteer/benchmark.py
+  - id: openwiki-source-5f55f7d097a8713e08e65f26
+    resource: repo://src/zerosteer/pretrain.py
+  - id: openwiki-source-4e2a900540178d0bcc0bc9be
+    resource: repo://src/zerosteer/rl_trainer.py
+generated: { by: "antigravity", at: "2026-11-22T09:34:13.721Z" }
 ---
 
 # Relational Pretraining, Trajectory RL & OOS Benchmark / 관계형 사전학습, 궤적 강화학습 및 OOS 벤치마크
 
-`hyperalpha-vla` organizes training and evaluation into three decoupled stages: (1) open **Future-Label-Free relational pretraining**, (2) **per-user Trajectory RL Policy Head compilation**, and (3) **temporal ensembling & out-of-sample (OOS) validation**.
+`zerosteer` organizes training and evaluation into three decoupled stages: (1) open **Future-Label-Free relational pretraining**, (2) **per-user Trajectory RL Policy Head compilation**, and (3) **temporal ensembling & out-of-sample (OOS) validation**.
 
-`hyperalpha-vla`는 ① 공개용 Future-Label-Free 관계형 백본 사전학습, ② 사용자 개별 목적함수 기반 Policy Head 컴파일(`Trajectory RL`), ③ 시간축 앙상블 및 OOS 성능 검증의 3단계 워크플로우를 제공합니다.
+`zerosteer`는 ① 공개용 Future-Label-Free 관계형 백본 사전학습, ② 사용자 개별 목적함수 기반 Policy Head 컴파일(`Trajectory RL`), ③ 시간축 앙상블 및 OOS 성능 검증의 3단계 워크플로우를 제공합니다.
 
 ---
 
 ## 1. Future-Label-Free Relational Pretraining (`pretrain.py`) / 관계형 사전학습
 
-`CrossAssetMaskedRelationalPretrainer` ([`pretrain.py`](../../src/hyperalpha_vla/pretrain.py)) learns **only cross-asset structural relationships at the same timestamp $t$**, keeping future returns and volatility strictly excluded:
+`CrossAssetMaskedRelationalPretrainer` ([`pretrain.py`](../../src/zerosteer/pretrain.py)) learns **only cross-asset structural relationships at the same timestamp $t$**, keeping future returns and volatility strictly excluded:
 
 `CrossAssetMaskedRelationalPretrainer`는 자본시장법 리스크를 차단하기 위해 오직 **동일 시점 $t$ 내 자산 관계 구조**만 학습합니다.
 
@@ -44,7 +45,7 @@ generated: { by: "antigravity", at: "2026-11-22T03:52:50.876Z" }
 
 ## 2. Differentiable Trajectory RL Loss & Compiler (`rl_trainer.py`) / 궤적 강화학습 손실 및 컴파일러
 
-[`rl_trainer.py`](../../src/hyperalpha_vla/rl_trainer.py) computes differentiable trajectory policy updates:
+[`rl_trainer.py`](../../src/zerosteer/rl_trainer.py) computes differentiable trajectory policy updates:
 
 ```mermaid
 flowchart TD
@@ -67,10 +68,10 @@ flowchart TD
 
 ## 3. Temporal Ensembling & OOS Benchmarking (`model.py`, `benchmark.py`) / 시간축 앙상블 및 OOS 벤치마크
 
-* **Receding-Horizon Temporal Ensemble (`HyperAlphaVLA.blend_temporal_ensemble`) / 시간축 앙상블**: Blends overlapping historical action trajectories `traj[:, lag_m, :]` with exponential decay $\beta^m$ and simplex normalization ([`model.py`](../../src/hyperalpha_vla/model.py)). (과거 중첩 궤적을 지수 감쇠 가중치로 결합해 휩소를 억제합니다.)
-* **OOS Comparison (`run_oos_comparison`) / OOS 비교 벤치마크**: Evaluates identical policy weights under `is_blackout=True` (OHLCV only) versus `z_mm` multimodal injection, computing `OOSBenchmarkReport` across return, annualized Sharpe/Sortino, MDD, and 15% tail CVaR ([`benchmark.py`](../../src/hyperalpha_vla/benchmark.py)). (OHLCV 단독 모드와 `z_mm` 주입 모드의 샤프·소르티노·MDD·CVaR 격차를 산출합니다.)
+* **Receding-Horizon Temporal Ensemble (`ZeroSteer.blend_temporal_ensemble`) / 시간축 앙상블**: Blends overlapping historical action trajectories `traj[:, lag_m, :]` with exponential decay $\beta^m$ and simplex normalization ([`model.py`](../../src/zerosteer/model.py)). (과거 중첩 궤적을 지수 감쇠 가중치로 결합해 휩소를 억제합니다.)
+* **OOS Comparison (`run_oos_comparison`) / OOS 비교 벤치마크**: Evaluates identical policy weights under `is_blackout=True` (OHLCV only) versus `z_mm` multimodal injection, computing `OOSBenchmarkReport` across return, annualized Sharpe/Sortino, MDD, and 15% tail CVaR ([`benchmark.py`](../../src/zerosteer/benchmark.py)). (OHLCV 단독 모드와 `z_mm` 주입 모드의 샤프·소르티노·MDD·CVaR 격차를 산출합니다.)
 
 ## Related Documentation / 관련 문서
 
-* [Model B Relational Backbone, Adapters & Action Chunking / 모델 구조 및 어댑터](../architecture/backbone-and-adapters.md)
-* [hyperalpha-vla Quickstart & Business Overview / 빠른 시작 및 비즈니스 개요](../quickstart.md)
+* [ZeroSteer Relational Backbone, Adapters & Action Chunking / ZeroSteer 관계형 백본 및 어댑터](../architecture/backbone-and-adapters.md)
+* [zerosteer Quickstart & Business Overview / 빠른 시작 및 비즈니스 개요](../quickstart.md)

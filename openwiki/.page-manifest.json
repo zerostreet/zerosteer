@@ -2,25 +2,25 @@
   "schemaVersion": 1,
   "pages": {
     "/openwiki/architecture/backbone-and-adapters.md": {
-      "gitHead": "d6f1156922fb99dc6980e429e264dab008cb5cb6",
-      "sourceFingerprint": "sha256:fcfa9fa89a7ea6d19be2fe840f0d6388357f3dd8fe4ca9dfeb6f306258bb7984",
-      "pageVersion": "sha256:76e0586c46bbd4a5aaaf47afa66fa4a2ef6f2ba3841a495c3fa60d32e484c82b",
+      "pageVersion": "sha256:b5de785527931cfe7003df76506fa53c9e27becd37d9a2fd3b4a73b6898cc68c",
       "completedBy": "antigravity",
-      "completedRunId": "1dde38f5-2544-4027-a1e3-241f7fca4ff5"
+      "completedRunId": "f2b2849b-134f-4d83-ad07-e0daaa03d627",
+      "gitHead": "0d30389857313d4b6d10563d2475ad65d171ab74",
+      "sourceFingerprint": "sha256:482810fc9b68a62857dfbab1545346c6304d197e5c796d88c1eb715abda29820"
     },
     "/openwiki/quickstart.md": {
-      "pageVersion": "sha256:b1ff01913f80f187adaa4b57da2aa744bd4af31e6289130bb34dd5822a962ace",
+      "pageVersion": "sha256:044eee649e1aa98a7e82f85d402ce2420aa2630414af7e1baafb422c937d2713",
       "completedBy": "antigravity",
-      "completedRunId": "92a6dddc-535a-4544-a921-766470567832",
-      "gitHead": "6119046299435e66f69429a996fefe17d398a187",
-      "sourceFingerprint": "sha256:e7cdeeda2bf251f49fca5e6aaf32e2db50db6cea7615f4a6bc28a7000f946dfe"
+      "completedRunId": "f2b2849b-134f-4d83-ad07-e0daaa03d627",
+      "gitHead": "0d30389857313d4b6d10563d2475ad65d171ab74",
+      "sourceFingerprint": "sha256:482810fc9b68a62857dfbab1545346c6304d197e5c796d88c1eb715abda29820"
     },
     "/openwiki/workflows/pretrain-and-trajectory-rl.md": {
-      "gitHead": "d6f1156922fb99dc6980e429e264dab008cb5cb6",
-      "sourceFingerprint": "sha256:fcfa9fa89a7ea6d19be2fe840f0d6388357f3dd8fe4ca9dfeb6f306258bb7984",
-      "pageVersion": "sha256:1f6b61653c40d7e49952ccb4e2252e380f4b809bc2503eaeef21bcb78523df87",
+      "pageVersion": "sha256:d14cc165f814a6a0e526e360503553e25798411b1040b0d81889bdd4ee7d1244",
       "completedBy": "antigravity",
-      "completedRunId": "1dde38f5-2544-4027-a1e3-241f7fca4ff5"
+      "completedRunId": "f2b2849b-134f-4d83-ad07-e0daaa03d627",
+      "gitHead": "0d30389857313d4b6d10563d2475ad65d171ab74",
+      "sourceFingerprint": "sha256:482810fc9b68a62857dfbab1545346c6304d197e5c796d88c1eb715abda29820"
     }
   }
 }

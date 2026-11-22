@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:1f6b61653c40d7e49952ccb4e2252e380f4b809bc2503eaeef21bcb78523df87",
+  "pageVersion": "sha256:d14cc165f814a6a0e526e360503553e25798411b1040b0d81889bdd4ee7d1244",
   "claims": [
     {
       "id": "claim_246371c7cb684924bf006ba80e778612",
       "statement": "CrossAssetMaskedRelationalPretrainer randomly masks same-timestamp observation tokens and reconstructs them without future return or risk labels (Future-Label-Free).",
       "evidence": [
         {
-          "resource": "repo://src/hyperalpha_vla/pretrain.py#L16-L112",
-          "version": "repo-lines-v1:sha256:8d5fdfab24c00ace60fa4725e587e04b0f0718705e342c2729f3376f9099cf25:eyJzZWxlY3RlZExpbmVDb3VudCI6OTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxN2QyZmQxNGExNmYyNzE1YTYxMTRhYzkyMGJiZWNjNDk4Y2I0NjcxNmIzNGI1OGY2YTg4NTBhZDRhODgwMDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0ZDlmYTc1YmU4NjAyOGZlZTdmNzRkZGRiYzI4N2FmMTJlNTcwZTRkMTM5NTY1ZTdkN2UzZTkzNDdhNDcxOTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNkMTAxN2Q4YzI3NGViZjdjZjZlNTkxYzI0NzQ4NTllOGE3NDI5MmVhMTVlMmUzNTI1ZDk3YzBjMWM0NDczNjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://src/zerosteer/pretrain.py#L16-L112",
+          "version": "repo-lines-v1:sha256:77743f1321c5cb341b3b6b139ad1cf6adca2e6c30574d0620aa59ac11434c487:eyJzZWxlY3RlZExpbmVDb3VudCI6OTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxN2QyZmQxNGExNmYyNzE1YTYxMTRhYzkyMGJiZWNjNDk4Y2I0NjcxNmIzNGI1OGY2YTg4NTBhZDRhODgwMDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0ZDlmYTc1YmU4NjAyOGZlZTdmNzRkZGRiYzI4N2FmMTJlNTcwZTRkMTM5NTY1ZTdkN2UzZTkzNDdhNDcxOTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjNGIxNGJmZTE2NjcxMzdlNzZiMGYxYTYxN2JlYTVlNmQ5MmFhNTUzYTIyODc0MDUyNTdmN2E2MWViZTI5Y2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     },
@@ -17,8 +17,8 @@
       "statement": "TrajectoryRLLoss combines drifted post-return weights, L1/L2 transaction costs, Dense-Sparse STE, tanh_asinh normalization, rms_softclip advantage shaping, and trust-region L1 penalties.",
       "evidence": [
         {
-          "resource": "repo://src/hyperalpha_vla/rl_trainer.py#L20-L316",
-          "version": "repo-lines-v1:sha256:ef638b0464734c6f2bab7cb696e5941fb6cdf90febc1214f1d49388d4df37aae:eyJzZWxlY3RlZExpbmVDb3VudCI6Mjk3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1OTE5N2MxYjgzOGU4YWI0MGNiNzlhMjE4ZjQ3ODQ2ZDUyNDM2YWFiNjQzYTQyN2I5MWM0ODkxMGYwNzc2MzAxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlODIxNGY4MTUwMDcyN2FkZWQxMjRkZmYxZWJjNDM0ZDVmZGE0Njk3ZGViODllMjcyMzAxN2UzMGYyYzYyYjljIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJmYTRlMWMyZDI5YWVjNmUyYmMxZmRmMmZjOTk5N2JmOTM3OTQ4ODg5YzI2YTY3MDc3M2I0YzNlMjMyMGUyZGFjIn0"
+          "resource": "repo://src/zerosteer/rl_trainer.py#L20-L316",
+          "version": "repo-lines-v1:sha256:452c10796db7969de6f7265fdf5f7f4ff976c901f2d0de59c4b3e57be80d7096:eyJzZWxlY3RlZExpbmVDb3VudCI6Mjk3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1OTE5N2MxYjgzOGU4YWI0MGNiNzlhMjE4ZjQ3ODQ2ZDUyNDM2YWFiNjQzYTQyN2I5MWM0ODkxMGYwNzc2MzAxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJmYjgzMjBmMWZlMThjYTUzYzc5MDg5MWE5NGQ2MmJlZWZmN2Q2ZWRjZmE2OWI0ZmY1MDE2OTljYjUwNGU2NTc3IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJmYTRlMWMyZDI5YWVjNmUyYmMxZmRmMmZjOTk5N2JmOTM3OTQ4ODg5YzI2YTY3MDc3M2I0YzNlMjMyMGUyZGFjIn0"
         }
       ]
     },
@@ -27,18 +27,18 @@
       "statement": "DifferentiableTrajectoryRLTrainer raises ValueError when user_config is None, compiles policy_head with freeze_backbone default and returns checkpoint SHA-256, while run_oos_comparison compares OHLCV blackout vs multimodal performance.",
       "evidence": [
         {
-          "resource": "repo://src/hyperalpha_vla/benchmark.py#L78-L121",
-          "version": "repo-lines-v1:sha256:db14f3e3cae3fa17f0c811b32a226775500d6d2c5b6fffe48aaa4128c316c11e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxYTU0ZTdiOTU1NTJhOTgwMjYwOTVmM2FkMTZjNTAzZTM5ZjI4M2VjZDc2M2M3NDNlYzZkZGUzMzRiMDg2ZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwYzFmMTg4ZjE0MmVkN2E4MjQ2ODBiMjA3MTcyYzU1MTliYzYxNGE0OGZkYTdjZjE2N2VkYjhkZGY3OTk1NmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI5YjJhNzFjMGVjOWQ4YzA5ZDA4MWE3OWEyM2I5ZTg3YjY1ZjQ2NmE0Y2E3N2I3ZTM3MTMzMjg4YjMwODQ2NmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://src/zerosteer/benchmark.py#L78-L121",
+          "version": "repo-lines-v1:sha256:5f8d08444d72bc087a80847a047041196d41776790b365eb4ad3dae6664dff50:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxYTU0ZTdiOTU1NTJhOTgwMjYwOTVmM2FkMTZjNTAzZTM5ZjI4M2VjZDc2M2M3NDNlYzZkZGUzMzRiMDg2ZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwYzFmMTg4ZjE0MmVkN2E4MjQ2ODBiMjA3MTcyYzU1MTliYzYxNGE0OGZkYTdjZjE2N2VkYjhkZGY3OTk1NmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI5YjJhNzFjMGVjOWQ4YzA5ZDA4MWE3OWEyM2I5ZTg3YjY1ZjQ2NmE0Y2E3N2I3ZTM3MTMzMjg4YjMwODQ2NmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
-          "resource": "repo://src/hyperalpha_vla/rl_trainer.py#L318-L446",
-          "version": "repo-lines-v1:sha256:13f5ec0fc70fa392865117030a9c8362aa404531ea1361f0523b16437d37c236:eyJzZWxlY3RlZExpbmVDb3VudCI6MTI5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJiYTg1MTBkN2EyY2ZiYTdhODMxODQ2NjY4MWEyNjVmZWYyNWNkOTI4MWU4N2EwY2FhNWU5YjM1ZTIxZTI2MTA3IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJlNmIwNDQ5MTQ2OTcyMmU4MzYzYTk0ZTQwNDQ1MzhlMDEzYTJhMjE3ZTM2YjFlNTY4YmE2MGFjYjdiNGM4ZjJlIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwZjhjZjZlNjIwYzA4NmQwMzEyMmMyMTU4ZDE2Njg2ZDJiM2MwZGRhN2I2NWQ3ZDI3OGI1ZDVhZThhNjAzMTJiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+          "resource": "repo://src/zerosteer/rl_trainer.py#L318-L446",
+          "version": "repo-lines-v1:sha256:802b792ca666d6a5cc23b7c386af665123d054accac88eed9debac4aeb70a6f1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTI5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJiYTg1MTBkN2EyY2ZiYTdhODMxODQ2NjY4MWEyNjVmZWYyNWNkOTI4MWU4N2EwY2FhNWU5YjM1ZTIxZTI2MTA3IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJlNmIwNDQ5MTQ2OTcyMmU4MzYzYTk0ZTQwNDQ1MzhlMDEzYTJhMjE3ZTM2YjFlNTY4YmE2MGFjYjdiNGM4ZjJlIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwZjhjZjZlNjIwYzA4NmQwMzEyMmMyMTU4ZDE2Njg2ZDJiM2MwZGRhN2I2NWQ3ZDI3OGI1ZDVhZThhNjAzMTJiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-22T03:52:50.876Z"
+    "at": "2026-11-22T09:34:13.721Z"
   }
 }

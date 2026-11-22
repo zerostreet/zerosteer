@@ -1,52 +1,52 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:76e0586c46bbd4a5aaaf47afa66fa4a2ef6f2ba3841a495c3fa60d32e484c82b",
+  "pageVersion": "sha256:b5de785527931cfe7003df76506fa53c9e27becd37d9a2fd3b4a73b6898cc68c",
   "claims": [
     {
       "id": "claim_a8b52187684141d78b97cdf2078f3419",
       "statement": "DynamicEmbeddingAdapter and ObservationFusionLayer fuse variable-dimension z_mm (0/32/128/256d) with OHLCV encodings once per batch and inject learnable mask_signal_token for missing or blackout positions.",
       "evidence": [
         {
-          "resource": "repo://src/hyperalpha_vla/adapters.py#L119-L180",
+          "resource": "repo://src/zerosteer/adapters.py#L119-L180",
           "version": "repo-lines-v1:sha256:c712551f417522048c987fb8668ae1f568fc0fa4e1b80af1d70b57af3c1a1fbd:eyJzZWxlY3RlZExpbmVDb3VudCI6NjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwOTdhNWI0ODk4OTY2YWZjZTEwZTJiNjc3Nzc2MDM2NjAxZDNiODJlODdlNGQ3ZjIzNzM3ODM5NjQ4YTI1ZGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyNjU1Nzg4NzhlM2JlZGZjMDNiNzExNTZiYWVjZTdjODI4ZjBlZTBjNzNlNTMxZTY4MmNkMzFiZjI3NzUyYzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5OTQ3YzMzZmJkODIwNzM3YTcxZDk0ZDkwYTU3Y2ZiMWQ0NDcxNjA2MmUxMGJmZDAzNDJlNzVhZjNmOWU1NWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
-          "resource": "repo://src/hyperalpha_vla/adapters.py#L12-L85",
+          "resource": "repo://src/zerosteer/adapters.py#L12-L85",
           "version": "repo-lines-v1:sha256:4544d8555e8fdb97d039116fa637e5d2c4caad5d887f9e848988e152965026fa:eyJzZWxlY3RlZExpbmVDb3VudCI6NzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2MmZlOThiOTI2Y2IzZWFiNGUyNDc3Y2JmMjlkY2UwMGY0NjdjZjM3OTFkYTg3MzM3MTc3YzVmMjM4NjBiODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2NmY3ZGU4YmQ3NjJkNDg1NGZkZTgxNWM3YjNlOWQ1MzI2ZmEwMGZlOGRkYzc3YjhjMGI5ZjVmZWFlYmUyY2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJiYTMwMTRhY2JjMGU3ZDY2MGEyODk2MmZlZTI4YThlOTFlNTdjNjU4NDFkNmNhNDdiMmZkMjQ1ZDA0NDQwZWYifQ"
         }
       ]
     },
     {
       "id": "claim_dc5da9c070e64f028e75fb354485c6e1",
-      "statement": "HyperAlphaVLABackbone zero-initializes horizon_encodings.weight[0], anchors prev_weights strictly into the P_0 block, and uses build_horizon_attention_mask to prevent obs_embs from attending future portfolio blocks.",
+      "statement": "ZeroSteerBackbone zero-initializes horizon_encodings.weight[0], anchors prev_weights strictly into the P_0 block, and uses build_horizon_attention_mask to prevent obs_embs from attending future portfolio blocks.",
       "evidence": [
         {
-          "resource": "repo://src/hyperalpha_vla/model.py#L34-L77",
-          "version": "repo-lines-v1:sha256:03c1bec1c4c8ce18cb24a805b8b3f3eb32c00a6eb8f6d9596230a18cc3cc7ef0:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZjNTI1MjIwNGJlYTQwYmY3YmM3MzIzZDUzMWI5YmIyNmZmZmI0YWYwY2EzYWVlODdlNTNkY2NjYmFlMDNkOTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU1Y2NjMTc4NzMzYzFhMDFmOGE0Y2QwYTZiYmZkODhhOTIxZWUyZjYwOGI3Nzk4ZmZjZjMyNDJkNTIwNTQ0YTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ4ZmZiZmM5YzdjODNhZTY0MjdlODQzN2Y4ODhjOWZjOTQ4ODQ3Y2RhN2IzOTM4MWUwNTE5NWM3Mzc4MWQ0NjgifQ"
+          "resource": "repo://src/zerosteer/model.py#L34-L77",
+          "version": "repo-lines-v1:sha256:03c1bec1c4c8ce18cb24a805b8b3f3eb32c00a6eb8f6d9596230a18cc3cc7ef0:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZjNTI1MjIwNGJlYTQwYmY3YmM3MzIzZDUzMWI5YmIyNmZmZmI0YWYwY2EzYWVlODdlNTNkY2NjYmFlMDNkOTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU1Y2NjMTc4NzMzYzFhMDFmOGE0Y2QwYTZiYmZkODhhOTIxZWUyZjYwOGI3Nzk4ZmZjZjMyNDJkNTIwNTQ0YTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg3YWVhZjUyZTM0OTI0MjdmMmM1MGY0NDYzOTk0YzQ3ZmIyNWQyYWQyNzAzZTZkNGE1NjY5MzE3MjE4OGNiMmEifQ"
         },
         {
-          "resource": "repo://src/hyperalpha_vla/model.py#L79-L211",
-          "version": "repo-lines-v1:sha256:56d7d565ace705acd346ef96c9eb342b65cd4e340707c2ab321ebe7a44000308:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjMjMyMjFlZDM0ZWVhMmIwOGEzYmU2MjA5MDJjZjI0YjJkODY1ZjkzMjE2NzhlYWY3ZDY0ZDhiZTA0ZDYyY2Y3IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJmNjFkMWMwNTA1ZjhmOTJmNzllYTMxMzEzMDk1NWNjOGNhZmE4ZTNiODliNWZlMzAyYmMxODc5ZDczOTFjZDk0IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJmZWYxOTBiNGRmNWEyYjkzYThhYTJhYWUzOGM2OTZiYTliYjUzNjY3YjM5YmYxODM2ZmNmZjM1NGU3YmQ3NzlkIn0"
+          "resource": "repo://src/zerosteer/model.py#L79-L211",
+          "version": "repo-lines-v1:sha256:53e193c049cdc34b41c33470360024b1d04790d1771c92acb52f38b1242c6ffd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJkM2UwM2MwZmI0MjliZGJlZjRkMjU0Y2JmMzJiMmFkYjZlNDM4NmRmYzM4MDhkY2Q0ZTM3MjY4MDUwYmM1NWFlIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJmNjFkMWMwNTA1ZjhmOTJmNzllYTMxMzEzMDk1NWNjOGNhZmE4ZTNiODliNWZlMzAyYmMxODc5ZDczOTFjZDk0IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJmZWYxOTBiNGRmNWEyYjkzYThhYTJhYWUzOGM2OTZiYTliYjUzNjY3YjM5YmYxODM2ZmNmZjM1NGU3YmQ3NzlkIn0"
         }
       ]
     },
     {
       "id": "claim_3b968d82e47b44cfa2ad63bb07bc9e1a",
-      "statement": "HyperAlphaVLA immediately raises ValueError when user_config is None to guarantee zero company-trained policy weights, and WeightAllocatorHead applies valid_mask before outputting Entmax15, Sparsemax, or Softmax simplex trajectories.",
+      "statement": "ZeroSteer immediately raises ValueError when user_config is None to guarantee zero company-trained policy weights, and WeightAllocatorHead applies valid_mask before outputting Entmax15, Sparsemax, or Softmax simplex trajectories.",
       "evidence": [
         {
-          "resource": "repo://src/hyperalpha_vla/activations.py#L14-L179",
+          "resource": "repo://src/zerosteer/activations.py#L14-L179",
           "version": "repo-lines-v1:sha256:e272d7585dfbe30c429531198955666886e48808e053e719267199d164acc290:eyJzZWxlY3RlZExpbmVDb3VudCI6MTY2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIwYzIyZDkzNjExMGFhZmZmNTM2Yzc1MzMwZWQ3MGEwZTdhMzAxYWQyNTE3ZGQ4NjdmMDIyNzg5ZTgwZDVlYzI0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJhYWM3NDMzNjlhNGU0MjQwNzFlY2I2MDAxOTZhNzM0ZGQ2Y2M0N2I2NWQ0ZGVmOTdkYTAxMTI3ODE2NTMyMWNmIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwNjZmN2RlOGJkNzYyZDQ4NTRmZGU4MTVjN2IzZTlkNTMyNmZhMDBmZThkZGM3N2I4YzBiOWY1ZmVhZWJlMmNkIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
         },
         {
-          "resource": "repo://src/hyperalpha_vla/model.py#L213-L339",
-          "version": "repo-lines-v1:sha256:76812f720b8969b2425872cc4a25fd87e8f9542dc95bdcb275a3119788e8b407:eyJzZWxlY3RlZExpbmVDb3VudCI6MTI3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI2Mjk4MDYzOTIyOWQ0MmMwOWEwZTAxMTY3M2JiM2VhYzFmZTc2NjgwNjBlZjA4N2JkNmU4NzI4NjA0YTMxZDNlIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwZmFmNjYxZTMxMDRjMGUwMjRmYzU2ODMzMjRhOGRiOTc4MjIwNmI3N2M2NGRiODY0ZTYwM2UzODM0YzA3MTdjIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlMWIyNmQ5MTA2Mjc2NDcwYjFlMGY1YWYzMGZiM2E5ZTRlNmFkNGZiODA5M2MzODE1MTRiZmRjYjgyOTBmZDYyIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+          "resource": "repo://src/zerosteer/model.py#L213-L339",
+          "version": "repo-lines-v1:sha256:f584793344086c5f78dcb7c94c8c6eaf3df8039bf0967598ad8e3817dc276832:eyJzZWxlY3RlZExpbmVDb3VudCI6MTI3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI2Mjk4MDYzOTIyOWQ0MmMwOWEwZTAxMTY3M2JiM2VhYzFmZTc2NjgwNjBlZjA4N2JkNmU4NzI4NjA0YTMxZDNlIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwZmFmNjYxZTMxMDRjMGUwMjRmYzU2ODMzMjRhOGRiOTc4MjIwNmI3N2M2NGRiODY0ZTYwM2UzODM0YzA3MTdjIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlMWIyNmQ5MTA2Mjc2NDcwYjFlMGY1YWYzMGZiM2E5ZTRlNmFkNGZiODA5M2MzODE1MTRiZmRjYjgyOTBmZDYyIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-22T03:52:50.876Z"
+    "at": "2026-11-22T09:34:13.721Z"
   }
 }
