@@ -1,7 +1,7 @@
 ---
 type: quickstart
 title: ZeroSteer Overview & Quickstart / ZeroSteer 개요 및 빠른 시작
-description: Introduces the ZeroSteer v2 open-core role, 0-byte policy weight boundary, SHA-256 checkpoint integrity, v2 public exports, config.example.yaml, and local/MPS verification. ZeroSteer v2의 오픈코어 비즈니스 역할, Policy Head 0바이트 경계, SHA-256 무결성 매니페스트, v2 공개 API 및 로컬/MPS 검증 방법을 안내합니다.
+description: Introduces the ZeroSteer v2 open-core role, intuitive visual guide link, 0-byte policy weight boundary, SHA-256 checkpoint integrity, v2 public exports, config.example.yaml, and local/MPS verification. ZeroSteer v2의 오픈코어 비즈니스 역할, 직관 도식 가이드 연결, Policy Head 0바이트 경계, SHA-256 무결성 매니페스트, v2 공개 API 및 로컬/MPS 검증 방법을 안내합니다.
 tags:
   - quickstart
   - zerosteer
@@ -12,7 +12,7 @@ tags:
   - zerolens
 verified:
   - by: openwiki/0.7.2
-    at: 2026-11-22T11:32:01.285Z
+    at: 2026-11-22T11:49:49.324Z
 sources:
   - id: openwiki-source-873af29a56ffef7d51f59cb6
     resource: repo://config.example.yaml
@@ -24,7 +24,7 @@ sources:
     resource: repo://src/zerosteer/config.py
   - id: openwiki-source-3b787a5e57595f705c524ac4
     resource: repo://tests/test_zerosteer_v2_architecture.py
-generated: { by: "antigravity", at: "2026-11-22T11:32:01.285Z" }
+generated: { by: "antigravity", at: "2026-11-22T11:49:49.324Z" }
 ---
 
 # ZeroSteer Overview & Quickstart / ZeroSteer 개요 및 빠른 시작
@@ -43,12 +43,15 @@ generated: { by: "antigravity", at: "2026-11-22T11:32:01.285Z" }
 * **규제 안전성 및 SHA-256 무결성 정책 분리**: `user_config=None`일 때 즉시 `ValueError`를 발생시켜 회사 기본 전략 배포를 차단하며, 고객 에이전트가 직접 컴파일·소유한 정책 헤드는 동위 `.manifest.json` SHA-256 검증으로 보호됩니다.
 * **AlphaSmith 유료 전환 퍼널**: 로컬 OHLCV 단독 모드(`is_blackout=True`)로 먼저 검증한 뒤 `run_oos_comparison()`으로 `ZeroLens` 텐서(`32d/128d/256d`) 결합 효과를 수치로 확인하고 유료 파운드리로 전환하도록 설계되었습니다.
 
+> **Start Here for Intuition / 직관적 이해 먼저 보기**: Read the [ZeroSteer v2 Intuitive Visual Guide / ZeroSteer v2 직관적 이해 및 도식 가이드](./guides/intuitive-visual-guide.md) for the autonomous-driving analogy, a step-by-step 4-asset example (`AAPL, MSFT, NVDA, CASH`), and 5 clear architecture diagrams. / 자율주행 비유, 4종목 실전 예시(`AAPL·MSFT·NVDA·CASH`), 5가지 핵심 도식으로 ZeroSteer v2를 한눈에 이해하려면 [ZeroSteer v2 직관적 이해 및 도식 가이드](./guides/intuitive-visual-guide.md)부터 읽어보세요.
+
 ---
 
 ## 1. Documentation Routing Map / 작업별 문서 라우팅 맵
 
 | Topic / 탐색 주제 | Document Path / 문서 경로 | Summary / 핵심 내용 |
 | :--- | :--- | :--- |
+| **Intuitive Visual Guide / 직관적 도식 가이드** | [ZeroSteer v2 Intuitive Visual Guide / ZeroSteer v2 직관적 이해 및 도식 가이드](./guides/intuitive-visual-guide.md) | Self-driving analogy, concrete `AAPL/MSFT/NVDA/CASH` data journey, inverted SDPA mask partition, why each v2 upgrade matters, and 3-phase lifecycle diagrams |
 | **Backbone & Adapters / 백본 및 어댑터** | [Backbone, Adapters & Policy Split](./architecture/backbone-and-adapters.md) | `TimeseriesEncoder` (RevIN + ModernTCN + Window-Stats FiLM), `FinancialCalendarEncoder`, `DynamicEmbeddingAdapter`, `QKNormMultiheadAttention`, `AuxLossFreeMoEGate`, MoE `WeightAllocatorHead`, SHA-256 `.manifest.json`, `ZeroSteerConfig.legacy_v1()` |
 | **Pretraining, Diagnostics & RL / 사전학습·진단·RL** | [Pretraining, SIGReg, Diagnostics & Trajectory RL](./workflows/pretrain-and-trajectory-rl.md) | `compute_sigreg_loss`, `CrossAssetMaskedRelationalPretrainer`, `compute_effective_rank`, `evaluate_backbone_representations`, `TrajectoryRLLoss` (step+trajectory blending), `DifferentiableTrajectoryRLTrainer`, `run_oos_comparison` |
 

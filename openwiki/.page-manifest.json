@@ -2,25 +2,32 @@
   "schemaVersion": 1,
   "pages": {
     "/openwiki/architecture/backbone-and-adapters.md": {
+      "gitHead": "e3e4f335b71021a932639ed6952af044088430f0",
+      "sourceFingerprint": "sha256:fd9f278b9df50e8d3a753d98a5b6920908a17bc871a9277e90a970b1bccb7bbb",
       "pageVersion": "sha256:8c1cb7502c85627547b14fec8432f45300ed9f96ceeb503bc1996e0295398a2c",
       "completedBy": "antigravity",
-      "completedRunId": "e8b5b0f4-cf2c-450a-8193-118c4c0ad49d",
-      "gitHead": "1f7a0dbee1b53111251f93411abdbaef784c2883",
-      "sourceFingerprint": "sha256:e69198efbf0a6279020c18dc2ce93ec2cb3170d786322927ebb470a76151ea99"
+      "completedRunId": "e8b5b0f4-cf2c-450a-8193-118c4c0ad49d"
+    },
+    "/openwiki/guides/intuitive-visual-guide.md": {
+      "pageVersion": "sha256:5698ecfee2eba788273661ff63f022c7dcece7d411384d90f3a2c3c51028f856",
+      "completedBy": "antigravity",
+      "completedRunId": "10930d0e-6556-4bbf-83ed-7b129ef69689",
+      "gitHead": "e3e4f335b71021a932639ed6952af044088430f0",
+      "sourceFingerprint": "sha256:fd9f278b9df50e8d3a753d98a5b6920908a17bc871a9277e90a970b1bccb7bbb"
     },
     "/openwiki/quickstart.md": {
-      "pageVersion": "sha256:63f4a8ae6006ea2e84ed7c9970500f59f460513ac0dbcdd450db2cead898bc12",
+      "pageVersion": "sha256:28e73163defb50ceb773ae5d80bd0ce33a193380d602e619a33e5c05a2457e0e",
       "completedBy": "antigravity",
-      "completedRunId": "e8b5b0f4-cf2c-450a-8193-118c4c0ad49d",
-      "gitHead": "1f7a0dbee1b53111251f93411abdbaef784c2883",
-      "sourceFingerprint": "sha256:e69198efbf0a6279020c18dc2ce93ec2cb3170d786322927ebb470a76151ea99"
+      "completedRunId": "10930d0e-6556-4bbf-83ed-7b129ef69689",
+      "gitHead": "e3e4f335b71021a932639ed6952af044088430f0",
+      "sourceFingerprint": "sha256:fd9f278b9df50e8d3a753d98a5b6920908a17bc871a9277e90a970b1bccb7bbb"
     },
     "/openwiki/workflows/pretrain-and-trajectory-rl.md": {
+      "gitHead": "e3e4f335b71021a932639ed6952af044088430f0",
+      "sourceFingerprint": "sha256:fd9f278b9df50e8d3a753d98a5b6920908a17bc871a9277e90a970b1bccb7bbb",
       "pageVersion": "sha256:39f1373a49c971af3258ee74bad2843c4c699679717b5ddfffddbb3c7d6c5fdf",
       "completedBy": "antigravity",
-      "completedRunId": "e8b5b0f4-cf2c-450a-8193-118c4c0ad49d",
-      "gitHead": "1f7a0dbee1b53111251f93411abdbaef784c2883",
-      "sourceFingerprint": "sha256:e69198efbf0a6279020c18dc2ce93ec2cb3170d786322927ebb470a76151ea99"
+      "completedRunId": "e8b5b0f4-cf2c-450a-8193-118c4c0ad49d"
     }
   }
 }
