@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "zerosteer"
-version = "0.1.0"
+version = "0.2.0"
 description = "ZeroSteer: Cross-Asset Relational Backbone, H=20 Action Chunking MoE, 1.5-Entmax & Differentiable Trajectory RL"
 readme = "README.md"
 license = { text = "MIT" }

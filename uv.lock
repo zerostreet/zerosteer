@@ -1040,7 +1040,7 @@ wheels = [
 
 [[package]]
 name = "zerosteer"
-version = "0.1.0"
+version = "0.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "loguru" },
@@ -1076,7 +1076,7 @@ dev = [
 
 [[package]]
 name = "zerostreet-schema"
-version = "0.1.0"
+version = "0.2.0"
 source = { editable = "../zerostreet-schema" }
 dependencies = [
     { name = "loguru" },

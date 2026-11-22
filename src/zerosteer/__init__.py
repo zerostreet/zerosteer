@@ -42,7 +42,7 @@ from zerosteer.moe import (
 from zerosteer.pretrain import CrossAssetMaskedRelationalPretrainer, compute_sigreg_loss
 from zerosteer.rl_trainer import DifferentiableTrajectoryRLTrainer, TrajectoryRLLoss
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     "AuxLossFreeMoEGate",
