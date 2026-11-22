@@ -1,11 +1,17 @@
 ---
 type: quickstart
-title: hyperalpha-vla 빠른 시작 및 아키텍처 맵
-description: Model B(HyperAlpha-VLA)의 Policy Head 0바이트 분리 경계, config.example.yaml 문법 예시, 설치·검증 방법 및 문서 라우팅 맵을 제공합니다.
-tags: [quickstart, hyperalpha-vla, model-b, pytorch, compliance]
+title: hyperalpha-vla Quickstart & Business Overview / hyperalpha-vla 빠른 시작 및 비즈니스 개요
+description: Introduces the Model B open-core role, 0-byte policy weight boundary, config.example.yaml, validation commands, and OpenWiki map. Model B의 비즈니스 역할, Policy Head 0바이트 경계, config.example.yaml 예시, 검증 방법 및 문서 맵을 제공합니다.
+tags:
+  - quickstart
+  - hyperalpha-vla
+  - model-b
+  - pytorch
+  - compliance
+  - business-context
 verified:
   - by: openwiki/0.7.2
-    at: 2026-11-21T17:10:03.172Z
+    at: 2026-11-22T03:52:50.876Z
 sources:
   - id: openwiki-source-873af29a56ffef7d51f59cb6
     resource: repo://config.example.yaml
@@ -15,34 +21,52 @@ sources:
     resource: repo://src/hyperalpha_vla/__init__.py
   - id: openwiki-source-6ae6f72eecc22448f38ce845
     resource: repo://src/hyperalpha_vla/config.py
-generated: { by: "antigravity", at: "2026-11-21T17:10:03.172Z" }
+generated: { by: "antigravity", at: "2026-11-22T03:52:50.876Z" }
 ---
 
-# hyperalpha-vla 빠른 시작 및 아키텍처 맵
+# hyperalpha-vla Quickstart & Business Overview / 빠른 시작 및 비즈니스 개요
 
-`hyperalpha-vla` (`v0.1.0`, MIT)는 ZeroStreet 생태계의 오픈소스 **Model B(Cross-Asset 관계형 포트폴리오 신경망 및 궤적 강화학습 프레임워크)**입니다. 자본시장법상 무인가 투자자문·일임업을 원천 회피하기 위해, 공개 모델에는 **Future-Label-Free 관계형 백본(`HyperAlphaVLABackbone`)만 포함**하고 종목별 비중 할당기(`WeightAllocatorHead`)는 반드시 사용자 에이전트가 직접 컴파일하도록 격리합니다.
+`hyperalpha-vla` (`v0.1.0`, MIT) is the open-source **Model B (Cross-Asset Relational Portfolio Network & Trajectory RL Framework)** in the ZeroStreet ecosystem. To comply strictly with investment-advisory laws, public artifacts contain **only the Future-Label-Free relational backbone (`HyperAlphaVLABackbone`)** while customer agents compile and own individualized `WeightAllocatorHead` weights.
+
+`hyperalpha-vla` (`v0.1.0`, MIT)는 ZeroStreet 생태계의 오픈소스 **Model B(Cross-Asset 관계형 포트폴리오 신경망 및 궤적 강화학습 프레임워크)**로, 공개 범위에는 순수 관계형 백본만 포함하고 종목별 정책 헤드는 반드시 사용자 에이전트가 직접 컴파일하도록 분리합니다.
 
 ---
 
-## 1. 작업별 문서 라우팅 맵
+## Business Role & Value Proposition / 비즈니스 역할 및 가치
 
-| 탐색 주제 | 문서 경로 | 핵심 내용 |
+### English
+
+* **Open-Core Trust Magnet (`Model B`)**: Publishes ZeroStreet's core relational MoE Transformer, dynamic multimodal adapters, sparse `1.5-Entmax` / `Sparsemax` projections, and differentiable Trajectory RL compiler openly under MIT ([`README.md`](../README.md)).
+* **Zero Advisory Risk & 0 Bytes of Policy Weights**: Calling `HyperAlphaVLA` or `DifferentiableTrajectoryRLTrainer` without explicit `user_config` raises `ValueError` immediately.
+* **Commercial Funnel to AlphaSmith & zerostreet-models**: Runs standalone in local OHLCV blackout mode (`is_blackout=True`), while `run_oos_comparison()` proves the performance lift of injecting paid `Model A` `z_mm` embeddings (`32d/128d/256d`) and compiling user checkpoints via AlphaSmith Serverless Foundry.
+
+### 한국어
+
+* **오픈코어 신뢰 확보(Trust Magnet) 엔진**: 관계형 MoE 트랜스포머, 동적 어댑터, 희소 심플렉스 투영 및 미분 가능 궤적 RL 구조를 MIT 오픈소스로 공개해 개발자·에이전트의 신뢰와 채택을 극대화합니다.
+* **규제 안전성 및 정책 가중치 0바이트**: `user_config=None`일 때 즉시 `ValueError`를 발생시켜 회사 기본 전략 배포를 차단합니다.
+* **AlphaSmith 유료 전환 퍼널**: 로컬 OHLCV 단독 모드(`is_blackout=True`)로 먼저 검증한 뒤 `run_oos_comparison()`으로 `Model A` 텐서 결합 시 OOS 개선 효과를 수치로 확인하고 유료 파운드리로 전환하도록 설계되었습니다.
+
+---
+
+## 1. Documentation Routing Map / 작업별 문서 라우팅 맵
+
+| Topic / 탐색 주제 | Document Path / 문서 경로 | Summary / 핵심 내용 |
 | :--- | :--- | :--- |
-| **모델 구조 & 어댑터** | [Model B 관계형 백본, 어댑터 및 다기간 Action Chunking 아키텍처](architecture/backbone-and-adapters.md) | `DynamicEmbeddingAdapter(0/32/128/256d + blackout)`, `ObservationFusionLayer`, `MoETransformerBackbone`, 비대칭 마스크, `1.5-Entmax` |
-| **사전학습 & 궤적 RL** | [관계형 사전학습, 궤적 강화학습 컴파일 및 OOS 벤치마크](workflows/pretrain-and-trajectory-rl.md) | `CrossAssetMaskedRelationalPretrainer`, `TrajectoryRLLoss` (STE/드리프트/rms_softclip), `DifferentiableTrajectoryRLTrainer`, `run_oos_comparison` |
+| **Model & Adapters / 모델 구조 & 어댑터** | [Model B Relational Backbone, Adapters & Action Chunking](./architecture/backbone-and-adapters.md) | `DynamicEmbeddingAdapter(0/32/128/256d)`, `ObservationFusionLayer`, `MoETransformerBackbone`, asymmetric masks, `1.5-Entmax` |
+| **Pretraining & Trajectory RL / 사전학습 & 궤적 RL** | [Relational Pretraining, Trajectory RL & OOS Benchmark](./workflows/pretrain-and-trajectory-rl.md) | `CrossAssetMaskedRelationalPretrainer`, `TrajectoryRLLoss`, `DifferentiableTrajectoryRLTrainer`, `run_oos_comparison` |
 
 ---
 
-## 2. 법적 안전 경계 및 `config.example.yaml`
+## 2. Regulatory Boundary & `config.example.yaml` / 법적 안전 경계 및 설정 예시
 
-- **Policy Head 0바이트 원칙**: `HyperAlphaVLA`와 `DifferentiableTrajectoryRLTrainer`는 `user_config=None`일 때 즉시 `ValueError`를 발생시킵니다.
-- **문법 참고용 가상 예시**: `config.example.yaml`은 가상 심볼 `["ASSET_A", "ASSET_B", "ASSET_C", "CASH"]`와 예시 A(저회전·방어형) 및 예시 B(수익·변동성 균형형) 문법만 제공하며 코드 기본값으로 자동 로드되지 않습니다. `load_user_policy_config()`로 사용자 YAML을 명시적으로 검증해 주입해야 합니다.
+* **0-Byte Policy Weight Invariant / 정책 가중치 0바이트 원칙**: [`HyperAlphaVLA`](../src/hyperalpha_vla/model.py) and [`DifferentiableTrajectoryRLTrainer`](../src/hyperalpha_vla/rl_trainer.py) reject `user_config=None` at instantiation time.
+* **Illustrative Config Syntax / 문법 참고용 가상 예시**: [`config.example.yaml`](../config.example.yaml) illustrates synthetic tickers (`ASSET_A`, `ASSET_B`, `ASSET_C`, `CASH`) for two reward profiles and is never auto-loaded as defaults; users must explicitly validate YAML via `load_user_policy_config()` ([`config.py`](../src/hyperalpha_vla/config.py)).
 
 ---
 
-## 3. 설치 및 로컬 검증 절차
+## 3. Installation & Local Verification / 설치 및 로컬 검증 절차
 
-`pyproject.toml`은 `[tool.uv.sources]`를 통해 `../zerostreet-schema`를 editable 로컬 패키지로 연결하며, `torch`, `numpy`, `pydantic`, `pyyaml`, `loguru`에 의존합니다.
+[`pyproject.toml`](../pyproject.toml) links `../zerostreet-schema` via `[tool.uv.sources]` alongside `torch`, `numpy`, `pydantic`, `pyyaml`, and `loguru` ([`__init__.py`](../src/hyperalpha_vla/__init__.py)).
 
 ```bash
 uv sync --dev
