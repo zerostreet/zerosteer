@@ -1,38 +1,66 @@
-# zerosteer (`Public · MIT · Layer 1`)
+<div align="center">
 
-Open-source **ZeroSteer (v2)**: Cross-Asset Relational MoE Transformer backbone with Multi-Horizon Action Chunking (`H=20`), Zero-std-safe RevIN + ModernTCN multi-scale temporal encoder, harmonic `FinancialCalendarEncoder`, QK-Norm SDPA attention, DeepSeek-V3 Aux-Loss-Free MoE (`TopKMoELayer` + MoE `WeightAllocatorHead`), LeJEPA `compute_sigreg_loss`, SVD diagnostics, SHA-256 tamper-checked checkpoints, dynamic `ZeroLens` (`z_mm`) adapters (`0/32/128/256d`), and Differentiable Trajectory RL trainer.
+[![한국어](https://img.shields.io/badge/%ED%95%9C%EA%B5%AD%EC%96%B4-Active-111827?style=for-the-badge)](./README.md)
+[![English](https://img.shields.io/badge/English-Switch-e5e7eb?style=for-the-badge)](./README.en.md)
 
-오픈소스 **ZeroSteer (v2)**는 Zero-std 안전 RevIN + 다중 스케일 ModernTCN, 다주기 금융 캘린더 인코더, QK-Norm SDPA 어텐션, DeepSeek-V3 Aux-Loss-Free MoE(백본 및 할당기 헤드), LeJEPA SIGReg 정규화, SVD 표현 진단, SHA-256 무결성 매니페스트 및 미분 가능 궤적 RL 트레이너를 제공합니다.
+[🇰🇷 한국어](./README.md) · [🇺🇸 English](./README.en.md)
 
----
+</div>
 
-## Business Role & Value Proposition / 비즈니스 역할 및 가치
+# zerosteer (`v0.2.0`) — 내 컴퓨터에서 돌아가는 투자 정책 두뇌 (Layer 1 Policy Engine)
 
-### English
-
-* **Open-Core Trust Magnet & Hugging Face Distribution (`ZeroSteer`)**: Developers and quantitative agents can inspect every line of ZeroStreet's portfolio control architecture openly under MIT, including `TimeseriesEncoder`, `FinancialCalendarEncoder`, `ObservationFusionLayer`, `QKNormMultiheadAttention`, `AuxLossFreeMoEGate`, sparse `Entmax15`/`Sparsemax`, `compute_sigreg_loss`, `evaluate_backbone_representations`, and `CrossAssetMaskedRelationalPretrainer`.
-* **Zero Advisory Risk & 0 Bytes of Policy Weights**: `zerosteer` never ships company-trained stock-picking Policy Heads. Instantiating `ZeroSteer` or `DifferentiableTrajectoryRLTrainer` without an explicit `user_config` (`RLRewardWeights` + `target_universe`) raises `ValueError`. Both `ZeroSteerBackbone.save_backbone()` and `ZeroSteer.save_policy_head()` emit SHA-256 sibling `.manifest.json` files verified on load (`verify_sha256=True`).
-* **Seamless Upgrade Path to AlphaSmith & ZeroLens**: Out-of-the-box `DynamicEmbeddingAdapter` runs in zero-external-signal OHLCV blackout mode (`is_blackout=True`) locally, while `run_oos_comparison()` lets teams benchmark how injecting paid `ZeroLens` `z_mm` multimodal embeddings (`32d/128d/256d`) improves out-of-sample Sharpe and drawdown—creating natural demand for `AlphaSmith` Serverless RL Foundry compilation.
-
-### 한국어
-
-* **오픈코어 신뢰 확보(Trust Magnet) 및 생태계 확산 엔진**: 개발자와 고객 에이전트가 ZeroStreet의 포트폴리오 제어 모델(`ZeroSteer v2`) 전체 구조—`TimeseriesEncoder`, `FinancialCalendarEncoder`, `ObservationFusionLayer`, `QKNormMultiheadAttention`, `AuxLossFreeMoEGate`, `compute_sigreg_loss`, `evaluate_backbone_representations`, `CrossAssetMaskedRelationalPretrainer`—를 MIT 오픈소스로 투명하게 검증하고 채택할 수 있습니다.
-* **규제 안전성 및 정책 가중치 0바이트 원칙**: 회사가 학습한 종목별 매수/매도 Policy Head 가중치를 0바이트도 포함하지 않으며, 사용자가 명시적 `user_config`를 주지 않으면 `ZeroSteer`와 트레이너 생성 자체를 차단(`ValueError`)합니다. 체크포인트 저장·로드 시 동위 SHA-256 매니페스트(`.manifest.json`)로 변조 여부를 검증합니다.
-* **AlphaSmith 유료 파운드리 업그레이드 퍼널**: 로컬 OHLCV 단독 모드(`is_blackout=True`)로 즉시 실행·검증해 본 뒤, `run_oos_comparison()`을 통해 비공개 `ZeroLens` 멀티모달 텐서(`32d/128d/256d`) 결합 시 성과 개선폭을 직접 측정하고 `AlphaSmith` Serverless Foundry 유료 구독으로 자연스럽게 전환하도록 유도합니다.
+> **수백 개 종목을 애매하게 조금씩 담지 않습니다.**  
+> `zerosteer`는 시장의 시세와 요약 정보(`z_mm`)를 읽어 내 투자 성향에 맞게 **핵심 종목만 또렷하게 고르고(1.5-Entmax), 향후 20거래일 행동 궤적을 함께 계획하는** 오픈소스(MIT) 포트폴리오 정책 엔진입니다.
 
 ---
 
-## Key Components / 핵심 모듈
+## 왜 `zerosteer`가 필요한가요?
 
-1. **Backbone & Policy Split (`model.py`, `moe.py`, `adapters.py`)**: `ZeroSteerBackbone`, `MoETransformerBackbone`, `QKNormMultiheadAttention`, `SwiGLUFeedForward`, `AuxLossFreeMoEGate`, `TimeseriesEncoder`, `FinancialCalendarEncoder`, `extract_calendar_features`, `DynamicEmbeddingAdapter`, `ObservationFusionLayer`, `WeightAllocatorHead`, `ZeroSteer`
-2. **Sparse Projections (`activations.py`)**: `Entmax15`, `Sparsemax`, `entmax15`, `sparsemax`
-3. **Future-Label-Free Pretraining, SIGReg & Trajectory RL (`pretrain.py`, `rl_trainer.py`)**: `compute_sigreg_loss`, `CrossAssetMaskedRelationalPretrainer`, `TrajectoryRLLoss`, `DifferentiableTrajectoryRLTrainer`
-4. **Representation Diagnostics, OOS Comparator & Config (`diagnostics.py`, `benchmark.py`, `config.py`)**: `compute_effective_rank`, `ZeroSteerDiagnosticReport`, `evaluate_backbone_representations`, `run_oos_comparison`, `compute_oos_metrics`, `ZeroSteerConfig` (`legacy_v1()`), `load_user_policy_config`
+기존 AI 투자 모델이나 퀀트 도구를 실제로 쓰다 보면 세 가지 큰 한계에 부딪힙니다.
 
-## Local Verification / 로컬 검증
+1. **전 종목에 소수점 비중을 흩뿌리는 '물타기 현상'**  
+   일반 `Softmax` 출력층은 확신이 없는 종목에도 무조건 0보다 큰 비중을 배정합니다. 결국 불필요한 종목까지 너무 많이 담겨 수수료만 늘고 핵심 수익 기회가 흐려집니다. `zerosteer`는 **`1.5-Entmax` / `Sparsemax`**를 써서 기준에 못 미치는 자산의 비중을 깔끔하게 **정확한 `0.0`**으로 비워 줍니다.
+2. **내일 당장의 가격 등락만 맞추다 보면 잦은 매매로 수수료가 수익을 갉아먹습니다.**  
+   `zerosteer`는 단발성 예측 대신 한 번에 **20거래일(`H=20`) 비중 경로**를 함께 계획하고, 거래비용·변동성·최대낙폭(MDD)을 직접 반영하는 미분 가능한 **궤적 강화학습(`TrajectoryRLLoss`)**으로 학습됩니다.
+3. **클라우드가 학습한 공통 시장 지식과 내 개인 투자 기준이 한 코드에서 분리되지 않으면 계좌 전략이 유출됩니다.**  
+   `zerosteer`는 종목 간 관계를 읽는 **공통 백본(`ZeroSteerBackbone`)**과 내 Risk 성향을 반영하는 **가벼운 개인 정책 헤드(`WeightAllocatorHead`)**를 분리해, 내 계좌 맞춤형 추론을 로컬 PC 안에서 안전하게 끝냅니다.
+
+---
+
+## v0.2.0 핵심 구조 한눈에 보기
+
+```mermaid
+flowchart LR
+    IN["일별 OHLCV · 캘린더 · ZeroLens z_mm"] --> AD["ObservationFusionLayer (RevIN-TCN · 금융캘린더 · 블랙아웃 융합)"]
+    AD --> BB["ZeroSteerBackbone (QK-Norm Attention + Aux-Loss-Free Top-K MoE)"]
+    BB -->|"특징 은닉 상태"| HD["WeightAllocatorHead (MoE 라우팅 + H=20 Action Chunking)"]
+    HD -->|"비중 희소화"| ACT["1.5-Entmax / Sparsemax (불필요 종목 정확히 0%)"]
+    BB -->|"SIGReg 무감독 사전학습"| PRE["CrossAssetMaskedRelationalPretrainer"]
+    HD -->|"거래비용 · 샤프 · MDD 보상"| RL["DifferentiableTrajectoryRLTrainer"]
+```
+
+### 주요 모듈 구성
+
+| 모듈 | 핵심 구성 요소 | 소비자 관점 역할 |
+| :--- | :--- | :--- |
+| [`model.py`](./src/zerosteer/model.py) | `ZeroSteerBackbone`, `WeightAllocatorHead`, `ZeroSteer`, `build_horizon_attention_mask` | 시장 관계 파악(Backbone)과 개인 비중 산출(Head)을 깔끔히 분리해 로컬 실행 지원 |
+| [`moe.py`](./src/zerosteer/moe.py) | `QKNormMultiheadAttention`, `SwiGLUFeedForward`, `AuxLossFreeMoEGate`, `MoETransformerBlock` | 시장 국면(상승·변동성·금리충격 등)마다 알맞은 전문가 레이어를 동적 선택 |
+| [`adapters.py`](./src/zerosteer/adapters.py) | `TimeseriesEncoder`, `FinancialCalendarEncoder`, `DynamicEmbeddingAdapter`, `ObservationFusionLayer` | 시세 변동성 정규화(RevIN)와 옵션만기·결산일 같은 금융 캘린더 신호를 결합 |
+| [`activations.py`](./src/zerosteer/activations.py) | `entmax15`, `sparsemax`, `Entmax15`, `Sparsemax` | 소수 핵심 종목에만 집중하고 나머지는 `0.0`으로 비우는 희소 비중 활성화 함수 |
+| [`pretrain.py`](./src/zerosteer/pretrain.py) | `compute_sigreg_loss`, `CrossAssetMaskedRelationalPretrainer` | 미래 수익률 정답지 없이 종목 간 동조·선행 관계와 표현 다양성 사전학습 |
+| [`rl_trainer.py`](./src/zerosteer/rl_trainer.py) | `TrajectoryRLLoss`, `DifferentiableTrajectoryRLTrainer` | 실제 거래비용과 낙폭 한도를 반영한 20일 궤적 강화학습 파인튜닝 |
+| [`diagnostics.py`](./src/zerosteer/diagnostics.py) · [`benchmark.py`](./src/zerosteer/benchmark.py) | `evaluate_backbone_representations`, `run_oos_comparison` | 표현 붕괴(Effective Rank) 및 아웃오브샘플(OOS) 실전 성과 진단 |
+
+---
+
+## 설치, 설정 및 검증
 
 ```bash
-uv sync --dev
+# 의존성 설치, 린트 및 전체 테스트(MPS 패리티 포함) 실행
+uv sync --extra dev
 uv run ruff check .
 uv run pytest -q
 ```
+
+- 설정 예시 파일: [`config.example.yaml`](./config.example.yaml)
+- 상세 가이드 및 도해: [OpenWiki 빠른 시작 (한국어)](./openwiki/quickstart.md) · [직관적 시각화 가이드](./openwiki/guides/intuitive-visual-guide.md) · [백본·어댑터 구조](./openwiki/architecture/backbone-and-adapters.md) · [사전학습·궤적 RL](./openwiki/workflows/pretrain-and-trajectory-rl.md)

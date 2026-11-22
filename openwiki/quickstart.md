@@ -1,18 +1,11 @@
 ---
 type: quickstart
-title: ZeroSteer Overview & Quickstart / ZeroSteer 개요 및 빠른 시작
-description: Introduces the ZeroSteer v2 open-core role, intuitive visual guide link, 0-byte policy weight boundary, SHA-256 checkpoint integrity, v2 public exports, config.example.yaml, and local/MPS verification. ZeroSteer v2의 오픈코어 비즈니스 역할, 직관 도식 가이드 연결, Policy Head 0바이트 경계, SHA-256 무결성 매니페스트, v2 공개 API 및 로컬/MPS 검증 방법을 안내합니다.
-tags:
-  - quickstart
-  - zerosteer
-  - zerosteer-v2
-  - pytorch
-  - compliance
-  - business-context
-  - zerolens
+title: zerosteer v0.2.0 개요 및 빠른 시작
+description: MIT 오픈소스 포트폴리오 정책 엔진 zerosteer v0.2.0의 소비자 가치(1.5-Entmax 집중 투자, H=20 행동 계획, 0바이트 정책 분리), 공개 API, SHA-256 검증 및 테스트 방법을 한국어로 안내합니다.
+tags: [quickstart, zerosteer, zerosteer-v2, pytorch, compliance, zerolens]
 verified:
   - by: openwiki/0.7.2
-    at: 2026-11-22T11:49:49.324Z
+    at: 2026-11-22T12:54:48.206Z
 sources:
   - id: openwiki-source-873af29a56ffef7d51f59cb6
     resource: repo://config.example.yaml
@@ -24,52 +17,56 @@ sources:
     resource: repo://src/zerosteer/config.py
   - id: openwiki-source-3b787a5e57595f705c524ac4
     resource: repo://tests/test_zerosteer_v2_architecture.py
-generated: { by: "antigravity", at: "2026-11-22T11:49:49.324Z" }
+generated: { by: "antigravity", at: "2026-11-22T12:54:48.206Z" }
 ---
 
-# ZeroSteer Overview & Quickstart / ZeroSteer 개요 및 빠른 시작
+# zerosteer v0.2.0 개요 및 빠른 시작
 
-## Business Role & Value Proposition / 비즈니스 역할 및 가치
+## 왜 이 프로젝트가 필요한가요? (비즈니스 역할 및 소비자 가치)
 
-### English
+`zerosteer`(`v0.2.0`, Public MIT)는 주식회사 제로스트리트(ZeroStreet Inc.)의 오픈소스 포트폴리오 제어 엔진입니다. 일반 투자자와 퀀트 개발자가 기존 자동매매 AI를 쓸 때 부딪히는 세 가지 답답함을 구조적으로 해결합니다.
 
-* **Open-Core Trust Magnet (`ZeroSteer v2`)**: `zerosteer` (`v0.1.0`, MIT) publishes ZeroStreet's Cross-Asset relational MoE Transformer backbone (`ZeroSteerBackbone`), zero-std RevIN + ModernTCN `TimeseriesEncoder`, 10d `FinancialCalendarEncoder`, `QKNormMultiheadAttention`, DeepSeek-V3 `AuxLossFreeMoEGate`, sparse `Entmax15`/`Sparsemax`, LeJEPA `compute_sigreg_loss`, SVD `evaluate_backbone_representations`, and Differentiable Trajectory RL compiler openly under MIT ([`README.md`](../README.md)) while holding **0 bytes** of vendor-trained stock-picking Policy Head weights.
-* **Zero Advisory Risk & Tamper-Checked Policy Split**: Calling `ZeroSteer` or `DifferentiableTrajectoryRLTrainer` without explicit `user_config` raises `ValueError` immediately; customer agents compile and own individualized MoE/MLP `WeightAllocatorHead` weights verified via SHA-256 sibling `.manifest.json` files.
-* **Commercial Funnel to AlphaSmith & ZeroLens**: Runs standalone in local OHLCV blackout mode (`is_blackout=True`), while `run_oos_comparison()` proves the performance lift of injecting paid `ZeroLens` `z_mm` embeddings (`32d/128d/256d`) and compiling user checkpoints via AlphaSmith Serverless Foundry.
+1. **수백 개 종목을 애매하게 쪼개 담는 물타기 방지 (`1.5-Entmax`)**: 일반 Softmax 모델은 확신 없는 종목에도 조금씩 비중을 배정해 수수료만 늘립니다. `zerosteer`는 `Entmax15`와 `Sparsemax`를 써서 기준에 못 미치는 자산의 비중을 깔끔하게 **정확한 `0.0`**으로 비워 줍니다.
+2. **내일 당장만 보는 단타 매매 대신 `20일` 경로 설계 (`Action Chunking H=20`)**: 한 번에 20거래일치 비중 경로를 함께 계획하고 직전 보유 비중(`prev_weights`)과 거래비용을 반영해 잦은 매매 손실을 줄입니다.
+3. **회사가 찍어주는 종목 추천 없이 내 PC에서 안전하게 실행**: [`ZeroSteer`](../src/zerosteer/model.py)와 [`DifferentiableTrajectoryRLTrainer`](../src/zerosteer/rl_trainer.py)는 회사가 미리 학습한 매매 가중치를 **0바이트**로 유지하며, 투자자 설정(`user_config=None`)이 없으면 즉시 `ValueError`를 발생시킵니다. 고객이 직접 컴파일한 정책 헤드는 동위 `.manifest.json`의 SHA-256 검증으로 보호받습니다.
 
-### 한국어
-
-* **오픈코어 신뢰 확보(Trust Magnet) 제어 엔진 (`ZeroSteer v2`)**: `zerosteer`(`v0.1.0`, MIT)는 RevIN+ModernTCN `TimeseriesEncoder`, 10차원 `FinancialCalendarEncoder`, `QKNormMultiheadAttention`, DeepSeek-V3 `AuxLossFreeMoEGate`, 희소 심플렉스 투영, LeJEPA `compute_sigreg_loss`, SVD 표현 진단 및 미분 가능 궤적 RL 컴파일러 전체를 MIT 오픈소스로 공개([`README.md`](../README.md))하면서도 회사 학습 종목 선정 가중치는 **0바이트**만 유지합니다.
-* **규제 안전성 및 SHA-256 무결성 정책 분리**: `user_config=None`일 때 즉시 `ValueError`를 발생시켜 회사 기본 전략 배포를 차단하며, 고객 에이전트가 직접 컴파일·소유한 정책 헤드는 동위 `.manifest.json` SHA-256 검증으로 보호됩니다.
-* **AlphaSmith 유료 전환 퍼널**: 로컬 OHLCV 단독 모드(`is_blackout=True`)로 먼저 검증한 뒤 `run_oos_comparison()`으로 `ZeroLens` 텐서(`32d/128d/256d`) 결합 효과를 수치로 확인하고 유료 파운드리로 전환하도록 설계되었습니다.
-
-> **Start Here for Intuition / 직관적 이해 먼저 보기**: Read the [ZeroSteer v2 Intuitive Visual Guide / ZeroSteer v2 직관적 이해 및 도식 가이드](./guides/intuitive-visual-guide.md) for the autonomous-driving analogy, a step-by-step 4-asset example (`AAPL, MSFT, NVDA, CASH`), and 5 clear architecture diagrams. / 자율주행 비유, 4종목 실전 예시(`AAPL·MSFT·NVDA·CASH`), 5가지 핵심 도식으로 ZeroSteer v2를 한눈에 이해하려면 [ZeroSteer v2 직관적 이해 및 도식 가이드](./guides/intuitive-visual-guide.md)부터 읽어보세요.
+> **그림으로 직관적으로 먼저 보고 싶다면**: 자율주행 비유, 4종목(`AAPL·MSFT·NVDA·CASH`) 데이터 흐름, 5가지 핵심 도해가 담긴 [ZeroSteer v2 직관적 이해 및 도식 가이드](./guides/intuitive-visual-guide.md)부터 읽어보세요.
 
 ---
 
-## 1. Documentation Routing Map / 작업별 문서 라우팅 맵
+## v0.2.0 핵심 파이프라인 한눈에 보기
 
-| Topic / 탐색 주제 | Document Path / 문서 경로 | Summary / 핵심 내용 |
+```mermaid
+flowchart LR
+    IN["OHLCV · 금융 캘린더 · 선택적 ZeroLens z_mm"] --> FUSE["ObservationFusionLayer (RevIN-TCN + 캘린더 + 블랙아웃 폴백)"]
+    FUSE --> BB["ZeroSteerBackbone (QK-Norm + Aux-Loss-Free MoE)"]
+    BB -->|"특징 상태"| HEAD["WeightAllocatorHead (H=20 Action Chunking)"]
+    HEAD -->|"희소 심플렉스"| WEIGHT["1.5-Entmax / Sparsemax 목표 비중 (불필요 자산 0.0)"]
+    HEAD -->|"로컬 vs 클라우드 비교"| BENCH["run_oos_comparison (OHLCV 단독 vs z_mm 효과 검증)"]
+```
+
+---
+
+## 세부 문서 라우팅 맵
+
+| 주제 | 문서 경로 | 핵심 내용 |
 | :--- | :--- | :--- |
-| **Intuitive Visual Guide / 직관적 도식 가이드** | [ZeroSteer v2 Intuitive Visual Guide / ZeroSteer v2 직관적 이해 및 도식 가이드](./guides/intuitive-visual-guide.md) | Self-driving analogy, concrete `AAPL/MSFT/NVDA/CASH` data journey, inverted SDPA mask partition, why each v2 upgrade matters, and 3-phase lifecycle diagrams |
-| **Backbone & Adapters / 백본 및 어댑터** | [Backbone, Adapters & Policy Split](./architecture/backbone-and-adapters.md) | `TimeseriesEncoder` (RevIN + ModernTCN + Window-Stats FiLM), `FinancialCalendarEncoder`, `DynamicEmbeddingAdapter`, `QKNormMultiheadAttention`, `AuxLossFreeMoEGate`, MoE `WeightAllocatorHead`, SHA-256 `.manifest.json`, `ZeroSteerConfig.legacy_v1()` |
-| **Pretraining, Diagnostics & RL / 사전학습·진단·RL** | [Pretraining, SIGReg, Diagnostics & Trajectory RL](./workflows/pretrain-and-trajectory-rl.md) | `compute_sigreg_loss`, `CrossAssetMaskedRelationalPretrainer`, `compute_effective_rank`, `evaluate_backbone_representations`, `TrajectoryRLLoss` (step+trajectory blending), `DifferentiableTrajectoryRLTrainer`, `run_oos_comparison` |
+| **직관적 이해 및 도식** | [ZeroSteer v2 직관적 이해 및 도식 가이드](./guides/intuitive-visual-guide.md) | 자율주행 비유, 4종목 여정, 미래 오염 차단 마스크, v2 도입 이유, 3단계 생명주기 도해 |
+| **백본 · 어댑터 · 분리** | [ZeroSteer v2 백본 · 어댑터 및 정책 분리 아키텍처](./architecture/backbone-and-adapters.md) | RevIN+ModernTCN, 10차원 `FinancialCalendarEncoder`, `QKNormMultiheadAttention`, `AuxLossFreeMoEGate`, MoE 헤드, SHA-256 |
+| **사전학습 · 진단 · RL** | [사전학습 · SIGReg · 표현 진단 및 궤적 RL 워크플로우](./workflows/pretrain-and-trajectory-rl.md) | `compute_sigreg_loss`, `CrossAssetMaskedRelationalPretrainer`, CPU `float64` SVD 진단, Step+Trajectory `TrajectoryRLLoss`, OOS 비교 |
 
 ---
 
-## 2. Regulatory Boundary, v2 Public API & `config.example.yaml` / 법적 안전 경계, v2 공개 API 및 설정 예시
+## v0.2.0 공개 API 및 YAML 예시 경계
 
-* **0-Byte Policy Weight Invariant / 정책 가중치 0바이트 원칙**: [`ZeroSteer`](../src/zerosteer/model.py) and [`DifferentiableTrajectoryRLTrainer`](../src/zerosteer/rl_trainer.py) reject `user_config=None` at instantiation time, and checkpoint loaders verify sibling `<stem>.manifest.json` SHA-256 digests when `verify_sha256=True`. (`ZeroSteer`와 트레이너는 `user_config=None`을 즉시 거부하며 체크포인트 로더는 동위 `.manifest.json` SHA-256 해시를 검증합니다.)
-* **Top-Level v2 Exports (`__init__.py`) / v2 최상위 공개 API**: [`__init__.py`](../src/zerosteer/__init__.py) exports `ZeroSteerConfig` (`legacy_v1()`), `QKNormMultiheadAttention`, `SwiGLUFeedForward`, `AuxLossFreeMoEGate`, `FinancialCalendarEncoder`, `extract_calendar_features`, `compute_sigreg_loss`, `compute_effective_rank`, `ZeroSteerDiagnosticReport`, and `evaluate_backbone_representations` alongside core v1 modules. (`__init__.py`는 기존 API와 함께 QK-Norm, SwiGLU, Aux-Loss-Free MoE, 캘린더 인코더, SIGReg 및 SVD 진단 도구를 모두 공개합니다.)
-* **Illustrative Config Syntax / 문법 참고용 가상 예시**: [`config.example.yaml`](../config.example.yaml) illustrates synthetic tickers (`ASSET_A`, `ASSET_B`, `ASSET_C`, `CASH`) and is never auto-loaded as defaults; users must explicitly validate YAML via `load_user_policy_config()` ([`config.py`](../src/zerosteer/config.py)). (`config.example.yaml`은 자동 로드되지 않으며 반드시 `load_user_policy_config()`로 명시적 검증 후 사용해야 합니다.)
+- **최상위 공개 API ([`__init__.py`](../src/zerosteer/__init__.py))**: `__version__="0.2.0"`과 함께 `ZeroSteerConfig`(`legacy_v1()`), `QKNormMultiheadAttention`, `SwiGLUFeedForward`, `AuxLossFreeMoEGate`, `FinancialCalendarEncoder`, `extract_calendar_features`, `compute_sigreg_loss`, `compute_effective_rank`, `ZeroSteerDiagnosticReport`, `evaluate_backbone_representations` 등 핵심 v2 심볼을 공개합니다.
+- **문법 참고용 설정 예시 ([`config.example.yaml`](../config.example.yaml))**: 가상 티커(`ASSET_A`, `ASSET_B`, `ASSET_C`, `CASH`)로 YAML 작성 규칙만 보여 주며 자동으로 불려오지 않습니다. 실사용 시 반드시 [`load_user_policy_config`](../src/zerosteer/config.py)로 검증해야 합니다.
 
 ---
 
-## 3. Installation & Local Verification / 설치 및 로컬 검증 절차
+## 설치 및 검증 (CPU · Apple Silicon MPS)
 
-[`pyproject.toml`](../pyproject.toml) links editable `../zerostreet-schema` via `[tool.uv.sources]` alongside `torch>=2.2.0`, `numpy>=1.26.0`, `pydantic>=2.7.0`, `pyyaml>=6.0.1`, and `loguru>=0.7.2`, and [`tests/test_zerosteer_v2_architecture.py`](../tests/test_zerosteer_v2_architecture.py) verifies CPU and Apple Silicon MPS parity without additional external packages.
-
-[`pyproject.toml`](../pyproject.toml)은 추가 외부 패키지 없이 `../zerostreet-schema` 편집 가능 링크와 핵심 PyTorch/Pydantic 의존성을 연결하며, `tests/test_zerosteer_v2_architecture.py`를 통해 CPU 및 Apple Silicon MPS 정합성까지 로컬 검증할 수 있습니다.
+[`pyproject.toml`](../pyproject.toml)은 추가 외부 패키지 없이 편집 가능한 `../zerostreet-schema`와 `torch>=2.2.0`, `numpy>=1.26.0`, `pydantic>=2.7.0`, `pyyaml>=6.0.1`, `loguru>=0.7.2`를 사용합니다. [`tests/test_zerosteer_v2_architecture.py`](../tests/test_zerosteer_v2_architecture.py)는 CPU와 Apple Silicon MPS 정합성까지 검증합니다.
 
 ```bash
 uv sync --dev

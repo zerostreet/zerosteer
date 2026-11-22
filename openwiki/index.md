@@ -4,7 +4,7 @@ okf_version: "0.2"
 
 # 파일
 
-- [ZeroSteer Overview & Quickstart / ZeroSteer 개요 및 빠른 시작](quickstart.md) - Introduces the ZeroSteer v2 open-core role, intuitive visual guide link, 0-byte policy weight boundary, SHA-256 checkpoint integrity, v2 public exports, config.example.yaml, and local/MPS verification. ZeroSteer v2의 오픈코어 비즈니스 역할, 직관 도식 가이드 연결, Policy Head 0바이트 경계, SHA-256 무결성 매니페스트, v2 공개 API 및 로컬/MPS 검증 방법을 안내합니다.
+- [zerosteer v0.2.0 개요 및 빠른 시작](quickstart.md) - MIT 오픈소스 포트폴리오 정책 엔진 zerosteer v0.2.0의 소비자 가치(1.5-Entmax 집중 투자, H=20 행동 계획, 0바이트 정책 분리), 공개 API, SHA-256 검증 및 테스트 방법을 한국어로 안내합니다.
 
 # 디렉터리
 

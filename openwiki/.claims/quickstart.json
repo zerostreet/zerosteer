@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:28e73163defb50ceb773ae5d80bd0ce33a193380d602e619a33e5c05a2457e0e",
+  "pageVersion": "sha256:32ca2686540a305e8d01ed9f10f32897f211880d42e8bd340ca9452bf1189c0f",
   "claims": [
     {
       "id": "claim_ddd1a6aaab284ef98a0ff0b43955cf10",
-      "statement": "zerosteer depends on torch, numpy, pydantic, pyyaml, loguru, and editable zerostreet-schema without additional external packages, and exports ZeroSteer v2 backbone, QK-Norm, SwiGLU, Aux-Loss-Free MoE, calendar encoder, SIGReg, and SVD diagnostics through __init__.py with CPU and MPS test coverage.",
+      "statement": "zerosteer v0.2.0은 추가 외부 패키지 없이 torch, numpy, pydantic, pyyaml, loguru 및 편집 가능 zerostreet-schema에 의존하며, __init__.py(__version__=\"0.2.0\")를 통해 ZeroSteer v2 백본, QK-Norm, SwiGLU, Aux-Loss-Free MoE, 캘린더 인코더, SIGReg 및 SVD 진단 도구를 공개하고 CPU·MPS 테스트로 검증됩니다.",
       "evidence": [
         {
           "resource": "repo://pyproject.toml#L1-L39",
-          "version": "repo-lines-v1:sha256:d1bd1831eeb8c6b94ab8193b5fafda0c62d43e421d0be55c66860c13c7d6c692:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0NTY5OTQ2YWM5YmJlN2NiMmNkZWMzZjhiZWNmMzQzNzUwYzU4YjliMzIxZWMyMTk1YmZiYWFiMmFhOGM0YmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3OGM5Yzc5YmZhNDlhOGNiMDg5MjAyMjJmYzcwODcyYTNjMjM1MzcwNDViMDE0ZThjNjQ1OTY4ODEwYTY3OGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "version": "repo-lines-v1:sha256:77f12df2d6c9927402b8d8ea39e2a0df2ae1fe6a12c93c59868e2c8046ec1585:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0NTY5OTQ2YWM5YmJlN2NiMmNkZWMzZjhiZWNmMzQzNzUwYzU4YjliMzIxZWMyMTk1YmZiYWFiMmFhOGM0YmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3OGM5Yzc5YmZhNDlhOGNiMDg5MjAyMjJmYzcwODcyYTNjMjM1MzcwNDViMDE0ZThjNjQ1OTY4ODEwYTY3OGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
           "resource": "repo://src/zerosteer/__init__.py#L1-L83",
-          "version": "repo-lines-v1:sha256:b38bdcb8bff9c076ffe3cd474ca8205ee06e9726adabe48acbe09ebfb3ee2d52:eyJzZWxlY3RlZExpbmVDb3VudCI6ODMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4OGU2NjNjMTdiNmQ0YWZkZGJkMDFmMTE3YjA0YWUxMTU5ODQzNjdmNDcyMTQyMjc3ZmM0NWNkN2MxNmI0MGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5NDE2ZTA5Zjc4YmEzMTZjMDMyNTY4MjEzYjg1NWVlNzU2ZTQxNTY1ZDkxOGYwOTUxOWM4MWZkNjIwZjQwNjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "version": "repo-lines-v1:sha256:100e45e534bbb1a250d737ab8dda3b66d98c464399355e21c85c7b8835b38c20:eyJzZWxlY3RlZExpbmVDb3VudCI6ODMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4OGU2NjNjMTdiNmQ0YWZkZGJkMDFmMTE3YjA0YWUxMTU5ODQzNjdmNDcyMTQyMjc3ZmM0NWNkN2MxNmI0MGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5NDE2ZTA5Zjc4YmEzMTZjMDMyNTY4MjEzYjg1NWVlNzU2ZTQxNTY1ZDkxOGYwOTUxOWM4MWZkNjIwZjQwNjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
           "resource": "repo://tests/test_zerosteer_v2_architecture.py#L1-L482",
@@ -37,6 +37,6 @@
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-22T11:49:49.324Z"
+    "at": "2026-11-22T12:54:48.206Z"
   }
 }

@@ -2,32 +2,32 @@
   "schemaVersion": 1,
   "pages": {
     "/openwiki/architecture/backbone-and-adapters.md": {
-      "gitHead": "e3e4f335b71021a932639ed6952af044088430f0",
-      "sourceFingerprint": "sha256:fd9f278b9df50e8d3a753d98a5b6920908a17bc871a9277e90a970b1bccb7bbb",
-      "pageVersion": "sha256:8c1cb7502c85627547b14fec8432f45300ed9f96ceeb503bc1996e0295398a2c",
+      "pageVersion": "sha256:d4c3b17c943cf32f90e9092c1714c727bbb638d93046813dd8485f9b97d255ae",
       "completedBy": "antigravity",
-      "completedRunId": "e8b5b0f4-cf2c-450a-8193-118c4c0ad49d"
+      "completedRunId": "50c70542-b575-4242-a65a-b7170bd11b11",
+      "gitHead": "a3c081309ac01e1599842b4f57e6e8bef52d40fa",
+      "sourceFingerprint": "sha256:a2ca27cff8867294f0742fdb4452dd494ab5f20b9125c60a8091a19be5c7c73f"
     },
     "/openwiki/guides/intuitive-visual-guide.md": {
-      "pageVersion": "sha256:5698ecfee2eba788273661ff63f022c7dcece7d411384d90f3a2c3c51028f856",
+      "pageVersion": "sha256:14aeea7cf1da8d392a7cacb836c7e197b956aeb3664e4fb3bac86afb7c2a4bc5",
       "completedBy": "antigravity",
-      "completedRunId": "10930d0e-6556-4bbf-83ed-7b129ef69689",
-      "gitHead": "e3e4f335b71021a932639ed6952af044088430f0",
-      "sourceFingerprint": "sha256:fd9f278b9df50e8d3a753d98a5b6920908a17bc871a9277e90a970b1bccb7bbb"
+      "completedRunId": "50c70542-b575-4242-a65a-b7170bd11b11",
+      "gitHead": "a3c081309ac01e1599842b4f57e6e8bef52d40fa",
+      "sourceFingerprint": "sha256:a2ca27cff8867294f0742fdb4452dd494ab5f20b9125c60a8091a19be5c7c73f"
     },
     "/openwiki/quickstart.md": {
-      "pageVersion": "sha256:28e73163defb50ceb773ae5d80bd0ce33a193380d602e619a33e5c05a2457e0e",
+      "pageVersion": "sha256:32ca2686540a305e8d01ed9f10f32897f211880d42e8bd340ca9452bf1189c0f",
       "completedBy": "antigravity",
-      "completedRunId": "10930d0e-6556-4bbf-83ed-7b129ef69689",
-      "gitHead": "e3e4f335b71021a932639ed6952af044088430f0",
-      "sourceFingerprint": "sha256:fd9f278b9df50e8d3a753d98a5b6920908a17bc871a9277e90a970b1bccb7bbb"
+      "completedRunId": "50c70542-b575-4242-a65a-b7170bd11b11",
+      "gitHead": "a3c081309ac01e1599842b4f57e6e8bef52d40fa",
+      "sourceFingerprint": "sha256:a2ca27cff8867294f0742fdb4452dd494ab5f20b9125c60a8091a19be5c7c73f"
     },
     "/openwiki/workflows/pretrain-and-trajectory-rl.md": {
-      "gitHead": "e3e4f335b71021a932639ed6952af044088430f0",
-      "sourceFingerprint": "sha256:fd9f278b9df50e8d3a753d98a5b6920908a17bc871a9277e90a970b1bccb7bbb",
-      "pageVersion": "sha256:39f1373a49c971af3258ee74bad2843c4c699679717b5ddfffddbb3c7d6c5fdf",
+      "pageVersion": "sha256:4428421a09a3edaed5904ef7149fe5f85f900292b0afd0005f5c7c67cd503ddf",
       "completedBy": "antigravity",
-      "completedRunId": "e8b5b0f4-cf2c-450a-8193-118c4c0ad49d"
+      "completedRunId": "50c70542-b575-4242-a65a-b7170bd11b11",
+      "gitHead": "a3c081309ac01e1599842b4f57e6e8bef52d40fa",
+      "sourceFingerprint": "sha256:a2ca27cff8867294f0742fdb4452dd494ab5f20b9125c60a8091a19be5c7c73f"
     }
   }
 }
