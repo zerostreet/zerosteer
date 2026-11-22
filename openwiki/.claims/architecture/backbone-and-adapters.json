@@ -1,52 +1,84 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:b5de785527931cfe7003df76506fa53c9e27becd37d9a2fd3b4a73b6898cc68c",
+  "pageVersion": "sha256:8c1cb7502c85627547b14fec8432f45300ed9f96ceeb503bc1996e0295398a2c",
   "claims": [
     {
       "id": "claim_a8b52187684141d78b97cdf2078f3419",
-      "statement": "DynamicEmbeddingAdapter and ObservationFusionLayer fuse variable-dimension z_mm (0/32/128/256d) with OHLCV encodings once per batch and inject learnable mask_signal_token for missing or blackout positions.",
+      "statement": "ObservationFusionLayer fuses zero-std RevIN+ModernTCN TimeseriesEncoder outputs with DynamicEmbeddingAdapter (0/32/128/256d z_mm and mask_signal_token blackout fallback) and optional 10-dim FinancialCalendarEncoder embeddings in one pass.",
       "evidence": [
         {
-          "resource": "repo://src/zerosteer/adapters.py#L119-L180",
-          "version": "repo-lines-v1:sha256:c712551f417522048c987fb8668ae1f568fc0fa4e1b80af1d70b57af3c1a1fbd:eyJzZWxlY3RlZExpbmVDb3VudCI6NjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwOTdhNWI0ODk4OTY2YWZjZTEwZTJiNjc3Nzc2MDM2NjAxZDNiODJlODdlNGQ3ZjIzNzM3ODM5NjQ4YTI1ZGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyNjU1Nzg4NzhlM2JlZGZjMDNiNzExNTZiYWVjZTdjODI4ZjBlZTBjNzNlNTMxZTY4MmNkMzFiZjI3NzUyYzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5OTQ3YzMzZmJkODIwNzM3YTcxZDk0ZDkwYTU3Y2ZiMWQ0NDcxNjA2MmUxMGJmZDAzNDJlNzVhZjNmOWU1NWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
-        },
-        {
-          "resource": "repo://src/zerosteer/adapters.py#L12-L85",
-          "version": "repo-lines-v1:sha256:4544d8555e8fdb97d039116fa637e5d2c4caad5d887f9e848988e152965026fa:eyJzZWxlY3RlZExpbmVDb3VudCI6NzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2MmZlOThiOTI2Y2IzZWFiNGUyNDc3Y2JmMjlkY2UwMGY0NjdjZjM3OTFkYTg3MzM3MTc3YzVmMjM4NjBiODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2NmY3ZGU4YmQ3NjJkNDg1NGZkZTgxNWM3YjNlOWQ1MzI2ZmEwMGZlOGRkYzc3YjhjMGI5ZjVmZWFlYmUyY2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJiYTMwMTRhY2JjMGU3ZDY2MGEyODk2MmZlZTI4YThlOTFlNTdjNjU4NDFkNmNhNDdiMmZkMjQ1ZDA0NDQwZWYifQ"
+          "resource": "repo://src/zerosteer/adapters.py#L37-L385",
+          "version": "repo-lines-v1:sha256:3ffd2d7ded61adc7f5e8a2b44027436f36dd30c57ba2fb7ac8b4b69bbf7c22ef:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQ5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlZDczNDg0MDE0MzA4YjNlYTc0MmU4ZDhiMDYyYWIyZDE5OWRjYmMyMjM5MmI3YmUxMTRmODhhZTY0NGJiNDkwIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MjdkNWRlMzdiOTNiZWIxMWNkYWM0M2ExMWExOTA1NDQ3NGI3Yjg0NzNmZWJiNTRmMjY3YTkyYTdmNzAzMGRiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI3NTliYmIxMTdjNTMzYTg1ZjViNDQxYWExNTg5ZDQ5YTRmYWM1N2UxMGM1NDVhMzA2MTI4OTUwNDBmMDY2MGIxIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
         }
       ]
     },
     {
       "id": "claim_dc5da9c070e64f028e75fb354485c6e1",
-      "statement": "ZeroSteerBackbone zero-initializes horizon_encodings.weight[0], anchors prev_weights strictly into the P_0 block, and uses build_horizon_attention_mask to prevent obs_embs from attending future portfolio blocks.",
+      "statement": "ZeroSteerBackbone zero-initializes horizon_encodings.weight[0], anchors prev_weights strictly into P_0, and enforces build_horizon_attention_mask via inverted SDPA boolean masks in QKNormMultiheadAttention to prevent future horizon leakage into obs_embs.",
       "evidence": [
         {
-          "resource": "repo://src/zerosteer/model.py#L34-L77",
-          "version": "repo-lines-v1:sha256:03c1bec1c4c8ce18cb24a805b8b3f3eb32c00a6eb8f6d9596230a18cc3cc7ef0:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZjNTI1MjIwNGJlYTQwYmY3YmM3MzIzZDUzMWI5YmIyNmZmZmI0YWYwY2EzYWVlODdlNTNkY2NjYmFlMDNkOTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU1Y2NjMTc4NzMzYzFhMDFmOGE0Y2QwYTZiYmZkODhhOTIxZWUyZjYwOGI3Nzk4ZmZjZjMyNDJkNTIwNTQ0YTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg3YWVhZjUyZTM0OTI0MjdmMmM1MGY0NDYzOTk0YzQ3ZmIyNWQyYWQyNzAzZTZkNGE1NjY5MzE3MjE4OGNiMmEifQ"
+          "resource": "repo://src/zerosteer/model.py#L76-L305",
+          "version": "repo-lines-v1:sha256:6843c7b772abd1b355ef0c1a934a930037922da0a073d8729dd2a54bdedcc012:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMwLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJmYzUyNTIyMDRiZWE0MGJmN2JjNzMyM2Q1MzFiOWJiMjZmZmZiNGFmMGNhM2FlZTg3ZTUzZGNjY2JhZTAzZDk3IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlNWNjYzE3ODczM2MxYTAxZjhhNGNkMGE2YmJmZDg4YTkyMWVlMmY2MDhiNzc5OGZmY2YzMjQyZDUyMDU0NGE2IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJmZWYxOTBiNGRmNWEyYjkzYThhYTJhYWUzOGM2OTZiYTliYjUzNjY3YjM5YmYxODM2ZmNmZjM1NGU3YmQ3NzlkIn0"
         },
         {
-          "resource": "repo://src/zerosteer/model.py#L79-L211",
-          "version": "repo-lines-v1:sha256:53e193c049cdc34b41c33470360024b1d04790d1771c92acb52f38b1242c6ffd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJkM2UwM2MwZmI0MjliZGJlZjRkMjU0Y2JmMzJiMmFkYjZlNDM4NmRmYzM4MDhkY2Q0ZTM3MjY4MDUwYmM1NWFlIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJmNjFkMWMwNTA1ZjhmOTJmNzllYTMxMzEzMDk1NWNjOGNhZmE4ZTNiODliNWZlMzAyYmMxODc5ZDczOTFjZDk0IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJmZWYxOTBiNGRmNWEyYjkzYThhYTJhYWUzOGM2OTZiYTliYjUzNjY3YjM5YmYxODM2ZmNmZjM1NGU3YmQ3NzlkIn0"
+          "resource": "repo://src/zerosteer/moe.py#L107-L163",
+          "version": "repo-lines-v1:sha256:ad6d82da58c3ba045e62c422e35f8020104a3cf3f38c32e6e6165688aa9d594f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkZGZhNTYzNmE0MjFkNjliOWI2ZWY2MWEzNDZhNzQ2ZTc3MDcyYmZlZWE2MWNiMWMwYmQ4NzVjZjdjOWY4ZTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg0ZDIxYmE2NGNmYTMyZDY2YWIzZWEwNzFiZjRlOWE1MDdjYWZiZjY2ODRmNjI4OWJhZWRmYTQzZGRhZTJlZjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYwNjUxNjIxMjliOWMxYjJmMjI3NDhkNzJiMTI5ZmMzOTU2Mzc5MThjYTRmNjBhNjFkYjg4MzZlOGY5YWU3ZjEifQ"
         }
       ]
     },
     {
       "id": "claim_3b968d82e47b44cfa2ad63bb07bc9e1a",
-      "statement": "ZeroSteer immediately raises ValueError when user_config is None to guarantee zero company-trained policy weights, and WeightAllocatorHead applies valid_mask before outputting Entmax15, Sparsemax, or Softmax simplex trajectories.",
+      "statement": "ZeroSteer raises ValueError when user_config is None to enforce 0 bytes of vendor policy weights, and WeightAllocatorHead supports both MoE (TopKMoELayer out_dim=1) and MLP heads with -1e9 invalid-asset masking before Entmax15/Sparsemax/Softmax simplex projection.",
       "evidence": [
         {
           "resource": "repo://src/zerosteer/activations.py#L14-L179",
           "version": "repo-lines-v1:sha256:e272d7585dfbe30c429531198955666886e48808e053e719267199d164acc290:eyJzZWxlY3RlZExpbmVDb3VudCI6MTY2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIwYzIyZDkzNjExMGFhZmZmNTM2Yzc1MzMwZWQ3MGEwZTdhMzAxYWQyNTE3ZGQ4NjdmMDIyNzg5ZTgwZDVlYzI0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJhYWM3NDMzNjlhNGU0MjQwNzFlY2I2MDAxOTZhNzM0ZGQ2Y2M0N2I2NWQ0ZGVmOTdkYTAxMTI3ODE2NTMyMWNmIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwNjZmN2RlOGJkNzYyZDQ4NTRmZGU4MTVjN2IzZTlkNTMyNmZhMDBmZThkZGM3N2I4YzBiOWY1ZmVhZWJlMmNkIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
         },
         {
-          "resource": "repo://src/zerosteer/model.py#L213-L339",
-          "version": "repo-lines-v1:sha256:f584793344086c5f78dcb7c94c8c6eaf3df8039bf0967598ad8e3817dc276832:eyJzZWxlY3RlZExpbmVDb3VudCI6MTI3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI2Mjk4MDYzOTIyOWQ0MmMwOWEwZTAxMTY3M2JiM2VhYzFmZTc2NjgwNjBlZjA4N2JkNmU4NzI4NjA0YTMxZDNlIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwZmFmNjYxZTMxMDRjMGUwMjRmYzU2ODMzMjRhOGRiOTc4MjIwNmI3N2M2NGRiODY0ZTYwM2UzODM0YzA3MTdjIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlMWIyNmQ5MTA2Mjc2NDcwYjFlMGY1YWYzMGZiM2E5ZTRlNmFkNGZiODA5M2MzODE1MTRiZmRjYjgyOTBmZDYyIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+          "resource": "repo://src/zerosteer/model.py#L307-L555",
+          "version": "repo-lines-v1:sha256:43dce448316bd3bf7a335add4dc2477661a6084806bc76d0187774aed834fe1c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQ5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI2Mjk4MDYzOTIyOWQ0MmMwOWEwZTAxMTY3M2JiM2VhYzFmZTc2NjgwNjBlZjA4N2JkNmU4NzI4NjA0YTMxZDNlIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwZmFmNjYxZTMxMDRjMGUwMjRmYzU2ODMzMjRhOGRiOTc4MjIwNmI3N2M2NGRiODY0ZTYwM2UzODM0YzA3MTdjIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlMWIyNmQ5MTA2Mjc2NDcwYjFlMGY1YWYzMGZiM2E5ZTRlNmFkNGZiODA5M2MzODE1MTRiZmRjYjgyOTBmZDYyIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_0b993cb37a7845e28fb773d3c1a86927",
+      "statement": "TopKMoELayer and AuxLossFreeMoEGate balance expert utilization via autograd-free bias updates (update_gate_bias) and out-of-place index_add routing compatible with Apple Silicon MPS.",
+      "evidence": [
+        {
+          "resource": "repo://src/zerosteer/moe.py#L165-L359",
+          "version": "repo-lines-v1:sha256:a581be3c921afe6d23b04d8e3fcc8bc1274088a6d0a281b95c5778a7c21f93cc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTk1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlMTAwMjU0ZjMwNDFmZDg0ODEwMWRhYmIwYjQ0NTQzOTMyMjcxMzA0YmMwNTNkMjgyZTcyZTY0ZjgyMDVhNTQzIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwNWM5ZmQ4OTg0YjdkOTRjNmZkZmFkMjc5NjE1YjE0YjNiNjk3NjgyMTkyNWJiYjQ5ZGNkYjc2NWU3OTJmYTk0IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIwZTMxNWQ0NGIxYTBlZTM3MWM2YzNmNjQ0NGQ0MjM2OTMwOTI4YTRjYTU0NWY1OTc5ODRiMTEwNWQ3ZWQwZGQwIn0"
+        },
+        {
+          "resource": "repo://src/zerosteer/moe.py#L428-L505",
+          "version": "repo-lines-v1:sha256:acaced68b361d3526da6ed37f685d9dd6b50c0c5d8a0604cfbc66e7af7563c0a:eyJzZWxlY3RlZExpbmVDb3VudCI6NzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg5NzViZjVmYTk0ZDk3NmY4NDM5ZGM1NGUxY2UxNjNiODY3NWIyMTUzZTg0M2VkNTllNjFhNDFiZDc0NTIwNTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc1ZDNlMjRiMDJjYWFlOWFlZDNmZTI4YTQ3ZTE3Y2E5MTA0YWMzMDU2ZDJiMDE2YjdkNjkwNjYwMjFjZmUxYzciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE1NzVlYTUyNTZmNmUyYmJjMWU1ZjdhZDMwNTNjNDY0MWJhNDQxM2U0YWJiZGNkYzgxNDIzMzgyOTAwOTBlNTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5995df190232493ca0afe404032f47b8",
+      "statement": "ZeroSteerBackbone and ZeroSteer write SHA-256 sibling .manifest.json files on save_backbone/save_policy_head, reject tampered checkpoints on load(verify_sha256=True), and support controlled v1 ablation via ZeroSteerConfig.legacy_v1().",
+      "evidence": [
+        {
+          "resource": "repo://src/zerosteer/config.py#L58-L98",
+          "version": "repo-lines-v1:sha256:a862fc49e550ba17150a12ffd6fca0dc482c4361a42ab89ce40c9cdc26307709:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjYmZkNDVjODVlODcyNDNhNzk4YzQwMTVhMmI1MTQ4Y2ViN2VjNTU3ODFlNGQ2MDU2ZDA3NzIxN2RhMjBjNWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY5MDQzMjNiZDRiZTU1YzJmOWRhZDJiOWQ1YTJmYmMyYTU3Zjg2NTIyMTQ3OGMzZTA3YjU1MDc2NzU4OTgyZTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRkZTE1OTlmN2ExYjJmNTMyMGMyZTRlMDI5NDQzNWY3YWZkNTU4YzI0MmE5ZjkyOGRmYmI3YzVlNWUyNmE5ZDIifQ"
+        },
+        {
+          "resource": "repo://src/zerosteer/model.py#L24-L60",
+          "version": "repo-lines-v1:sha256:94d21623ef4d84263f0cb0e0e811a1a68b4409a1f8f304eb614de428ff6e5105:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2ZTI0Nzc2MWYzYzVmNDE0ZjQwZTY5NWI0MTk4MmZlYjE0NTRiNjc2NTc1M2Q0YmNlYjRkNjk1NGM5MDlmZWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYxNzJkOGQzMTk1YzcxYjUwNjg1Y2UyZWIyNjQxNzlkZWQ2ZjFiNjJiMTM2YjIzYmUzMWY4M2Q3YTFkOWU0NmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNlNzczOTkyOTgxN2QwYzcyZDdlMDJlOTNjODYxZjRmNzk5OTBlMTgyMTE3YzkyMmYxNDNkNzE1MTFhMzViZTgifQ"
+        },
+        {
+          "resource": "repo://src/zerosteer/model.py#L254-L305",
+          "version": "repo-lines-v1:sha256:cba37bc57064fe86e0834957b31cbdd5d39a90e7638fcd4774740a7a74a27bb0:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJiNjc5MjViY2YxY2FjMDg5MGU4ZjM4YTBkYzE2NGRkMmJmYTQwMGFmNzcxNGMwNDM1MWY2YjhlNDAwNzY0N2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZlZjE5MGI0ZGY1YTJiOTNhOGFhMmFhZTM4YzY5NmJhOWJiNTM2NjdiMzliZjE4MzZmY2ZmMzU0ZTdiZDc3OWQifQ"
+        },
+        {
+          "resource": "repo://src/zerosteer/model.py#L502-L537",
+          "version": "repo-lines-v1:sha256:80e6e2233787615b354c1217280fbd750ee06f5dcaa8ab458b577a82bc7249f5:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIxZmFiZjgxYjliODk4NDVhNTJlYmJiYjc4Nzk1NzdkN2VjYjNkOWU3M2Q0NzM5ZjJkOTk4NTE2NmZmNmUwYmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVmZDYzZmM3NjYwNmYzZGFkZjNiZTU5MDFiYjg4Y2Y0MjNjNDAzNGQ3ZWU5NzhiNTZlNjllOGVmOTQ0MjI5NzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY1OWM3OTUzNGU4MzE5NzczODNkZWI0MDFkYTJhYzZiZDJiNjBkZTMxYjUxZDM5M2UxZTdkZTUyOTU3MDk5ZGMifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-22T09:34:13.721Z"
+    "at": "2026-11-22T11:32:01.285Z"
   }
 }

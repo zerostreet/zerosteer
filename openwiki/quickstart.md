@@ -1,17 +1,18 @@
 ---
 type: quickstart
-title: zerosteer Quickstart & Business Overview / zerosteer 빠른 시작 및 비즈니스 개요
-description: Introduces the ZeroSteer open-core role, 0-byte policy weight boundary, config.example.yaml, validation commands, and OpenWiki map. ZeroSteer의 비즈니스 역할, Policy Head 0바이트 경계, config.example.yaml 예시, 검증 방법 및 문서 맵을 제공합니다.
+title: ZeroSteer Overview & Quickstart / ZeroSteer 개요 및 빠른 시작
+description: Introduces the ZeroSteer v2 open-core role, 0-byte policy weight boundary, SHA-256 checkpoint integrity, v2 public exports, config.example.yaml, and local/MPS verification. ZeroSteer v2의 오픈코어 비즈니스 역할, Policy Head 0바이트 경계, SHA-256 무결성 매니페스트, v2 공개 API 및 로컬/MPS 검증 방법을 안내합니다.
 tags:
   - quickstart
   - zerosteer
+  - zerosteer-v2
   - pytorch
   - compliance
   - business-context
   - zerolens
 verified:
   - by: openwiki/0.7.2
-    at: 2026-11-22T09:34:13.721Z
+    at: 2026-11-22T11:32:01.285Z
 sources:
   - id: openwiki-source-873af29a56ffef7d51f59cb6
     resource: repo://config.example.yaml
@@ -21,24 +22,26 @@ sources:
     resource: repo://src/zerosteer/__init__.py
   - id: openwiki-source-ee493b2cba1f439554f5d214
     resource: repo://src/zerosteer/config.py
-generated: { by: "antigravity", at: "2026-11-22T09:34:13.721Z" }
+  - id: openwiki-source-3b787a5e57595f705c524ac4
+    resource: repo://tests/test_zerosteer_v2_architecture.py
+generated: { by: "antigravity", at: "2026-11-22T11:32:01.285Z" }
 ---
 
-# zerosteer Quickstart & Business Overview / zerosteer 빠른 시작 및 비즈니스 개요
+# ZeroSteer Overview & Quickstart / ZeroSteer 개요 및 빠른 시작
 
 ## Business Role & Value Proposition / 비즈니스 역할 및 가치
 
 ### English
 
-* **Open-Core Trust Magnet (`ZeroSteer`)**: `zerosteer` (`v0.1.0`, MIT) publishes ZeroStreet's Cross-Asset relational MoE Transformer backbone (`ZeroSteerBackbone`), dynamic `ZeroLens` (`z_mm`) adapters, sparse `Entmax15` / `Sparsemax` projections, and differentiable Trajectory RL compiler openly under MIT ([`README.md`](../README.md)) while holding **0 bytes** of vendor-trained stock-picking Policy Head weights.
-* **Zero Advisory Risk & 0 Bytes of Policy Weights**: Calling `ZeroSteer` or `DifferentiableTrajectoryRLTrainer` without explicit `user_config` raises `ValueError` immediately; customer agents compile and own individualized `WeightAllocatorHead` weights.
+* **Open-Core Trust Magnet (`ZeroSteer v2`)**: `zerosteer` (`v0.1.0`, MIT) publishes ZeroStreet's Cross-Asset relational MoE Transformer backbone (`ZeroSteerBackbone`), zero-std RevIN + ModernTCN `TimeseriesEncoder`, 10d `FinancialCalendarEncoder`, `QKNormMultiheadAttention`, DeepSeek-V3 `AuxLossFreeMoEGate`, sparse `Entmax15`/`Sparsemax`, LeJEPA `compute_sigreg_loss`, SVD `evaluate_backbone_representations`, and Differentiable Trajectory RL compiler openly under MIT ([`README.md`](../README.md)) while holding **0 bytes** of vendor-trained stock-picking Policy Head weights.
+* **Zero Advisory Risk & Tamper-Checked Policy Split**: Calling `ZeroSteer` or `DifferentiableTrajectoryRLTrainer` without explicit `user_config` raises `ValueError` immediately; customer agents compile and own individualized MoE/MLP `WeightAllocatorHead` weights verified via SHA-256 sibling `.manifest.json` files.
 * **Commercial Funnel to AlphaSmith & ZeroLens**: Runs standalone in local OHLCV blackout mode (`is_blackout=True`), while `run_oos_comparison()` proves the performance lift of injecting paid `ZeroLens` `z_mm` embeddings (`32d/128d/256d`) and compiling user checkpoints via AlphaSmith Serverless Foundry.
 
 ### 한국어
 
-* **오픈코어 신뢰 확보(Trust Magnet) 제어 엔진**: `zerosteer`(`v0.1.0`, MIT)는 Cross-Asset 관계형 MoE 트랜스포머 백본(`ZeroSteerBackbone`), 동적 `ZeroLens` 어댑터, 희소 심플렉스 투영 및 미분 가능 궤적 RL 컴파일러를 MIT 오픈소스로 공개해 개발자·에이전트의 신뢰와 채택을 극대화하면서도 회사 학습 정책 가중치는 **0바이트**만 유지합니다.
-* **규제 안전성 및 정책 가중치 0바이트**: `user_config=None`일 때 즉시 `ValueError`를 발생시켜 회사 기본 전략 배포를 차단하며, 모든 `WeightAllocatorHead` 가중치는 사용자 에이전트가 직접 컴파일·소유합니다.
-* **AlphaSmith 유료 전환 퍼널**: 로컬 OHLCV 단독 모드(`is_blackout=True`)로 먼저 검증한 뒤 `run_oos_comparison()`으로 `ZeroLens` 텐서 결합 시 OOS 개선 효과를 수치로 확인하고 유료 파운드리로 전환하도록 설계되었습니다.
+* **오픈코어 신뢰 확보(Trust Magnet) 제어 엔진 (`ZeroSteer v2`)**: `zerosteer`(`v0.1.0`, MIT)는 RevIN+ModernTCN `TimeseriesEncoder`, 10차원 `FinancialCalendarEncoder`, `QKNormMultiheadAttention`, DeepSeek-V3 `AuxLossFreeMoEGate`, 희소 심플렉스 투영, LeJEPA `compute_sigreg_loss`, SVD 표현 진단 및 미분 가능 궤적 RL 컴파일러 전체를 MIT 오픈소스로 공개([`README.md`](../README.md))하면서도 회사 학습 종목 선정 가중치는 **0바이트**만 유지합니다.
+* **규제 안전성 및 SHA-256 무결성 정책 분리**: `user_config=None`일 때 즉시 `ValueError`를 발생시켜 회사 기본 전략 배포를 차단하며, 고객 에이전트가 직접 컴파일·소유한 정책 헤드는 동위 `.manifest.json` SHA-256 검증으로 보호됩니다.
+* **AlphaSmith 유료 전환 퍼널**: 로컬 OHLCV 단독 모드(`is_blackout=True`)로 먼저 검증한 뒤 `run_oos_comparison()`으로 `ZeroLens` 텐서(`32d/128d/256d`) 결합 효과를 수치로 확인하고 유료 파운드리로 전환하도록 설계되었습니다.
 
 ---
 
@@ -46,24 +49,27 @@ generated: { by: "antigravity", at: "2026-11-22T09:34:13.721Z" }
 
 | Topic / 탐색 주제 | Document Path / 문서 경로 | Summary / 핵심 내용 |
 | :--- | :--- | :--- |
-| **Model & Adapters / 모델 구조 & 어댑터** | [ZeroSteer Relational Backbone, Adapters & Action Chunking](./architecture/backbone-and-adapters.md) | `DynamicEmbeddingAdapter(0/32/128/256d)`, `ObservationFusionLayer`, `MoETransformerBackbone`, asymmetric masks, `Entmax15` |
-| **Pretraining & Trajectory RL / 사전학습 & 궤적 RL** | [Relational Pretraining, Trajectory RL & OOS Benchmark](./workflows/pretrain-and-trajectory-rl.md) | `CrossAssetMaskedRelationalPretrainer`, `TrajectoryRLLoss`, `DifferentiableTrajectoryRLTrainer`, `run_oos_comparison` |
+| **Backbone & Adapters / 백본 및 어댑터** | [Backbone, Adapters & Policy Split](./architecture/backbone-and-adapters.md) | `TimeseriesEncoder` (RevIN + ModernTCN + Window-Stats FiLM), `FinancialCalendarEncoder`, `DynamicEmbeddingAdapter`, `QKNormMultiheadAttention`, `AuxLossFreeMoEGate`, MoE `WeightAllocatorHead`, SHA-256 `.manifest.json`, `ZeroSteerConfig.legacy_v1()` |
+| **Pretraining, Diagnostics & RL / 사전학습·진단·RL** | [Pretraining, SIGReg, Diagnostics & Trajectory RL](./workflows/pretrain-and-trajectory-rl.md) | `compute_sigreg_loss`, `CrossAssetMaskedRelationalPretrainer`, `compute_effective_rank`, `evaluate_backbone_representations`, `TrajectoryRLLoss` (step+trajectory blending), `DifferentiableTrajectoryRLTrainer`, `run_oos_comparison` |
 
 ---
 
-## 2. Regulatory Boundary & `config.example.yaml` / 법적 안전 경계 및 설정 예시
+## 2. Regulatory Boundary, v2 Public API & `config.example.yaml` / 법적 안전 경계, v2 공개 API 및 설정 예시
 
-* **0-Byte Policy Weight Invariant / 정책 가중치 0바이트 원칙**: [`ZeroSteer`](../src/zerosteer/model.py) and [`DifferentiableTrajectoryRLTrainer`](../src/zerosteer/rl_trainer.py) reject `user_config=None` at instantiation time.
-* **Illustrative Config Syntax / 문법 참고용 가상 예시**: [`config.example.yaml`](../config.example.yaml) illustrates synthetic tickers (`ASSET_A`, `ASSET_B`, `ASSET_C`, `CASH`) for two reward profiles and is never auto-loaded as defaults; users must explicitly validate YAML via `load_user_policy_config()` ([`config.py`](../src/zerosteer/config.py)).
+* **0-Byte Policy Weight Invariant / 정책 가중치 0바이트 원칙**: [`ZeroSteer`](../src/zerosteer/model.py) and [`DifferentiableTrajectoryRLTrainer`](../src/zerosteer/rl_trainer.py) reject `user_config=None` at instantiation time, and checkpoint loaders verify sibling `<stem>.manifest.json` SHA-256 digests when `verify_sha256=True`. (`ZeroSteer`와 트레이너는 `user_config=None`을 즉시 거부하며 체크포인트 로더는 동위 `.manifest.json` SHA-256 해시를 검증합니다.)
+* **Top-Level v2 Exports (`__init__.py`) / v2 최상위 공개 API**: [`__init__.py`](../src/zerosteer/__init__.py) exports `ZeroSteerConfig` (`legacy_v1()`), `QKNormMultiheadAttention`, `SwiGLUFeedForward`, `AuxLossFreeMoEGate`, `FinancialCalendarEncoder`, `extract_calendar_features`, `compute_sigreg_loss`, `compute_effective_rank`, `ZeroSteerDiagnosticReport`, and `evaluate_backbone_representations` alongside core v1 modules. (`__init__.py`는 기존 API와 함께 QK-Norm, SwiGLU, Aux-Loss-Free MoE, 캘린더 인코더, SIGReg 및 SVD 진단 도구를 모두 공개합니다.)
+* **Illustrative Config Syntax / 문법 참고용 가상 예시**: [`config.example.yaml`](../config.example.yaml) illustrates synthetic tickers (`ASSET_A`, `ASSET_B`, `ASSET_C`, `CASH`) and is never auto-loaded as defaults; users must explicitly validate YAML via `load_user_policy_config()` ([`config.py`](../src/zerosteer/config.py)). (`config.example.yaml`은 자동 로드되지 않으며 반드시 `load_user_policy_config()`로 명시적 검증 후 사용해야 합니다.)
 
 ---
 
 ## 3. Installation & Local Verification / 설치 및 로컬 검증 절차
 
-[`pyproject.toml`](../pyproject.toml) links `../zerostreet-schema` via `[tool.uv.sources]` alongside `torch`, `numpy`, `pydantic`, `pyyaml`, and `loguru` ([`__init__.py`](../src/zerosteer/__init__.py)).
+[`pyproject.toml`](../pyproject.toml) links editable `../zerostreet-schema` via `[tool.uv.sources]` alongside `torch>=2.2.0`, `numpy>=1.26.0`, `pydantic>=2.7.0`, `pyyaml>=6.0.1`, and `loguru>=0.7.2`, and [`tests/test_zerosteer_v2_architecture.py`](../tests/test_zerosteer_v2_architecture.py) verifies CPU and Apple Silicon MPS parity without additional external packages.
+
+[`pyproject.toml`](../pyproject.toml)은 추가 외부 패키지 없이 `../zerostreet-schema` 편집 가능 링크와 핵심 PyTorch/Pydantic 의존성을 연결하며, `tests/test_zerosteer_v2_architecture.py`를 통해 CPU 및 Apple Silicon MPS 정합성까지 로컬 검증할 수 있습니다.
 
 ```bash
 uv sync --dev
 uv run ruff check .
-uv run pytest -q
+uv run pytest -v
 ```

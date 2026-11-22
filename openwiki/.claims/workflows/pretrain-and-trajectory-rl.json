@@ -1,44 +1,58 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:d14cc165f814a6a0e526e360503553e25798411b1040b0d81889bdd4ee7d1244",
+  "pageVersion": "sha256:39f1373a49c971af3258ee74bad2843c4c699679717b5ddfffddbb3c7d6c5fdf",
   "claims": [
     {
       "id": "claim_246371c7cb684924bf006ba80e778612",
-      "statement": "CrossAssetMaskedRelationalPretrainer randomly masks same-timestamp observation tokens and reconstructs them without future return or risk labels (Future-Label-Free).",
+      "statement": "CrossAssetMaskedRelationalPretrainer combines intra-timestamp token masking, optional calendar_feats, and MPS-safe Euler compute_sigreg_loss regularization while updating aux-loss-free MoE gate biases without using future return or risk labels.",
       "evidence": [
         {
-          "resource": "repo://src/zerosteer/pretrain.py#L16-L112",
-          "version": "repo-lines-v1:sha256:77743f1321c5cb341b3b6b139ad1cf6adca2e6c30574d0620aa59ac11434c487:eyJzZWxlY3RlZExpbmVDb3VudCI6OTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxN2QyZmQxNGExNmYyNzE1YTYxMTRhYzkyMGJiZWNjNDk4Y2I0NjcxNmIzNGI1OGY2YTg4NTBhZDRhODgwMDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0ZDlmYTc1YmU4NjAyOGZlZTdmNzRkZGRiYzI4N2FmMTJlNTcwZTRkMTM5NTY1ZTdkN2UzZTkzNDdhNDcxOTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjNGIxNGJmZTE2NjcxMzdlNzZiMGYxYTYxN2JlYTVlNmQ5MmFhNTUzYTIyODc0MDUyNTdmN2E2MWViZTI5Y2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://src/zerosteer/pretrain.py#L16-L178",
+          "version": "repo-lines-v1:sha256:eb3eb47168a27788636c1e29329384344800b2abeafd17a9b3702940fb53a9c9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJhNDQ5NzY4ZmNmNzVkNDg3ZTI2ZTFkMDhlZTE4YzNhOTQ2ZTQzMGYzYzMzZTNmYmEwNjBiNzk0MWM5MjQ2NzFlIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJhNGQ5ZmE3NWJlODYwMjhmZWU3Zjc0ZGRkYmMyODdhZjEyZTU3MGU0ZDEzOTU2NWU3ZDdlM2U5MzQ3YTQ3MTk4IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJkYzRiMTRiZmUxNjY3MTM3ZTc2YjBmMWE2MTdiZWE1ZTZkOTJhYTU1M2EyMjg3NDA1MjU3ZjdhNjFlYmUyOWNiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
         }
       ]
     },
     {
       "id": "claim_123f37de6e1f496fa915dc78b9dd441e",
-      "statement": "TrajectoryRLLoss combines drifted post-return weights, L1/L2 transaction costs, Dense-Sparse STE, tanh_asinh normalization, rms_softclip advantage shaping, and trust-region L1 penalties.",
+      "statement": "TrajectoryRLLoss simulates drifted weights with L1/L2 costs, applies Dense-Sparse STE, and blends _rms_softclip trajectory metrics and discounted daily_net_ret step advantages using trajectory_reward_weight and step_reward_weight plus trust-region L1 penalties.",
       "evidence": [
         {
-          "resource": "repo://src/zerosteer/rl_trainer.py#L20-L316",
-          "version": "repo-lines-v1:sha256:452c10796db7969de6f7265fdf5f7f4ff976c901f2d0de59c4b3e57be80d7096:eyJzZWxlY3RlZExpbmVDb3VudCI6Mjk3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1OTE5N2MxYjgzOGU4YWI0MGNiNzlhMjE4ZjQ3ODQ2ZDUyNDM2YWFiNjQzYTQyN2I5MWM0ODkxMGYwNzc2MzAxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJmYjgzMjBmMWZlMThjYTUzYzc5MDg5MWE5NGQ2MmJlZWZmN2Q2ZWRjZmE2OWI0ZmY1MDE2OTljYjUwNGU2NTc3IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJmYTRlMWMyZDI5YWVjNmUyYmMxZmRmMmZjOTk5N2JmOTM3OTQ4ODg5YzI2YTY3MDc3M2I0YzNlMjMyMGUyZGFjIn0"
+          "resource": "repo://src/zerosteer/rl_trainer.py#L27-L339",
+          "version": "repo-lines-v1:sha256:06aa14243247df3719692aba262940e111100fce3b6af10af28fac455e13ce6c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1OTE5N2MxYjgzOGU4YWI0MGNiNzlhMjE4ZjQ3ODQ2ZDUyNDM2YWFiNjQzYTQyN2I5MWM0ODkxMGYwNzc2MzAxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJhOThiMDYzZDliNDdlNjUzNzk2MjU1NzJjY2UxOTc2NjlkNTc2N2UxMmMxOGJlMDc1NjUyYjhjZDk4MWNlOGQ1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJmYTRlMWMyZDI5YWVjNmUyYmMxZmRmMmZjOTk5N2JmOTM3OTQ4ODg5YzI2YTY3MDc3M2I0YzNlMjMyMGUyZGFjIn0"
         }
       ]
     },
     {
       "id": "claim_567d87a008a34b408d7a5e00bf36e5b3",
-      "statement": "DifferentiableTrajectoryRLTrainer raises ValueError when user_config is None, compiles policy_head with freeze_backbone default and returns checkpoint SHA-256, while run_oos_comparison compares OHLCV blackout vs multimodal performance.",
+      "statement": "DifferentiableTrajectoryRLTrainer rejects user_config=None with ValueError, clips _trainable_params, preserves frozen backbone parameters and MoE gate buffers when freeze_backbone=True, supports lr_warmup_steps cosine decay and model_frz_update_freq sync, and writes sibling SHA-256 manifests while run_oos_comparison contrasts blackout vs multimodal performance.",
       "evidence": [
         {
           "resource": "repo://src/zerosteer/benchmark.py#L78-L121",
           "version": "repo-lines-v1:sha256:5f8d08444d72bc087a80847a047041196d41776790b365eb4ad3dae6664dff50:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxYTU0ZTdiOTU1NTJhOTgwMjYwOTVmM2FkMTZjNTAzZTM5ZjI4M2VjZDc2M2M3NDNlYzZkZGUzMzRiMDg2ZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwYzFmMTg4ZjE0MmVkN2E4MjQ2ODBiMjA3MTcyYzU1MTliYzYxNGE0OGZkYTdjZjE2N2VkYjhkZGY3OTk1NmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI5YjJhNzFjMGVjOWQ4YzA5ZDA4MWE3OWEyM2I5ZTg3YjY1ZjQ2NmE0Y2E3N2I3ZTM3MTMzMjg4YjMwODQ2NmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
-          "resource": "repo://src/zerosteer/rl_trainer.py#L318-L446",
-          "version": "repo-lines-v1:sha256:802b792ca666d6a5cc23b7c386af665123d054accac88eed9debac4aeb70a6f1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTI5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJiYTg1MTBkN2EyY2ZiYTdhODMxODQ2NjY4MWEyNjVmZWYyNWNkOTI4MWU4N2EwY2FhNWU5YjM1ZTIxZTI2MTA3IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJlNmIwNDQ5MTQ2OTcyMmU4MzYzYTk0ZTQwNDQ1MzhlMDEzYTJhMjE3ZTM2YjFlNTY4YmE2MGFjYjdiNGM4ZjJlIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwZjhjZjZlNjIwYzA4NmQwMzEyMmMyMTU4ZDE2Njg2ZDJiM2MwZGRhN2I2NWQ3ZDI3OGI1ZDVhZThhNjAzMTJiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+          "resource": "repo://src/zerosteer/rl_trainer.py#L341-L510",
+          "version": "repo-lines-v1:sha256:08384db0b671895bf520e0e75a6931b3a4b6b17feebd9b950c0f41c0da669a00:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcwLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJiYTg1MTBkN2EyY2ZiYTdhODMxODQ2NjY4MWEyNjVmZWYyNWNkOTI4MWU4N2EwY2FhNWU5YjM1ZTIxZTI2MTA3IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJlNmIwNDQ5MTQ2OTcyMmU4MzYzYTk0ZTQwNDQ1MzhlMDEzYTJhMjE3ZTM2YjFlNTY4YmE2MGFjYjdiNGM4ZjJlIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwZjhjZjZlNjIwYzA4NmQwMzEyMmMyMTU4ZDE2Njg2ZDJiM2MwZGRhN2I2NWQ3ZDI3OGI1ZDVhZThhNjAzMTJiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_520d99e35e6047e7adf96fb21e749c13",
+      "statement": "diagnostics.compute_effective_rank transfers embeddings via .detach().cpu().to(dtype=torch.float64) before SVD to remain Apple Silicon MPS compatible, and evaluate_backbone_representations returns ZeroSteerDiagnosticReport metrics across effective rank, cosine collapse, SIGReg, and MoE loads.",
+      "evidence": [
+        {
+          "resource": "repo://src/zerosteer/diagnostics.py#L16-L112",
+          "version": "repo-lines-v1:sha256:27770dd8dc490f11e728ec96cc67964fe15a59c97441b0cc3812570650d13562:eyJzZWxlY3RlZExpbmVDb3VudCI6OTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3YWQxOWZhODEwMzhhNjMwYjUyNDQ5MDhmMWNiMjk1NmRlNWJlYjA1NTFiY2YxMDE1OWRiOTljMWQ2NGZkNjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwYzFmMTg4ZjE0MmVkN2E4MjQ2ODBiMjA3MTcyYzU1MTliYzYxNGE0OGZkYTdjZjE2N2VkYjhkZGY3OTk1NmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcwY2UzZjI0YWI0N2MyZjVhOWQzMzdmMzc3ZWQ4NTczZmE1NjU4NDA3NjQwMmYxYWYwNTRhM2RlZDYxOTQ2MmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://tests/test_zerosteer_v2_architecture.py#L416-L482",
+          "version": "repo-lines-v1:sha256:76c83692a98234125777091ecf9a4a4114f2fa84ca543d450b6b682bfb982a29:eyJzZWxlY3RlZExpbmVDb3VudCI6NjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlOTU2ZDE4MWIwMzBlNDhkYmIyZDQ4MDYyY2IyMDkxNjQ0ZjAwZTllZjczNTlhNmY0Yzc2OTAyYmZhZjdiM2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzZmI0YzNjNmI0N2MyZGM4ZDdkNjVmNjcwNjMzMTQ0MzE1NTQ4ZjA5Yjk1OTI4MzYwZTlkN2FlYmFmZmU4MDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRhYzZhYWU2YzBkZDFhZGY2NGUxYWUzZGFiMjljZjZiODI5MmU4YzU3NzRhNGIyOTgxMDM0ZWQwZDAxNTM1NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-22T09:34:13.721Z"
+    "at": "2026-11-22T11:32:01.285Z"
   }
 }

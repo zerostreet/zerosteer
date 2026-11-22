@@ -1,3 +1,3 @@
 # 파일
 
-- [Relational Pretraining, Trajectory RL & OOS Benchmark / 관계형 사전학습, 궤적 강화학습 및 OOS 벤치마크](pretrain-and-trajectory-rl.md) - Explains Future-Label-Free Cross-Asset relational pretraining, differentiable Trajectory RL compilation (drifted weights, Dense-Sparse STE, rms_softclip), and OOS multimodal vs. blackout benchmarks. Future-Label-Free 관계형 사전학습, 미분 가능 궤적 RL 컴파일 및 OHLCV 단독 대비 멀티모달 OOS 벤치마크 워크플로우를 설명합니다.
+- [Pretraining, SIGReg, Diagnostics & Trajectory RL / 사전학습, SIGReg, 표현 진단 및 궤적 RL 워크플로우](pretrain-and-trajectory-rl.md) - Documents Future-Label-Free Cross-Asset pretraining with LeJEPA SIGReg, CPU-float64 SVD isotropy diagnostics, hardened step+trajectory RL advantage shaping, frozen-backbone invariance, and OOS/MPS verification. Future-Label-Free 관계형 사전학습과 LeJEPA SIGReg, CPU-float64 SVD 표현 진단, Step+Trajectory 어드밴티지 결합 궤적 RL, 백본 불변식 및 OOS/MPS 검증을 설명합니다.

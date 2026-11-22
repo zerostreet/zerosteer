@@ -1,18 +1,22 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:044eee649e1aa98a7e82f85d402ce2420aa2630414af7e1baafb422c937d2713",
+  "pageVersion": "sha256:63f4a8ae6006ea2e84ed7c9970500f59f460513ac0dbcdd450db2cead898bc12",
   "claims": [
     {
       "id": "claim_ddd1a6aaab284ef98a0ff0b43955cf10",
-      "statement": "zerosteer depends on torch and editable zerostreet-schema and exposes its model, activation, pretrainer, trajectory RL trainer, and OOS benchmark APIs through __init__.py.",
+      "statement": "zerosteer depends on torch, numpy, pydantic, pyyaml, loguru, and editable zerostreet-schema without additional external packages, and exports ZeroSteer v2 backbone, QK-Norm, SwiGLU, Aux-Loss-Free MoE, calendar encoder, SIGReg, and SVD diagnostics through __init__.py with CPU and MPS test coverage.",
       "evidence": [
         {
           "resource": "repo://pyproject.toml#L1-L39",
           "version": "repo-lines-v1:sha256:d1bd1831eeb8c6b94ab8193b5fafda0c62d43e421d0be55c66860c13c7d6c692:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0NTY5OTQ2YWM5YmJlN2NiMmNkZWMzZjhiZWNmMzQzNzUwYzU4YjliMzIxZWMyMTk1YmZiYWFiMmFhOGM0YmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3OGM5Yzc5YmZhNDlhOGNiMDg5MjAyMjJmYzcwODcyYTNjMjM1MzcwNDViMDE0ZThjNjQ1OTY4ODEwYTY3OGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
-          "resource": "repo://src/zerosteer/__init__.py#L1-L58",
-          "version": "repo-lines-v1:sha256:1919685df8f42dba7754dd6864f7eaad054572566498e0b7fbbbf4bd5536098d:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4OGU2NjNjMTdiNmQ0YWZkZGJkMDFmMTE3YjA0YWUxMTU5ODQzNjdmNDcyMTQyMjc3ZmM0NWNkN2MxNmI0MGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5NDE2ZTA5Zjc4YmEzMTZjMDMyNTY4MjEzYjg1NWVlNzU2ZTQxNTY1ZDkxOGYwOTUxOWM4MWZkNjIwZjQwNjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://src/zerosteer/__init__.py#L1-L83",
+          "version": "repo-lines-v1:sha256:b38bdcb8bff9c076ffe3cd474ca8205ee06e9726adabe48acbe09ebfb3ee2d52:eyJzZWxlY3RlZExpbmVDb3VudCI6ODMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4OGU2NjNjMTdiNmQ0YWZkZGJkMDFmMTE3YjA0YWUxMTU5ODQzNjdmNDcyMTQyMjc3ZmM0NWNkN2MxNmI0MGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5NDE2ZTA5Zjc4YmEzMTZjMDMyNTY4MjEzYjg1NWVlNzU2ZTQxNTY1ZDkxOGYwOTUxOWM4MWZkNjIwZjQwNjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://tests/test_zerosteer_v2_architecture.py#L1-L482",
+          "version": "repo-lines-v1:sha256:8a870c392bef2df2c07b9317f13a4c940e942d8875ed9c08b0245b8d8a57858e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlNmRkMDJjOTk5NWEzNGQ2MmY1MzA3NmNhYTNhMjQxZWIzNjU0MGY2NDVkMzIxY2M5YjhhYjVhMzY3MzhlNTVlIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJmM2ZiNGMzYzZiNDdjMmRjOGQ3ZDY1ZjY3MDYzMzE0NDMxNTU0OGYwOWI5NTkyODM2MGU5ZDdhZWJhZmZlODAwIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
         }
       ]
     },
@@ -25,7 +29,7 @@
           "version": "repo-lines-v1:sha256:5155fed08a0b73b5ed2c2e12f0e852fd59b7b819845d33402ed8c07cac34ed7d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1MjM2Y2U5ZGI0MjdmZmI2NWRlYTRiOGZjZmZkNDg5NWQ1ODJjMWE4ZGE4ZTQ1YTBhN2I5NWVjMjM1N2Y1ZWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1ODE4MGI0MWI3ODNlY2JmODI2MWJjMGIzYTEzMDhiZjViOWIxMmIwNmJkNzg0NzEyOWNlMGNlYjIyOTNjYzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
-          "resource": "repo://src/zerosteer/config.py#L59-L70",
+          "resource": "repo://src/zerosteer/config.py#L100-L111",
           "version": "repo-lines-v1:sha256:787dd1d7013f3ccafe64f454a5c51d49e483890e1bb042002573472e161a5764:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZiMjU5ODA3NzU4NzZmZWIyMjNkZDE1Yzk4OWFhNWYzOGRmOGYxMGIxYTkxYjgyZTY2NmYyMzRjMDZmOTU5NDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1N2VhYmQ4MTczMzU2NTQ3YmM2YmIyZmE2ZWUzMDFkYzYyZWRjOTkxZWY5NWMwODVjZGNiNzhlYTU1Njk3Y2EiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFkNzBlNTY0NTVhYzJkNTcwMzk4ZjUzNTE0MGVmNWNkNTAzYTY2NmM5MzExN2U4MzU5ZjE5MTFiODE5MWI5MWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
@@ -33,6 +37,6 @@
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-22T09:34:13.721Z"
+    "at": "2026-11-22T11:32:01.285Z"
   }
 }
